@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 .slider {
     width: 500px;
     text-align: center;
@@ -125,6 +126,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo3.jpg");
 }
 
 .container {
@@ -166,4 +168,9 @@ body {
 
 .incorrecta:hover {
     background-color: red;
+}
+
+.routerlink{
+    color: #000;
+    pointer-events: click;
 }
