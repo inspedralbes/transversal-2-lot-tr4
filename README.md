@@ -8,8 +8,8 @@ Un cop comenceu heu de canviar aquesta explicació amb la corresponent al vostre
 
 
 # Aquest fitxer ha de contenir com a mínim:
- * Nom dels integrants
- * Nom del projecte
+ * Eric Gascó García, Jaume Pérez Sentis i Gaspar Gómez Torres
+ * League of Trivial - Grup 4
  * Petita descripció
  * Adreça del prototip del Penpot
  * URL de producció (quan la tingueu)
