@@ -10,23 +10,23 @@ const Partida = Vue.component("partida", {
   },
   template: `
   <div class="slider">
-    <div class="slides" v-for="dada in datos">
-        <div id="slide-1">
+    <div class="slides" v-for="(dada, index) in datos">
+        <div :id="'slide-' + (index + 1)">
             <div class="container" >
                 <div class="Pregunta">
                 {{dada.question}}
                 </div>
                 <div class="Respuesta-1 incorrecta">
-                    <a href="#slide-2">{{dada.incorrectAnswers[0]}}</a>
+                    <a :href="'slide-' + (index + 2)">{{dada.incorrectAnswers[0]}}</a>
                 </div>
                 <div class="Respuesta-2 correcta">
-                    <a href="#slide-2">{{dada.correctAnswer}}</a>
+                    <a :href="'slide-' + (index + 2)">{{dada.correctAnswer}}</a>
                 </div>
                 <div class="Respuesta-3 incorrecta">
-                    <a href="#slide-2">{{dada.incorrectAnswers[1]}}</a>
+                    <a :href="'slide-' + (index + 2)">{{dada.incorrectAnswers[1]}}</a>
                 </div>
                 <div class="Respuesta-4 incorrecta">
-                    <a href="#slide-2">{{dada.incorrectAnswers[2]}}</a>
+                    <a :href="'slide-' + (index + 2)">{{dada.incorrectAnswers[2]}}</a>
                 </div>
             </div>
         </div>
