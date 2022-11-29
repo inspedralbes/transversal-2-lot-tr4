@@ -1,13 +1,23 @@
+const Home = Vue.component('home', {
+    template: `<div>hola</div>`
+})
+
+const Partida = Vue.component('partida', {
+    template: `
+    
+    `
+})
+
 // =============== Routes ===============
 const routes = [
     {
       path: "/",
-      component: Buscador,
+      component: Home,
     },
     {
-      path: "/admin",
-      component: Admin,
-    },
+        path: "/joc",
+        component: Partida,
+    }
   ];
   
   // 3. Create the router instance and pass the `routes` option
