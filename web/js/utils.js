@@ -4,7 +4,7 @@ const Home = Vue.component('home', {
 
 const Partida = Vue.component('partida', {
     template: `
-    
+     
     `
 })
 
