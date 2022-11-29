@@ -18,7 +18,7 @@ class CreateChallengesTable extends Migration
             $table->unsignedBigInteger('challenger');
             $table->unsignedBigInteger('challenged');
             $table->unsignedBigInteger('winner');
-
+            $table->unsignedBigInteger('id_game');
         });
     }
 

@@ -17,20 +17,22 @@ class AddUserIdsToChallengesTable extends Migration
             $table
                 ->foreign('challenger')
                 ->references('id')
-                ->on('players')
-                ->after('id');
+                ->on('players');
 
             $table
                 ->foreign('challenged')
                 ->references('id')
-                ->on('players')
-                ->after('challenger');
-                
+                ->on('players');
+
             $table
                 ->foreign('winner')
                 ->references('id')
-                ->on('players')
-                ->after('challenged');
+                ->on('players');
+
+            $table
+                ->foreign('id_game')
+                ->references('id')
+                ->on('games');
         });
     }
 
