@@ -1,0 +1,181 @@
+[
+    {
+        "category": "Music",
+        "id": "622a1c397cc59eab6f950c55",
+        "correctAnswer": "Iron Maiden",
+        "incorrectAnswers": [
+            "Deep Purple",
+            "Feeder",
+            "Squeeze"
+        ],
+        "question": "Which English heavy metal band released the song 'Hallowed Be Thy Name'?",
+        "tags": [
+            "rock_music",
+            "music"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Music",
+        "id": "622a1c397cc59eab6f950d9b",
+        "correctAnswer": "The Beach Boys",
+        "incorrectAnswers": [
+            "Swans",
+            "Three 6 Mafia",
+            "The Velvet Underground"
+        ],
+        "question": "Which band includes 'Dennis Wilson'?",
+        "tags": [
+            "music"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Arts & Literature",
+        "id": "622a1c397cc59eab6f950f01",
+        "correctAnswer": "Émile Zola",
+        "incorrectAnswers": [
+            "Alphonse Daudet",
+            "Anatole France",
+            "Charles Dickens"
+        ],
+        "question": "Which author wrote 'Germinal'?",
+        "tags": [
+            "literature",
+            "arts_and_literature"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Science",
+        "id": "6243331ecfaae40c129613c0",
+        "correctAnswer": "A Sow",
+        "incorrectAnswers": [
+            "A Worker",
+            "A Doe",
+            "A Leopardess"
+        ],
+        "question": "What would you call a female badger?",
+        "tags": [
+            "science"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Sport & Leisure",
+        "id": "6242e84a8c2538f9601d2f9b",
+        "correctAnswer": "The Robins",
+        "incorrectAnswers": [
+            "The Red Devils",
+            "The Whites",
+            "The Hatters"
+        ],
+        "question": "What is the nickname of the English football team Bristol City?",
+        "tags": [
+            "sport"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Geography",
+        "id": "62373fd7cb85f7ce9e949cc1",
+        "correctAnswer": "Cabo Verde",
+        "incorrectAnswers": [
+            "Samoa",
+            "Albania",
+            "Monaco"
+        ],
+        "question": "Praia is the capital city of which country?",
+        "tags": [
+            "capital_cities",
+            "geography"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Geography",
+        "id": "62373fa5cb85f7ce9e949cad",
+        "correctAnswer": "Belize",
+        "incorrectAnswers": [
+            "Chile",
+            "Algeria",
+            "Central African Republic"
+        ],
+        "question": "Belmopan is the capital city of which country?",
+        "tags": [
+            "geography"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Arts & Literature",
+        "id": "622a1c347cc59eab6f94f98a",
+        "correctAnswer": "The Old Man and the Sea",
+        "incorrectAnswers": [
+            "The Remains of the Day",
+            "Their Eyes Were Watching God",
+            "The Color Purple"
+        ],
+        "question": "Which book contains the character 'Santiago'?",
+        "tags": [
+            "literature",
+            "classic_novels",
+            "fictitious_characters",
+            "arts_and_literature"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Society & Culture",
+        "id": "622a1c367cc59eab6f950302",
+        "correctAnswer": "Cabbage Patch Kids",
+        "incorrectAnswers": [
+            "Stretch Armstrong",
+            "Slinky",
+            "Care Bear"
+        ],
+        "question": "Xavier Roberts was the name associated with which eighties toy?",
+        "tags": [
+            "1980's",
+            "names",
+            "society_and_culture"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    },
+    {
+        "category": "Society & Culture",
+        "id": "622a1c357cc59eab6f94fccf",
+        "correctAnswer": "Dravidian",
+        "incorrectAnswers": [
+            "Austronesian",
+            "Afroasiatic",
+            "Sino-Tibetan"
+        ],
+        "question": "The language 'Malayalam' belongs to which language family?",
+        "tags": [
+            "language",
+            "society_and_culture"
+        ],
+        "type": "Multiple Choice",
+        "difficulty": "hard",
+        "regions": []
+    }
+]
