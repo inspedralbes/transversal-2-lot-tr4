@@ -18,7 +18,7 @@
 
 
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+
 
     /*
     scroll-snap-points-x: repeat(300px);
@@ -27,18 +27,9 @@
 }
 
 .slides::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    display: none;
 }
 
-.slides::-webkit-scrollbar-thumb {
-    background: black;
-    border-radius: 10px;
-}
-
-.slides::-webkit-scrollbar-track {
-    background: transparent;
-}
 
 .slides>div {
     scroll-snap-align: start;
