@@ -149,16 +149,26 @@ const Partida = Vue.component("partida", {
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
+      let htmlStr = "<p>";
       if (respuesta == respuestaCorrecta) {
         this.contadorBuenas++;
-        document.getElementById("ResultsPrint").innerHTML = "<p>Correct Answer</p>"
+        htmlStr += "Correct Answer"
       } else {
         this.contadorMalas++;
-        document.getElementById("ResultsPrint").innerHTML = "<p>Incorrect Answer</p>"
+        htmlStr += "Incorrect Answer"
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
-        document.getElementById("ResultsPrint").innerHTML = "<p>Your score is " + this.contadorBuenas + "/10</p>"
+        if (respuesta == respuestaCorrecta) {
+          this.contadorBuenas++;
+          htmlStr += "Correct Answer, "
+        } else {
+          htmlStr += "Incorrect Answer, "
+        }
+        htmlStr += "Your score is " + this.contadorBuenas + "/10"
       }
+      htmlStr += "</p>"
+
+      document.getElementById("ResultsPrint").innerHTML = htmlStr;
     },
     shuffleRespostes: function () {
       this.respuestas.forEach(array => {
