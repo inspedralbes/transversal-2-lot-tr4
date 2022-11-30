@@ -48,17 +48,17 @@ const Partida = Vue.component("partida", {
   methods: {
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
-      if (contadorBuenas + contadorMalas == 10) {
-        alert("La teva puntuacio es " + contadorBuenas + "/10");
+      if (respuesta == respuestaCorrecta) {
+        alert("RESPUESTA CORRECTA")
+        this.contadorBuenas++;
       } else {
-        if (respuesta == respuestaCorrecta) {
-          alert("RESPUESTA CORRECTA")
-          contadorBuenas++;
-        } else {
-          alert("RESPUESTA INCORRECTA")
-          contadorMalas++;
-        }
-      }
+        alert("RESPUESTA INCORRECTA")
+        this.contadorMalas++;
+        console.log(this.contadorMalas)
+      } 
+      if (this.contadorBuenas + this.contadorMalas == 10) {
+        alert("La teva puntuacio es " + this.contadorBuenas + "/10");
+      }      
     }
   },
 });
