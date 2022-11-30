@@ -17,17 +17,17 @@ const Partida = Vue.component("partida", {
                   <div class="Pregunta">
                   {{dada.question}}
                   </div>
-                  <div class="Respuesta-1 incorrecta">
-                      <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[0]}}</a>
+                  <div class="Respuesta-1 incorrecta" v-on:click="comprovaResultats('Resposta1-'+(index), dada.correctAnswer)">
+                      <a :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[0]}}</a>
                   </div>
-                  <div class="Respuesta-2 correcta">
-                      <a :href="'#slide-' + (index + 1)">{{dada.correctAnswer}}</a>
+                  <div class="Respuesta-2 correcta" v-on:click="comprovaResultats('Resposta2-'+(index), dada.correctAnswer)">
+                      <a :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{dada.correctAnswer}}</a>
                   </div>
-                  <div class="Respuesta-3 incorrecta">
-                      <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[1]}}</a>
+                  <div class="Respuesta-3 incorrecta" v-on:click="comprovaResultats('Resposta3-'+(index), dada.correctAnswer)">
+                      <a :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[1]}}</a>
                   </div>
-                  <div class="Respuesta-4 incorrecta">
-                      <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[2]}}</a>
+                  <div class="Respuesta-4 incorrecta" v-on:click="comprovaResultats('Resposta4-'+(index), dada.correctAnswer)">
+                      <a :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[2]}}</a>
                   </div>
               </div>
           </div>
@@ -43,7 +43,16 @@ const Partida = Vue.component("partida", {
         this.datos = data;
       });
   },
-  methods: {},
+  methods: {
+    comprovaResultats: function (respuestaUser, respuestaCorrecta){
+      let respuesta = document.getElementById(respuestaUser).innerHTML;
+      if(respuesta == respuestaCorrecta){
+        alert("RESPUESTA CORRECTA")
+      }else{
+        alert("RESPUESTA INCORRECTA")
+      }
+    }
+  },
 });
 
 // =============== Routes ===============
