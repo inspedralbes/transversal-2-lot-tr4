@@ -141,15 +141,17 @@ body {
     grid-area: Respuesta-4;
 }
 
-.correcta:hover {
-    background-color: green;
-
-}
-
-.incorrecta:hover {
-    background-color: red;
-}
 
 .routerlink {
     color: #000;
+}
+
+#ResultsPrint{
+    font-family: "BeaufortforLOL-Bold";
+    font-weight: bold;
+    font-size: 100px;
+    text-align: center;
+    background-color: #eee;
+    margin: 50px;
+    border-radius: 25px;
 }
