@@ -6,6 +6,8 @@ const Partida = Vue.component("partida", {
   data: function () {
     return {
       datos: [],
+      contadorBuenas: 0,
+      contadorMalas: 0,
     };
   },
   template: `
@@ -44,12 +46,18 @@ const Partida = Vue.component("partida", {
       });
   },
   methods: {
-    comprovaResultats: function (respuestaUser, respuestaCorrecta){
+    comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
-      if(respuesta == respuestaCorrecta){
-        alert("RESPUESTA CORRECTA")
-      }else{
-        alert("RESPUESTA INCORRECTA")
+      if (contadorBuenas + contadorMalas == 10) {
+        alert("La teva puntuacio es " + contadorBuenas + "/10");
+      } else {
+        if (respuesta == respuestaCorrecta) {
+          alert("RESPUESTA CORRECTA")
+          contadorBuenas++;
+        } else {
+          alert("RESPUESTA INCORRECTA")
+          contadorMalas++;
+        }
       }
     }
   },
