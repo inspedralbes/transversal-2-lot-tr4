@@ -38,7 +38,7 @@ const Partida = Vue.component("partida", {
     </div>`,
   mounted: function () {
     let url =
-      "https://the-trivia-api.com/api/questions?limit=10&difficulty=hard";
+      `https://the-trivia-api.com/api/questions?categories=${this.categoria}&limit=10&difficulty=${this.dificultad}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
