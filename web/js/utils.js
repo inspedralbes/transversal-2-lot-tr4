@@ -9,29 +9,30 @@ const Partida = Vue.component("partida", {
     };
   },
   template: `
-  <div class="slider"> 
-    <div class="slides">
-        <div :id="'slide-' + (index)" v-for="(dada, index) in datos">
-            <div class="container" >
-                <div class="Pregunta">
-                {{dada.question}}
-                </div>
-                <div class="Respuesta-1 incorrecta">
-                    <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[0]}}</a>
-                </div>
-                <div class="Respuesta-2 correcta">
-                    <a :href="'#slide-' + (index + 1)">{{dada.correctAnswer}}</a>
-                </div>
-                <div class="Respuesta-3 incorrecta">
-                    <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[1]}}</a>
-                </div>
-                <div class="Respuesta-4 incorrecta">
-                    <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[2]}}</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>`,
+  <div class="b-slider">
+    <div class="slider"> 
+      <div class="slides">
+          <div :id="'slide-' + (index)" v-for="(dada, index) in datos">
+              <div class="container" >
+                  <div class="Pregunta">
+                  {{dada.question}}
+                  </div>
+                  <div class="Respuesta-1 incorrecta">
+                      <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[0]}}</a>
+                  </div>
+                  <div class="Respuesta-2 correcta">
+                      <a :href="'#slide-' + (index + 1)">{{dada.correctAnswer}}</a>
+                  </div>
+                  <div class="Respuesta-3 incorrecta">
+                      <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[1]}}</a>
+                  </div>
+                  <div class="Respuesta-4 incorrecta">
+                      <a :href="'#slide-' + (index + 1)">{{dada.incorrectAnswers[2]}}</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>`,
   mounted: function () {
     let url =
       "https://the-trivia-api.com/api/questions?limit=10&difficulty=hard";

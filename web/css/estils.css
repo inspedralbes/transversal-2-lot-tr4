@@ -95,6 +95,12 @@ img {
     background: #000;
 }
 
+.b-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Don't need button navigation */
 @supports (scroll-snap-type) {
     .slider>a {
@@ -109,9 +115,7 @@ body {
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
     background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo3.jpg");
 }
 
@@ -156,6 +160,6 @@ body {
     background-color: red;
 }
 
-.routerlink{
+.routerlink {
     color: #000;
 }
