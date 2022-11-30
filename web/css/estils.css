@@ -147,6 +147,7 @@ body {
 }
 
 #ResultsPrint{
+    display: none;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
     font-size: 100px;

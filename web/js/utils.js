@@ -57,9 +57,13 @@ const Partida = Vue.component("partida", {
       if (respuesta == respuestaCorrecta) {
         this.contadorBuenas++;
         document.getElementById("ResultsPrint").innerHTML = "<p>Correct Answer</p>"
+        document.getElementById("ResultsPrint").style.display="block"
+        setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 3000)
       } else {
         this.contadorMalas++;
-        document.getElementById("ResultsPrint").innerHTML = "<p>Incorrect Answer</p>"
+        document.getElementById("ResultsPrint").innerHTML = "<p>Incorrect Answer</p>";
+        document.getElementById("ResultsPrint").style.display="block"
+        setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 3000)
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
         document.getElementById("ResultsPrint").innerHTML = "<p>Your score is " + this.contadorBuenas + "/10</p>"
