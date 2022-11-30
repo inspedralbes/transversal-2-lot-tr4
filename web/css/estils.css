@@ -65,15 +65,6 @@
     color: white;
 }
 
-img {
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
 .slider>a {
     display: inline-flex;
     width: 1.5rem;
@@ -115,7 +106,6 @@ body {
 }
 
 body {
-
     background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo3.jpg");
 }
 
