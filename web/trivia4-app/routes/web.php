@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GamesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::get('/', function () {
 Route::get('/partida', function () {
     return view('partida');
 });
+
+Route::post('/api/getDadesPartida', [GamesController::class, 'gamesInfo']);

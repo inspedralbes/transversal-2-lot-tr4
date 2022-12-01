@@ -145,11 +145,14 @@ const Partida = Vue.component("partida", {
           });
           this.shuffleRespostes();
           this.empezado = true;
+          fetch('/transversal-2-lot-tr4/web/trivia4-app/api/getDadesPartida', {
+            method: "POST",
+            body: data,
+          });
         });
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
-      let htmlStr = "<p>";
       if (respuesta == respuestaCorrecta) {
         this.contadorBuenas++;
         document.getElementById("ResultsPrint").innerHTML = "<p>Correct Answer</p>"
@@ -162,11 +165,8 @@ const Partida = Vue.component("partida", {
         setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 1000)
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
-        document.getElementById("").innerHTML = "<p>Your score is " + this.contadorBuenas + "/10</p>"
+        document.getElementById("ResultsPrint").innerHTML = "<p>Your score is " + this.contadorBuenas + "/10</p>"
       }
-      htmlStr += "</p>"
-
-      document.getElementById("ResultsPrint").innerHTML = htmlStr;
     },
     shuffleRespostes: function () {
       this.respuestas.forEach(array => {
