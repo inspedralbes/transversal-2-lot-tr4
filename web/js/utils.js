@@ -2,9 +2,8 @@ const Home = Vue.component("home", {
   template: `<div>Perfil usuari</div>`,
 });
 
-Vue.component('login', {
-  template:
-    `<div>
+Vue.component("login", {
+  template: `<div>
           <div v-show="!logged">
               <b-form-input v-model="form.username" placeholder="Usuario" required></b-form-input>
               <b-form-input v-model="form.password" placeholder="Contraseña" required></b-form-input>
@@ -21,24 +20,26 @@ Vue.component('login', {
   data: function () {
     return {
       form: {
-        username: '',
-        password: ''
+        username: "",
+        password: "",
       },
       infoLogin: {
-        nombre: '',
-        imagen: '',
-        id: '',
+        nombre: "",
+        imagen: "",
+        id: "",
       },
       logged: false,
       procesando: false,
-    }
+    };
   },
   methods: {
     submitLogin() {
       this.procesando = true;
-      fetch(`http://alvaro.alumnes.inspedralbes.cat/loginGET.php?username=${this.form.username}&pwd=${this.form.password}`)
-        .then(response => response.json())
-        .then(data => {
+      fetch(
+        `http://alvaro.alumnes.inspedralbes.cat/loginGET.php?username=${this.form.username}&pwd=${this.form.password}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
           if (data.exito) {
             this.infoLogin.nombre = data.nombre;
             this.infoLogin.imagen = data.imagen;
@@ -46,12 +47,12 @@ Vue.component('login', {
             this.logged = true;
           }
           this.procesando = false;
-        })
+        });
     },
     logOut() {
-      this.logged = false
+      this.logged = false;
     },
-  }
+  },
 });
 
 const Partida = Vue.component("partida", {
@@ -61,9 +62,9 @@ const Partida = Vue.component("partida", {
       respuestas: [],
       contadorBuenas: 0,
       contadorMalas: 0,
-      dificultad: '',
-      categoria: '',
-      empezado: false
+      dificultad: "",
+      categoria: "",
+      empezado: false,
     };
   },
   template: `
@@ -92,6 +93,7 @@ const Partida = Vue.component("partida", {
               <option value="society_and_culture">Societat i Cultura</option>
               <option value="sports_and_leisure">Esports i Lleure</option>
           </select><br><br>
+          <meta name="csrf-token" content="{{ csrf_token() }}">
           <b-button @click="jugar" variant="success">Jugar</b-button>
       </div>
 
@@ -129,8 +131,7 @@ const Partida = Vue.component("partida", {
   </div>`,
   methods: {
     jugar() {
-      let url =
-        `https://the-trivia-api.com/api/questions?categories=${this.categoria}&limit=10&difficulty=${this.dificultad}`;
+      let url = `https://the-trivia-api.com/api/questions?categories=${this.categoria}&limit=10&difficulty=${this.dificultad}`;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -147,7 +148,18 @@ const Partida = Vue.component("partida", {
           this.empezado = true;
           let datosEnvio = new FormData();
           datosEnvio.append("json", this.preguntas);
-          fetch('http://127.0.0.1:8000/getDadesPartida', {
+
+          let token = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+          fetch("./trivia4-app/public/api/getDadesPartida", {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json, text-plain, */*",
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRF-TOKEN": token,
+            },
             method: "POST",
             body: datosEnvio,
           });
@@ -157,21 +169,28 @@ const Partida = Vue.component("partida", {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
       if (respuesta == respuestaCorrecta) {
         this.contadorBuenas++;
-        document.getElementById("ResultsPrint").innerHTML = "<p>Correct Answer</p>"
-        document.getElementById("ResultsPrint").style.display="block"
-        setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 1000)
+        document.getElementById("ResultsPrint").innerHTML =
+          "<p>Correct Answer</p>";
+        document.getElementById("ResultsPrint").style.display = "block";
+        setTimeout(function () {
+          document.getElementById("ResultsPrint").style.display = "none";
+        }, 1000);
       } else {
         this.contadorMalas++;
-        document.getElementById("ResultsPrint").innerHTML = "<p>Incorrect Answer</p>";
-        document.getElementById("ResultsPrint").style.display="block"
-        setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 1000)
+        document.getElementById("ResultsPrint").innerHTML =
+          "<p>Incorrect Answer</p>";
+        document.getElementById("ResultsPrint").style.display = "block";
+        setTimeout(function () {
+          document.getElementById("ResultsPrint").style.display = "none";
+        }, 1000);
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
-        document.getElementById("ResultsPrint").innerHTML = "<p>Your score is " + this.contadorBuenas + "/10</p>"
+        document.getElementById("ResultsPrint").innerHTML =
+          "<p>Your score is " + this.contadorBuenas + "/10</p>";
       }
     },
     shuffleRespostes: function () {
-      this.respuestas.forEach(array => {
+      this.respuestas.forEach((array) => {
         for (var i = array.length - 1; i > 0; i--) {
           var j = Math.floor(Math.random() * (i + 1));
           var temp = array[i];
@@ -179,7 +198,7 @@ const Partida = Vue.component("partida", {
           array[j] = temp;
         }
       });
-    }
+    },
   },
 });
 

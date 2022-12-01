@@ -22,4 +22,3 @@ Route::get('/partida', function () {
     return view('partida');
 });
 
-Route::post('/getDadesPartida', [GamesController::class, 'gamesInfo']);
