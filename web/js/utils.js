@@ -145,9 +145,11 @@ const Partida = Vue.component("partida", {
           });
           this.shuffleRespostes();
           this.empezado = true;
-          fetch('/transversal-2-lot-tr4/web/trivia4-app/api/getDadesPartida', {
+          let datosEnvio = new FormData();
+          datosEnvio.append("json", this.preguntas);
+          fetch('http://127.0.0.1:8000/getDadesPartida', {
             method: "POST",
-            body: data,
+            body: datosEnvio,
           });
         });
     },
