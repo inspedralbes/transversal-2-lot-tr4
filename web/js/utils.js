@@ -152,19 +152,17 @@ const Partida = Vue.component("partida", {
       let htmlStr = "<p>";
       if (respuesta == respuestaCorrecta) {
         this.contadorBuenas++;
-        htmlStr += "Correct Answer"
+        document.getElementById("ResultsPrint").innerHTML = "<p>Correct Answer</p>"
+        document.getElementById("ResultsPrint").style.display="block"
+        setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 1000)
       } else {
         this.contadorMalas++;
-        htmlStr += "Incorrect Answer"
+        document.getElementById("ResultsPrint").innerHTML = "<p>Incorrect Answer</p>";
+        document.getElementById("ResultsPrint").style.display="block"
+        setTimeout(function () {document.getElementById("ResultsPrint").style.display="none"}, 1000)
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
-        if (respuesta == respuestaCorrecta) {
-          this.contadorBuenas++;
-          htmlStr += "Correct Answer, "
-        } else {
-          htmlStr += "Incorrect Answer, "
-        }
-        htmlStr += "Your score is " + this.contadorBuenas + "/10"
+        document.getElementById("").innerHTML = "<p>Your score is " + this.contadorBuenas + "/10</p>"
       }
       htmlStr += "</p>"
 
