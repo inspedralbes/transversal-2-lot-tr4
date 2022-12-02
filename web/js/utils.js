@@ -99,34 +99,38 @@ const Partida = Vue.component("partida", {
           <div v-show="dificultadVacia">Error! Debes seleccionar una dificultad</div>
       </div>
       <div class="b-slider">
+      
+      
           <div class="slider">
               <div class="slides">
-                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas" v-show="!acabado">
+                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                       <div class="container">
                           <div class="Pregunta">
-                              <h2>Pregunta {{index}}:</h2>
-                              <h2>{{pregunta.question}}</h2>
+                              {{pregunta.question}}
                           </div>
+                          <br><br><br>
                           <div class="Respuesta-1"
                               v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
+                              <a class="button" :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
                           </div>
                           <div class="Respuesta-2"
                               v-on:click="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
+                              <a class="button" :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
                           </div>
                           <div class="Respuesta-3"
                               v-on:click="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
+                              <a class="button" :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
                           </div>
                           <div class="Respuesta-4"
                               v-on:click="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
+                              <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
+      </div>
+      <div id ="ScorePrint">
       </div>
       <div id="ResultsPrint">
       </div>
@@ -196,7 +200,7 @@ const Partida = Vue.component("partida", {
         document.getElementById("ResultsPrint").style.display = "block";
         setTimeout(function () {
           document.getElementById("ResultsPrint").style.display = "none";
-        }, 100000);
+        }, 1000);
       } else {
         this.contadorMalas++;
         document.getElementById("ResultsPrint").innerHTML =
@@ -204,11 +208,21 @@ const Partida = Vue.component("partida", {
         document.getElementById("ResultsPrint").style.display = "block";
         setTimeout(function () {
           document.getElementById("ResultsPrint").style.display = "none";
-        }, 100000);
+        }, 1000);
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
-        document.getElementById("ResultsPrint").innerHTML =
+        document.getElementById("ScorePrint").innerHTML =
           "<p>Your score is " + this.contadorBuenas + "/10</p>";
+          if(this.contadorBuenas < 5){
+            document.getElementById("slide-9").innerHTML =
+            "<p class='FinalMessage'>Maybe you need to get better</p>";
+            }else if(this.contadorBuenas > 5 && this.contadorBuenas < 7){
+              document.getElementById("slide-9").innerHTML =
+            "<p class='FinalMessage'>Good job!</p>";
+            }else{
+              document.getElementById("slide-9").innerHTML =
+            "<p class='FinalMessage'>Impressive job! You are the best</p>";
+            }
         this.acabado = true;
       }
     },

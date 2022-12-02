@@ -111,6 +111,8 @@ body {
 
 .container {
     display: grid;
+    width: 500px;
+    height: 500px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0px 0px;
@@ -122,28 +124,52 @@ body {
 }
 
 .Pregunta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     grid-area: Pregunta;
+    margin: 25px;
+    display: block;
+    background: #4E9CAF;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
 }
 
 .Respuesta-1 {
     grid-area: Respuesta-1;
+  justify-content: center;
+  align-items: center;
 }
 
 .Respuesta-2 {
     grid-area: Respuesta-2;
+    justify-content: center;
+    align-items: center;
 }
 
 .Respuesta-3 {
     grid-area: Respuesta-3;
+    justify-content: center;
+    align-items: center;
 }
 
 .Respuesta-4 {
     grid-area: Respuesta-4;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .routerlink {
     color: #000;
+}
+
+p{
+    font-family: "BeaufortforLOL-Bold";
+    font-weight: bold; 
 }
 
 #ResultsPrint{
@@ -155,4 +181,44 @@ body {
     background-color: #eee;
     margin: 50px;
     border-radius: 25px;
+}
+
+#ScorePrint{
+    font-family: "BeaufortforLOL-Bold";
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    background-color: #eee;
+    margin: 50px;
+    border-radius: 25px;
+}
+
+
+.button{
+    display: block;
+    background: #4E9CAF;
+    padding: 10px;
+    transition: transform 0.5s;
+    margin: 5px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.FinalMessage{
+    
+    font-size: 50px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    background-color: rgb(52, 142, 152);
+    color: white;
+    transform: scale(1.2)
 }
