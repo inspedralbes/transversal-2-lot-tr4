@@ -5,8 +5,8 @@ const Home = Vue.component("home", {
 Vue.component("login", {
   template: `<div>
             <div v-show="!logged">
-                <b-form-input v-model="form.username" placeholder="Usuario" required></b-form-input>
-                <b-form-input v-model="form.password" placeholder="Contraseña" required></b-form-input>
+                <b-form-input v-model="form.username" placeholder="User" required></b-form-input>
+                <b-form-input v-model="form.password" placeholder="Password" required></b-form-input>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
@@ -72,36 +72,44 @@ const Partida = Vue.component("partida", {
   },
   template: `
     <div>
-      <div v-show="!empezado">
-          <h4>Dificultat</h4>
-          <input type="radio" id="facil" value="easy" v-model="dificultad">
-          <label for="uno">Fácil</label>
+        <div v-show="!empezado">
+          <div class="Titulo">
           <br>
-          <input type="radio" id="media" value="medium" v-model="dificultad">
-          <label for="Dos">Media</label>
-          <br>
-          <input type="radio" id="dificil" value="hard" v-model="dificultad">
-          <label for="Dos">Difícil</label>
-          <br>
-          <h4>Categoria</h4>
-          <select v-model="categoria">
-              <option value="arts_and_literature">Art i Literatura</option>
-              <option value="film_and_tv">Pel·lícules i TV</option>
-              <option value="food_and_drink">Menjar i Begudes</option>
-              <option value="general_knowledge">Coneixement general</option>
-              <option value="geography">Geografia</option>
-              <option value="history">Història</option>
-              <option value="music">Música</option>
-              <option value="science">Ciència</option>
-              <option value="society_and_culture">Societat i Cultura</option>
-              <option value="sports_and_leisure">Esports i Lleure</option>
-          </select><br><br>
-          <b-button @click="jugar" variant="success">Jugar</b-button>
-          <div v-show="dificultadVacia">Error! Debes seleccionar una dificultad</div>
-      </div>
+            <h4>Difficulty</h4>
+            <br>
+            <input type="radio" id="facil" value="easy" v-model="dificultad">
+            <label for="uno">Easy</label>
+            <br><br>
+            <input type="radio" id="media" value="medium" v-model="dificultad">
+            <label for="Dos">Medium</label>
+            <br><br>
+            <input type="radio" id="dificil" value="hard" v-model="dificultad">
+            <label for="Dos">Hard</label>
+            <br><br>
+            </div>
+            <div class="Titulo">
+            <br>
+              <h4>Category</h4>
+              <br>
+              <select v-model="categoria">
+                  <option value="arts_and_literature">Art & Literature</option>
+                  <option value="film_and_tv">TV shows & Films</option>
+                  <option value="food_and_drink">Drinks & Foods</option>
+                  <option value="general_knowledge">General Knowlegde</option>
+                  <option value="geography">Geography</option>
+                  <option value="history">History</option>
+                  <option value="music">Music</option>
+                  <option value="science">Science</option>
+                  <option value="society_and_culture">Culture & Society</option>
+                  <option value="sports_and_leisure">Entertainment & Sports</option>
+              </select><br><br><br>
+            </div>  
+            <div class = "buttonPlay">
+              <b-button  @click="jugar" variant="success">Play</b-button>
+              <div v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
+            </div>
+        </div>
       <div class="b-slider">
-      
-      
           <div class="slider">
               <div class="slides">
                   <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
@@ -205,8 +213,8 @@ const Partida = Vue.component("partida", {
         if (this.contadorBuenas < 5) {
           document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Maybe you need to get better</p>";
-        } else if (this.contadorBuenas > 5 && this.contadorBuenas < 7) {
-          document.getElementById("slide-9").innerHTML =
+            }else if(this.contadorBuenas > 4 && this.contadorBuenas < 7){
+              document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Good job!</p>";
         } else {
           document.getElementById("slide-9").innerHTML =

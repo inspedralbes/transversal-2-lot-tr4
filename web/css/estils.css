@@ -106,7 +106,7 @@ body {
 }
 
 body {
-    background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo3.jpg");
+    background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo4.jpg");
 }
 
 .container {
@@ -124,7 +124,7 @@ body {
 }
 
 .Pregunta {
-    display: flex;
+    display: flex; 
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -135,39 +135,45 @@ body {
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    line-height: 25px;
 }
 
 .Respuesta-1 {
     grid-area: Respuesta-1;
-  justify-content: center;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    max-height: 100%;
 }
 
 .Respuesta-2 {
     grid-area: Respuesta-2;
     justify-content: center;
     align-items: center;
+    margin: 5px;
+    max-height: 100%;
 }
 
 .Respuesta-3 {
     grid-area: Respuesta-3;
     justify-content: center;
     align-items: center;
+    margin: 5px;
+    max-height: 100%;
 }
 
 .Respuesta-4 {
     grid-area: Respuesta-4;
     justify-content: center;
     align-items: center;
+    margin: 5px;
+    max-height: 100%;
 }
-
 
 .routerlink {
     color: #000;
 }
 
-p{
+p, label, option, h1, h2, h3, h4{
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold; 
 }
@@ -199,16 +205,15 @@ p{
     background: #4E9CAF;
     padding: 10px;
     transition: transform 0.5s;
-    margin: 5px;
     border-radius: 5px;
     color: white;
     font-weight: bold;
     line-height: 25px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    height: 100%
 }
 
-.FinalMessage{
-    
+.FinalMessage{    
     font-size: 50px;
 }
 
@@ -221,4 +226,34 @@ a:hover{
     background-color: rgb(52, 142, 152);
     color: white;
     transform: scale(1.2)
+}
+
+.Titulo{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 50px;
+    display: block;
+    background: #4E9CAF;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    border-style: solid;
+    border-color: wheat;
+}
+
+.buttonPlay{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+label{
+    font-size: 20px;
+}
+
+h4{
+    font-size: 35px;
 }
