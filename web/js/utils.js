@@ -78,13 +78,13 @@ const Partida = Vue.component("partida", {
             <h4>Difficulty</h4>
             <br>
             <input type="radio" id="facil" value="easy" v-model="dificultad">
-            <label for="uno">Easy</label>
+            <label for="facil">Easy</label>
             <br><br>
             <input type="radio" id="media" value="medium" v-model="dificultad">
-            <label for="Dos">Medium</label>
+            <label for="media">Medium</label>
             <br><br>
             <input type="radio" id="dificil" value="hard" v-model="dificultad">
-            <label for="Dos">Hard</label>
+            <label for="dificil">Hard</label>
             <br><br>
             </div>
             <div class="Titulo">
@@ -116,8 +116,8 @@ const Partida = Vue.component("partida", {
                   <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                       <div class="container">
                           <div class="Pregunta">
-                              Categoria: {{pregunta.category}}<br>
-                              Pregunta {{index + 1}}:<br>
+                              Category: {{pregunta.category}}<br>
+                              Question {{index + 1}}:<br>
                               {{pregunta.question}}
                           </div>
                           <br><br><br>
