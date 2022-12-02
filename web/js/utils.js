@@ -72,33 +72,41 @@ const Partida = Vue.component("partida", {
   template: `
     <div>
         <div v-show="!empezado">
-
-            <h4>Dificulty</h4>
+          <div class="Titulo">
+          <br>
+            <h4>Difficulty</h4>
+            <br>
             <input type="radio" id="facil" value="easy" v-model="dificultad">
             <label for="uno">Easy</label>
-            <br>
+            <br><br>
             <input type="radio" id="media" value="medium" v-model="dificultad">
             <label for="Dos">Medium</label>
-            <br>
+            <br><br>
             <input type="radio" id="dificil" value="hard" v-model="dificultad">
             <label for="Dos">Hard</label>
+            <br><br>
+            </div>
+            <div class="Titulo">
             <br>
-            <h4>Category</h4>
-            <select v-model="categoria">
-                <option value="arts_and_literature">Art & Literature</option>
-                <option value="film_and_tv">TV shows & Films</option>
-                <option value="food_and_drink">Drinks & Foods</option>
-                <option value="general_knowledge">General Knowlegde</option>
-                <option value="geography">Geography</option>
-                <option value="history">History</option>
-                <option value="music">Music</option>
-                <option value="science">Science</option>
-                <option value="society_and_culture">Culture & Society</option>
-                <option value="sports_and_leisure">Entertainment & Sports</option>
-            </select><br><br>
-            <b-button @click="jugar" variant="success">Play</b-button>
-            <div v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
-            
+              <h4>Category</h4>
+              <br>
+              <select v-model="categoria">
+                  <option value="arts_and_literature">Art & Literature</option>
+                  <option value="film_and_tv">TV shows & Films</option>
+                  <option value="food_and_drink">Drinks & Foods</option>
+                  <option value="general_knowledge">General Knowlegde</option>
+                  <option value="geography">Geography</option>
+                  <option value="history">History</option>
+                  <option value="music">Music</option>
+                  <option value="science">Science</option>
+                  <option value="society_and_culture">Culture & Society</option>
+                  <option value="sports_and_leisure">Entertainment & Sports</option>
+              </select><br><br><br>
+            </div>  
+            <div class = "buttonPlay">
+              <b-button  @click="jugar" variant="success">Play</b-button>
+              <div v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
+            </div>
         </div>
       <div class="b-slider">
           <div class="slider">

@@ -221,3 +221,33 @@ a:hover{
     color: white;
     transform: scale(1.2)
 }
+
+.Titulo{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 50px;
+    display: block;
+    background: #4E9CAF;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    border-style: solid;
+    border-color: wheat;
+}
+
+.buttonPlay{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+label{
+    font-size: 20px;
+}
+
+h4{
+    font-size: 35px;
+}
