@@ -106,7 +106,7 @@ body {
 }
 
 body {
-    background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo3.jpg");
+    background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo4.jpg");
 }
 
 .container {
@@ -124,7 +124,7 @@ body {
 }
 
 .Pregunta {
-    display: flex;
+    display: flex; 
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -135,7 +135,6 @@ body {
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    line-height: 25px;
 }
 
 .Respuesta-1 {
@@ -167,7 +166,7 @@ body {
     color: #000;
 }
 
-p{
+p, label, option, h1, h2, h3, h4{
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold; 
 }
