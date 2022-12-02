@@ -94,7 +94,6 @@ const Partida = Vue.component("partida", {
               <option value="society_and_culture">Societat i Cultura</option>
               <option value="sports_and_leisure">Esports i Lleure</option>
           </select><br><br>
-          <meta name="csrf-token" content="{{ csrf_token() }}">
           <b-button @click="jugar" variant="success">Jugar</b-button>
       </div>
 
@@ -151,21 +150,34 @@ const Partida = Vue.component("partida", {
           let datosEnvio = new FormData();
           datosEnvio.append("json", this.preguntas);
 
-          let token = document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content");
-
-          fetch("./trivia4-app/public/api/getDadesPartida", {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json, text-plain, */*",
-              "X-Requested-With": "XMLHttpRequest",
-              "X-CSRF-TOKEN": token,
-            },
-            method: "POST",
-            body: datosEnvio,
-          });
+          this.enviarDades(datosEnvio);
         });
+    },
+    getCookie(name) {
+      if (!document.cookie) {
+        return null;
+      }
+
+      const xsrfCookies = document.cookie
+        .split(";")
+        .map((c) => c.trim())
+        .filter((c) => c.startsWith(name + "="));
+
+      if (xsrfCookies.length === 0) {
+        return null;
+      }
+      return decodeURIComponent(xsrfCookies[0].split("=")[1]);
+    },
+    enviarDades(datosPregunta) {
+      const csrfToken = this.getCookie("CSRF-TOKEN");
+      fetch("./trivia4-app/public/api/getDadesPartidadfgdf", {
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": csrfToken,
+        },
+        method: "POST",
+        body: JSON.stringify(datosPregunta),
+      });
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
