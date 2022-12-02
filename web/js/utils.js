@@ -104,9 +104,10 @@ const Partida = Vue.component("partida", {
               </select><br><br><br>
             </div>  
             <div class = "buttonPlay">
-              <b-button  @click="jugar" variant="success">Play</b-button>
-              <div v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
+              <b-button  @click="jugar" variant="success">Play</b-button> 
             </div>
+            <br>
+            <div class ="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
         </div>
       <div class="b-slider">
           <div class="slider">
