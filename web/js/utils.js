@@ -4,19 +4,19 @@ const Home = Vue.component("home", {
 
 Vue.component("login", {
   template: `<div>
-          <div v-show="!logged">
-              <b-form-input v-model="form.username" placeholder="Usuario" required></b-form-input>
-              <b-form-input v-model="form.password" placeholder="Contraseña" required></b-form-input>
-              <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
-                  </b-spinner>
-              </b-button>
-          </div>
-          <div v-show="logged">
-              Bienvenido {{infoLogin.nombre}}<br>
-              <img :src="infoLogin.imagen"></img><br>
-              <b-button @click="logOut" variant="primary">Logout</b-button>
-          </div>
-      </div>`,
+            <div v-show="!logged">
+                <b-form-input v-model="form.username" placeholder="Usuario" required></b-form-input>
+                <b-form-input v-model="form.password" placeholder="Contraseña" required></b-form-input>
+                <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+                    </b-spinner>
+                </b-button>
+            </div>
+            <div v-show="logged">
+                Bienvenido {{infoLogin.nombre}}<br>
+                <img :src="infoLogin.imagen"></img><br>
+                <b-button @click="logOut" variant="primary">Logout</b-button>
+            </div>
+        </div>`,
   data: function () {
     return {
       form: {
@@ -66,7 +66,7 @@ const Partida = Vue.component("partida", {
       categoria: "",
       empezado: false,
       acabado: false,
-      dificultadVacia: false
+      dificultadVacia: false,
     };
   },
   template: `
@@ -158,37 +158,18 @@ const Partida = Vue.component("partida", {
             });
             this.shuffleRespostes();
             this.empezado = true;
-            let datosEnvio = new FormData();
-            datosEnvio.append("json", this.preguntas);
-            this.enviarDades(datosEnvio);
 
+            let datosEnvio = new FormData();
+            datosEnvio.append("json", JSON.stringify(this.preguntas));
+
+            this.enviarDades(datosEnvio);
           });
       }
     },
-    getCookie(name) {
-      if (!document.cookie) {
-        return null;
-      }
-
-      const xsrfCookies = document.cookie
-        .split(";")
-        .map((c) => c.trim())
-        .filter((c) => c.startsWith(name + "="));
-
-      if (xsrfCookies.length === 0) {
-        return null;
-      }
-      return decodeURIComponent(xsrfCookies[0].split("=")[1]);
-    },
     enviarDades(datosPregunta) {
-      const csrfToken = this.getCookie("CSRF-TOKEN");
-      fetch("./trivia4-app/public/api/getDadesPartidadfgdf", {
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": csrfToken,
-        },
+      fetch("./trivia4-app/public/api/setDadesPartida", {
         method: "POST",
-        body: JSON.stringify(datosPregunta),
+        body: datosPregunta,
       });
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
