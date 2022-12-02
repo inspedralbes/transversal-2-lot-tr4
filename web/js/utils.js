@@ -65,6 +65,7 @@ const Partida = Vue.component("partida", {
       dificultad: "",
       categoria: "",
       empezado: false,
+      acabado: false,
     };
   },
   template: `
@@ -100,10 +101,11 @@ const Partida = Vue.component("partida", {
       <div class="b-slider">
           <div class="slider">
               <div class="slides">
-                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
+                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas" v-show="!acabado">
                       <div class="container">
                           <div class="Pregunta">
-                              {{pregunta.question}}
+                              <h2>Pregunta {{index}}:</h2>
+                              <h2>{{pregunta.question}}</h2>
                           </div>
                           <div class="Respuesta-1"
                               v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
@@ -174,7 +176,7 @@ const Partida = Vue.component("partida", {
         document.getElementById("ResultsPrint").style.display = "block";
         setTimeout(function () {
           document.getElementById("ResultsPrint").style.display = "none";
-        }, 1000);
+        }, 100000);
       } else {
         this.contadorMalas++;
         document.getElementById("ResultsPrint").innerHTML =
@@ -182,11 +184,12 @@ const Partida = Vue.component("partida", {
         document.getElementById("ResultsPrint").style.display = "block";
         setTimeout(function () {
           document.getElementById("ResultsPrint").style.display = "none";
-        }, 1000);
+        }, 100000);
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
         document.getElementById("ResultsPrint").innerHTML =
           "<p>Your score is " + this.contadorBuenas + "/10</p>";
+          this.acabado = true;
       }
     },
     shuffleRespostes: function () {
