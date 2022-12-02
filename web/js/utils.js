@@ -64,6 +64,7 @@ const Partida = Vue.component("partida", {
       contadorMalas: 0,
       dificultad: "",
       categoria: "",
+      categoriaF: "",
       empezado: false,
       acabado: false,
       dificultadVacia: false,
@@ -148,13 +149,16 @@ const Partida = Vue.component("partida", {
   </div>`,
   methods: {
     jugar() {
+      let categoriaF = "";
+
       if (this.categoria != "") {
-        this.categoria = "categories=" + this.categoria + "&";
+        categoriaF = "categories=" + this.categoria + "&";
       }
+
       if (this.dificultad == "") {
         this.dificultadVacia = true;
       } else {
-        let url = `https://the-trivia-api.com/api/questions?${this.categoria}limit=10&difficulty=${this.dificultad}`;
+        let url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
@@ -171,6 +175,8 @@ const Partida = Vue.component("partida", {
             this.empezado = true;
 
             let datosEnvio = new FormData();
+            datosEnvio.append("difficulty", this.dificultad);
+            datosEnvio.append("category", this.categoria);
             datosEnvio.append("json", JSON.stringify(this.preguntas));
 
             this.enviarDades(datosEnvio);
@@ -205,16 +211,16 @@ const Partida = Vue.component("partida", {
       if (this.contadorBuenas + this.contadorMalas == 10) {
         document.getElementById("ScorePrint").innerHTML =
           "<p>Your score is " + this.contadorBuenas + "/10</p>";
-          if(this.contadorBuenas < 5){
-            document.getElementById("slide-9").innerHTML =
+        if (this.contadorBuenas < 5) {
+          document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Maybe you need to get better</p>";
             }else if(this.contadorBuenas > 4 && this.contadorBuenas < 7){
               document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Good job!</p>";
-            }else{
-              document.getElementById("slide-9").innerHTML =
+        } else {
+          document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Impressive job! You are the best</p>";
-            }
+        }
         this.acabado = true;
       }
     },
@@ -231,6 +237,27 @@ const Partida = Vue.component("partida", {
   },
 });
 
+const Partides = Vue.component("partides", {
+  data: function () {
+    return {
+      preguntas: [],
+    };
+  },
+  template: `
+  <div>
+    hola
+  </div>
+  `,
+  mounted: function () {
+    url = "./trivia4-app/public/api/getPartides";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  },
+});
+
 // =============== Routes ===============
 const routes = [
   {
@@ -240,6 +267,10 @@ const routes = [
   {
     path: "/joc",
     component: Partida,
+  },
+  {
+    path: "/partidesGuardades",
+    component: Partides,
   },
 ];
 

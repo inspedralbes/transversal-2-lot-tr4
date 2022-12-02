@@ -11,6 +11,8 @@ class StoreGamesController extends Controller
     public function store(Request $request)
     {
         $game = new Game;
+        $game->difficulty = $request->difficulty;
+        $game->category = $request->category;
         $game->game_info = json_encode($request->json);
         $game->save();
     }

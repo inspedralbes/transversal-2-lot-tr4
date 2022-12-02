@@ -15,6 +15,8 @@ class CreateGamesTable extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
+            $table->string('difficulty');
+            $table->string('category')->nullable();
             $table->JSON('game_info');
             $table->timestamps();
         });
