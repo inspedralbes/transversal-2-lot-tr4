@@ -4,19 +4,19 @@ const Home = Vue.component("home", {
 
 Vue.component("login", {
   template: `<div>
-          <div v-show="!logged">
-              <b-form-input v-model="form.username" placeholder="Usuario" required></b-form-input>
-              <b-form-input v-model="form.password" placeholder="Contraseña" required></b-form-input>
-              <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
-                  </b-spinner>
-              </b-button>
-          </div>
-          <div v-show="logged">
-              Bienvenido {{infoLogin.nombre}}<br>
-              <img :src="infoLogin.imagen"></img><br>
-              <b-button @click="logOut" variant="primary">Logout</b-button>
-          </div>
-      </div>`,
+            <div v-show="!logged">
+                <b-form-input v-model="form.username" placeholder="Usuario" required></b-form-input>
+                <b-form-input v-model="form.password" placeholder="Contraseña" required></b-form-input>
+                <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+                    </b-spinner>
+                </b-button>
+            </div>
+            <div v-show="logged">
+                Bienvenido {{infoLogin.nombre}}<br>
+                <img :src="infoLogin.imagen"></img><br>
+                <b-button @click="logOut" variant="primary">Logout</b-button>
+            </div>
+        </div>`,
   data: function () {
     return {
       form: {
@@ -66,71 +66,71 @@ const Partida = Vue.component("partida", {
       categoria: "",
       empezado: false,
       acabado: false,
-      dificultadVacia: false
+      dificultadVacia: false,
     };
   },
   template: `
-    <div>
-      <div v-show="!empezado">
-          <h4>Dificultat</h4>
-          <input type="radio" id="facil" value="easy" v-model="dificultad">
-          <label for="uno">Fácil</label>
-          <br>
-          <input type="radio" id="media" value="medium" v-model="dificultad">
-          <label for="Dos">Media</label>
-          <br>
-          <input type="radio" id="dificil" value="hard" v-model="dificultad">
-          <label for="Dos">Difícil</label>
-          <br>
-          <h4>Categoria</h4>
-          <select v-model="categoria">
-              <option value="arts_and_literature">Art i Literatura</option>
-              <option value="film_and_tv">Pel·lícules i TV</option>
-              <option value="food_and_drink">Menjar i Begudes</option>
-              <option value="general_knowledge">Coneixement general</option>
-              <option value="geography">Geografia</option>
-              <option value="history">Història</option>
-              <option value="music">Música</option>
-              <option value="science">Ciència</option>
-              <option value="society_and_culture">Societat i Cultura</option>
-              <option value="sports_and_leisure">Esports i Lleure</option>
-          </select><br><br>
-          <b-button @click="jugar" variant="success">Jugar</b-button>
-          <div v-show="dificultadVacia">Error! Debes seleccionar una dificultad</div>
-      </div>
-      <div class="b-slider">
-          <div class="slider">
-              <div class="slides">
-                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas" v-show="!acabado">
-                      <div class="container">
-                          <div class="Pregunta">
-                              <h2>Pregunta {{index}}:</h2>
-                              <h2>{{pregunta.question}}</h2>
-                          </div>
-                          <div class="Respuesta-1"
-                              v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
-                          </div>
-                          <div class="Respuesta-2"
-                              v-on:click="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
-                          </div>
-                          <div class="Respuesta-3"
-                              v-on:click="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
-                          </div>
-                          <div class="Respuesta-4"
-                              v-on:click="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
-                              <a :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div id="ResultsPrint">
-      </div>
-  </div>`,
+      <div>
+        <div v-show="!empezado">
+            <h4>Dificultat</h4>
+            <input type="radio" id="facil" value="easy" v-model="dificultad">
+            <label for="uno">Fácil</label>
+            <br>
+            <input type="radio" id="media" value="medium" v-model="dificultad">
+            <label for="Dos">Media</label>
+            <br>
+            <input type="radio" id="dificil" value="hard" v-model="dificultad">
+            <label for="Dos">Difícil</label>
+            <br>
+            <h4>Categoria</h4>
+            <select v-model="categoria">
+                <option value="arts_and_literature">Art i Literatura</option>
+                <option value="film_and_tv">Pel·lícules i TV</option>
+                <option value="food_and_drink">Menjar i Begudes</option>
+                <option value="general_knowledge">Coneixement general</option>
+                <option value="geography">Geografia</option>
+                <option value="history">Història</option>
+                <option value="music">Música</option>
+                <option value="science">Ciència</option>
+                <option value="society_and_culture">Societat i Cultura</option>
+                <option value="sports_and_leisure">Esports i Lleure</option>
+            </select><br><br>
+            <b-button @click="jugar" variant="success">Jugar</b-button>
+            <div v-show="dificultadVacia">Error! Debes seleccionar una dificultad</div>
+            </div>
+        <div class="b-slider">
+            <div class="slider">
+                <div class="slides">
+                <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas" v-show="!acabado">
+                <div class="container">
+                            <div class="Pregunta">
+                            <h2>Pregunta {{index}}:</h2>
+                            <h2>{{pregunta.question}}</h2>
+                            </div>
+                            <div class="Respuesta-1"
+                                v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
+                                <a :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
+                            </div>
+                            <div class="Respuesta-2"
+                                v-on:click="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
+                                <a :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
+                            </div>
+                            <div class="Respuesta-3"
+                                v-on:click="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
+                                <a :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
+                            </div>
+                            <div class="Respuesta-4"
+                                v-on:click="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
+                                <a :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ResultsPrint">
+        </div>
+    </div>`,
   methods: {
     jugar() {
       if (this.categoria != "") {
@@ -154,37 +154,18 @@ const Partida = Vue.component("partida", {
             });
             this.shuffleRespostes();
             this.empezado = true;
-            let datosEnvio = new FormData();
-            datosEnvio.append("json", this.preguntas);
-            this.enviarDades(datosEnvio);
 
+            let datosEnvio = new FormData();
+            datosEnvio.append("json", JSON.stringify(this.preguntas));
+
+            this.enviarDades(datosEnvio);
           });
       }
     },
-    getCookie(name) {
-      if (!document.cookie) {
-        return null;
-      }
-
-      const xsrfCookies = document.cookie
-        .split(";")
-        .map((c) => c.trim())
-        .filter((c) => c.startsWith(name + "="));
-
-      if (xsrfCookies.length === 0) {
-        return null;
-      }
-      return decodeURIComponent(xsrfCookies[0].split("=")[1]);
-    },
     enviarDades(datosPregunta) {
-      const csrfToken = this.getCookie("CSRF-TOKEN");
-      fetch("./trivia4-app/public/api/getDadesPartidadfgdf", {
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": csrfToken,
-        },
+      fetch("./trivia4-app/public/api/setDadesPartida", {
         method: "POST",
-        body: JSON.stringify(datosPregunta),
+        body: datosPregunta,
       });
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
@@ -196,7 +177,7 @@ const Partida = Vue.component("partida", {
         document.getElementById("ResultsPrint").style.display = "block";
         setTimeout(function () {
           document.getElementById("ResultsPrint").style.display = "none";
-        }, 100000);
+        }, 1000);
       } else {
         this.contadorMalas++;
         document.getElementById("ResultsPrint").innerHTML =
@@ -204,12 +185,11 @@ const Partida = Vue.component("partida", {
         document.getElementById("ResultsPrint").style.display = "block";
         setTimeout(function () {
           document.getElementById("ResultsPrint").style.display = "none";
-        }, 100000);
+        }, 1000);
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
         document.getElementById("ResultsPrint").innerHTML =
           "<p>Your score is " + this.contadorBuenas + "/10</p>";
-        this.acabado = true;
       }
     },
     shuffleRespostes: function () {
