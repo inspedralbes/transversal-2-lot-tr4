@@ -106,6 +106,8 @@ const Partida = Vue.component("partida", {
                   <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                       <div class="container">
                           <div class="Pregunta">
+                              Categoria: {{pregunta.category}}<br>
+                              Pregunta {{index + 1}}:<br>
                               {{pregunta.question}}
                           </div>
                           <br><br><br>
