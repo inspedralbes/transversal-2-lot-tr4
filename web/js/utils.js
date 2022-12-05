@@ -15,6 +15,7 @@ const Partida = Vue.component("partida", {
       empezado: false,
       acabado: false,
       dificultadVacia: false,
+      idGame: 0,
     };
   },
   template: `
@@ -134,7 +135,11 @@ const Partida = Vue.component("partida", {
       fetch("./trivia4-app/public/api/setDadesPartida", {
         method: "POST",
         body: datosPregunta,
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.idGame = data;
+        });
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
@@ -168,6 +173,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Impressive job! You are the best</p>";
         }
+        this.enviarDadesPartidaJugador();
         this.acabado = true;
       }
     },
@@ -179,6 +185,16 @@ const Partida = Vue.component("partida", {
           array[i] = array[j];
           array[j] = temp;
         }
+      });
+    },
+    enviarDadesPartidaJugador: function () {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_player", useLoginStore().getIdPlayer());
+      datosEnvio.append("id_game", this.idGame);
+      datosEnvio.append("score", this.contadorBuenas);
+      fetch("./trivia4-app/public/api/storeGameXPlayer", {
+        method: "POST",
+        body: datosEnvio,
       });
     },
   },
@@ -254,7 +270,7 @@ Vue.component("login", {
   template: `<div>
             <div v-show="!logged">
                 <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
-                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+                <b-form-input v-model="form.psswd" :type="password" placeholder="Password" required></b-form-input>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
@@ -298,6 +314,8 @@ Vue.component("login", {
             this.infoLogin.nombre = data[1].nickname;
             this.infoLogin.id = data[1].id;
             this.logged = true;
+            useLoginStore().login();
+            useLoginStore().setIdPlayer(data[1].id);
           }
           this.procesando = false;
         });
@@ -308,6 +326,7 @@ Vue.component("login", {
       this.form.nickname = "";
       this.form.psswd = "";
       this.logged = false;
+      useLoginStore().logout();
     },
   },
 });
@@ -337,16 +356,26 @@ const router = new VueRouter({
   routes, // short for `routes: routes`
 });
 
-const useCounterStore = Pinia.defineStore("counter", {
+const useLoginStore = Pinia.defineStore("loggedSession", {
   state() {
     return {
-      value: 0,
+      logged: false,
+      id_player: 0,
     };
   },
   actions: {
-    increment(state) {
-      this.value++;
+    login(state) {
+      this.logged = true;
     },
+    logout(state) {
+      this.logged = false;
+    },
+    setIdPlayer(id) {
+      this.id_player = id;
+    },
+    getIdPlayer() {
+      return this.id_player;
+    }
   },
 });
 
@@ -357,38 +386,13 @@ let app = new Vue({
   el: "#app",
   router,
   pinia: Pinia.createPinia(),
-  data: {
-    name: "BootstrapVue",
-    show: true,
-    groceryList: [
-      {
-        id: 0,
-        text: "Vegetables",
-      },
-      {
-        id: 1,
-        text: "Cheese",
-      },
-      {
-        id: 2,
-        text: "Whatever else humans are supposed to eat",
-      },
-    ],
-  },
   computed: {
     //Necesario para que funcione pinia
-    ...Pinia.mapState(useCounterStore, ["value"]),
+    ...Pinia.mapState(useLoginStore, ["logged"]),
   },
   methods: {
     //Necesario para que funcione pinia
-    ...Pinia.mapActions(useCounterStore, ["increment"]),
-
-    toggle() {
-      console.log("Toggle button clicked");
-      this.show = !this.show;
-    },
-    dismissed() {
-      console.log("Alert dismissed");
-    },
+    ...Pinia.mapActions(useLoginStore, ["login"]),
+    ...Pinia.mapActions(useLoginStore, ["logout"]),
   },
 });

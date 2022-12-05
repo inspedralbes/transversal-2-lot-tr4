@@ -15,5 +15,6 @@ class StoreGamesController extends Controller
         $game->category = $request->category;
         $game->game_info = json_encode($request->json);
         $game->save();
+        return $game->id;
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\StoreGamesController;
 use App\Http\Controllers\Api\GetGamesController;
 use App\Http\Controllers\Api\StorePlayersController;
 use App\Http\Controllers\Api\GetDadesPlayerController;
+use App\Http\Controllers\Api\StoreGameXPlayerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,5 +27,7 @@ Route::post('/setDadesPartida', [StoreGamesController::class, 'store']);
 Route::post('/setDadesPlayer', [StorePlayersController::class, 'store']);
 
 Route::post('/getDadesPlayer', [GetDadesPlayerController::class, 'send']);
+
+Route::post('/storeGameXPlayer', [StoreGameXPlayerController::class, 'store']);
 
 Route::get('/getPartides', [GetGamesController::class, 'get']);
