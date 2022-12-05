@@ -214,8 +214,8 @@ const Partida = Vue.component("partida", {
         if (this.contadorBuenas < 5) {
           document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Maybe you need to get better</p>";
-            }else if(this.contadorBuenas > 4 && this.contadorBuenas < 7){
-              document.getElementById("slide-9").innerHTML =
+        } else if (this.contadorBuenas > 4 && this.contadorBuenas < 7) {
+          document.getElementById("slide-9").innerHTML =
             "<p class='FinalMessage'>Good job!</p>";
         } else {
           document.getElementById("slide-9").innerHTML =
@@ -258,6 +258,34 @@ const Partides = Vue.component("partides", {
   },
 });
 
+const Registre = Vue.component("registre-player", {
+  data: function () {
+    return {
+      form: {
+        name: "",
+        surname: "",
+        nickname: "",
+        mail: "",
+        psswd: "",
+      },
+    };
+  },
+  template: `
+  <div>
+    <div v-show="!logged">
+    <b-form-input v-model="form.name" placeholder="Nom" required></b-form-input>
+    <b-form-input v-model="form.surname" placeholder="Cognom" required></b-form-input>
+    <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
+    <b-form-input v-model="form.mail" placeholder="Correu" required></b-form-input>
+    <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+        <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+            </b-spinner>
+        </b-button>
+    </div>
+  </div>
+  `,
+});
+
 // =============== Routes ===============
 const routes = [
   {
@@ -271,6 +299,10 @@ const routes = [
   {
     path: "/partidesGuardades",
     component: Partides,
+  },
+  {
+    path: "/registre",
+    component: Registre,
   },
 ];
 
