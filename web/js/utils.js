@@ -2,59 +2,6 @@ const Home = Vue.component("home", {
   template: `<div>Perfil usuari</div>`,
 });
 
-Vue.component("login", {
-  template: `<div>
-            <div v-show="!logged">
-                <b-form-input v-model="form.username" placeholder="User" required></b-form-input>
-                <b-form-input v-model="form.password" placeholder="Password" required></b-form-input>
-                <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
-                    </b-spinner>
-                </b-button>
-            </div>
-            <div v-show="logged">
-                Bienvenido {{infoLogin.nombre}}<br>
-                <img :src="infoLogin.imagen"></img><br>
-                <b-button @click="logOut" variant="primary">Logout</b-button>
-            </div>
-        </div>`,
-  data: function () {
-    return {
-      form: {
-        username: "",
-        password: "",
-      },
-      infoLogin: {
-        nombre: "",
-        imagen: "",
-        id: "",
-      },
-      logged: false,
-      procesando: false,
-    };
-  },
-  methods: {
-    submitLogin() {
-      this.procesando = true;
-      fetch(
-        `http://alvaro.alumnes.inspedralbes.cat/loginGET.php?username=${this.form.username}&pwd=${this.form.password}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.exito) {
-            this.infoLogin.nombre = data.nombre;
-            this.infoLogin.imagen = data.imagen;
-            this.infoLogin.id = data.id;
-            this.logged = true;
-          }
-          this.procesando = false;
-        });
-    },
-    logOut() {
-      this.logged = false;
-    },
-  },
-});
-
 const Partida = Vue.component("partida", {
   data: function () {
     return {
@@ -268,11 +215,11 @@ const Registre = Vue.component("registre-player", {
         mail: "",
         psswd: "",
       },
+      procesando: false,
     };
   },
   template: `
   <div>
-    <div v-show="!logged">
     <b-form-input v-model="form.name" placeholder="Nom" required></b-form-input>
     <b-form-input v-model="form.surname" placeholder="Cognom" required></b-form-input>
     <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
@@ -281,9 +228,77 @@ const Registre = Vue.component("registre-player", {
         <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
         </b-button>
-    </div>
   </div>
   `,
+  methods: {
+    submitRegister() {
+      this.procesando = true;
+
+      let datosEnvio = new FormData();
+      datosEnvio.append("nickname", this.form.nickname);
+      datosEnvio.append("psswd", this.form.psswd);
+
+      fetch(`./trivia4-app/public/api/setDadesPlayer`, {
+        method: "POST",
+        body: datosEnvio,
+      });
+      this.procesando = false;
+    },
+  },
+});
+
+Vue.component("login", {
+  template: `<div>
+            <div v-show="!logged">
+                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
+                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+                <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+                    </b-spinner>
+                </b-button>
+            </div>
+            <div v-show="logged">
+                Bienvenido {{infoLogin.nombre}}<br>
+                <img :src="infoLogin.imagen"></img><br>
+                <b-button @click="logOut" variant="primary">Logout</b-button>
+            </div>
+        </div>`,
+  data: function () {
+    return {
+      form: {
+        nickname: "",
+        psswd: "",
+      },
+      infoLogin: {
+        nombre: "",
+        imagen: "",
+        id: "",
+      },
+      logged: false,
+      procesando: false,
+    };
+  },
+  methods: {
+    submitLogin() {
+      this.procesando = true;
+
+      let datosEnvio = new FormData();
+      datosEnvio.append("mail", this.form.nickname);
+      datosEnvio.append("psswd", this.form.psswd);
+
+      fetch(`./trivia4-app/public/api/getDadesPlayer`, {
+        method: "POST",
+        body: datosEnvio,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.procesando = false;
+        });
+    },
+    logOut() {
+      this.logged = false;
+    },
+  },
 });
 
 // =============== Routes ===============

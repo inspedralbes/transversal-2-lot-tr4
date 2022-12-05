@@ -17,9 +17,9 @@ class CreatePlayersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
-            $table->string('nickname');
+            $table->string('nickname')->unique();
             $table->string('psswd');
-            $table->string('mail');
+            $table->string('mail')->unique();
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StoreGamesController;
 use App\Http\Controllers\Api\GetGamesController;
 use App\Http\Controllers\Api\StorePlayersController;
+use App\Http\Controllers\Api\GetDadesPlayerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,5 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/setDadesPartida', [StoreGamesController::class, 'store']);
 
 Route::post('/setDadesPlayer', [StorePlayersController::class, 'store']);
+
+Route::post('/getDadesPlayer', [GetDadesPlayerController::class, 'send']);
 
 Route::get('/getPartides', [GetGamesController::class, 'get']);
