@@ -235,6 +235,9 @@ const Registre = Vue.component("registre-player", {
       this.procesando = true;
 
       let datosEnvio = new FormData();
+      datosEnvio.append("name", this.form.name);
+      datosEnvio.append("surname", this.form.surname);
+      datosEnvio.append("mail", this.form.mail);
       datosEnvio.append("nickname", this.form.nickname);
       datosEnvio.append("psswd", this.form.psswd);
 
@@ -282,7 +285,7 @@ Vue.component("login", {
       this.procesando = true;
 
       let datosEnvio = new FormData();
-      datosEnvio.append("mail", this.form.nickname);
+      datosEnvio.append("nickname", this.form.nickname);
       datosEnvio.append("psswd", this.form.psswd);
 
       fetch(`./trivia4-app/public/api/getDadesPlayer`, {
@@ -291,7 +294,11 @@ Vue.component("login", {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          if (data[0]) {
+            this.infoLogin.nombre = data[1].nickname;
+            this.infoLogin.id = data[1].id;
+            this.logged = true;
+          }
           this.procesando = false;
         });
     },

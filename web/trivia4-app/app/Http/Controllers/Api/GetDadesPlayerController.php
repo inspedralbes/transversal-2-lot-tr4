@@ -14,12 +14,18 @@ class GetDadesPlayerController extends Controller
         $player = Player::where('nickname', $request->nickname)->firstOrFail();;
         if ($player != null) {
             if (Hash::check($request->psswd, $player->psswd)) {
-                return json_encode($player);
+                $correcte = true;
+                return response()->json([
+                    $correcte,
+                    $player
+                ]);
             } else {
-                $error = true;
+                $correcte = false;
                 $message = "Contrasenya incorrecta";
-                $enviament = [$error, $message];
-                return json_encode($enviament);
+                return response()->json([
+                    $correcte,
+                    $message
+                ]);
             }
         }
     }
