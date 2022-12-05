@@ -303,6 +303,10 @@ Vue.component("login", {
         });
     },
     logOut() {
+      this.infoLogin.nombre = "";
+      this.infoLogin.id = "";
+      this.form.nickname = "";
+      this.form.psswd = "";
       this.logged = false;
     },
   },
