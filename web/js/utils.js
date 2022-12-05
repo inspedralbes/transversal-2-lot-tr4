@@ -337,7 +337,58 @@ const router = new VueRouter({
   routes, // short for `routes: routes`
 });
 
+const useCounterStore = Pinia.defineStore("counter", {
+  state() {
+    return {
+      value: 0,
+    };
+  },
+  actions: {
+    increment(state) {
+      this.value++;
+    },
+  },
+});
+
+Vue.use(Pinia.PiniaVuePlugin);
+Vue.use(BootstrapVue);
+
 let app = new Vue({
   el: "#app",
   router,
+  pinia: Pinia.createPinia(),
+  data: {
+    name: "BootstrapVue",
+    show: true,
+    groceryList: [
+      {
+        id: 0,
+        text: "Vegetables",
+      },
+      {
+        id: 1,
+        text: "Cheese",
+      },
+      {
+        id: 2,
+        text: "Whatever else humans are supposed to eat",
+      },
+    ],
+  },
+  computed: {
+    //Necesario para que funcione pinia
+    ...Pinia.mapState(useCounterStore, ["value"]),
+  },
+  methods: {
+    //Necesario para que funcione pinia
+    ...Pinia.mapActions(useCounterStore, ["increment"]),
+
+    toggle() {
+      console.log("Toggle button clicked");
+      this.show = !this.show;
+    },
+    dismissed() {
+      console.log("Alert dismissed");
+    },
+  },
 });

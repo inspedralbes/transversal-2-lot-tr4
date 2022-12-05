@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>League of Trivial</title>
 
@@ -41,7 +41,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
 
-    <link href="//db.onlinewebfonts.com/c/12420e8c141ca7c3dff41de2d59df13e?family=BeaufortforLOL-Bold" rel="stylesheet" type="text/css"/>
+    <link
+      href="//db.onlinewebfonts.com/c/12420e8c141ca7c3dff41de2d59df13e?family=BeaufortforLOL-Bold"
+      rel="stylesheet"
+      type="text/css"
+    />
 
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/estils.css" />
@@ -56,11 +60,18 @@
         <!-- `<router-link>` will render an `<a>` tag with the correct `href` attribute -->
         <router-link to="/" class="routerlink">Profile</router-link>
         <router-link to="/joc" class="routerlink">Play a game</router-link>
-        <router-link to="/partidesGuardades" class="routerlink">Partides guardades</router-link> 
-        <router-link to="/registre" class="routerlink">Registre</router-link>  
+        <router-link to="/partidesGuardades" class="routerlink"
+          >Partides guardades</router-link
+        >
+        <router-link to="/registre" class="routerlink">Registre</router-link>
       </p>
       <router-view></router-view>
     </div>
-  </body>  
+  </body>
+
+  <script src="https://unpkg.com/@vue/composition-api"></script>
+  <script src="https://unpkg.com/vue-demi"></script>
+  <script src="https://unpkg.com/pinia"></script>
+
   <script src="js/utils.js"></script>
 </html>
