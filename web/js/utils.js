@@ -203,12 +203,12 @@ const Partida = Vue.component("partida", {
 const Partides = Vue.component("partides", {
   data: function () {
     return {
-      preguntas: [],
+      partidas: [],
     };
   },
   template: `
-  <div>
-    hola
+  <div v-for="partida in partidas">
+    <h1>{{partida.id}}</h1>
   </div>
   `,
   mounted: function () {
@@ -217,6 +217,7 @@ const Partides = Vue.component("partides", {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        this.partidas = data;
       });
   },
 });
@@ -266,11 +267,23 @@ const Registre = Vue.component("registre-player", {
   },
 });
 
+// Vue.component("card", {
+//   props: ['datos'],
+//   template: `
+//     <b-card border-variant="secondary" :header="datos.Title" header-border-variant="secondary" align="center">
+//     <div>
+//         <b-img thumbnail fluid :src="datos.Poster" :alt="datos.Title"></b-img>
+//         <b-button class="button-orange" @click="$emit('evtMasInformacion', datos.imdbID)">Mas información</b-button>
+//         <b-button class="button-orange" pill @click="buscarInfo" variant="outline-dark">Afegir</b-button>
+//     </div>
+//     </b-card>`,
+// });
+
 Vue.component("login", {
   template: `<div>
             <div v-show="!logged">
                 <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
-                <b-form-input v-model="form.psswd" :type="password" placeholder="Password" required></b-form-input>
+                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
