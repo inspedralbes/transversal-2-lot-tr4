@@ -212,7 +212,7 @@ const Partides = Vue.component("partides", {
   </div>
   `,
   mounted: function () {
-    url = "./trivia4-app/public/api/getPartides";
+    url = "./trivia4-app/public/api/getPartidesUsuari/"+ useLoginStore().getIdPlayer();
     fetch(url)
       .then((response) => response.json())
       .then((data) => {

@@ -30,4 +30,4 @@ Route::post('/getDadesPlayer', [GetDadesPlayerController::class, 'send']);
 
 Route::post('/storeGameXPlayer', [StoreGameXPlayerController::class, 'store']);
 
-Route::get('/getPartides', [GetGamesController::class, 'get']);
+Route::get('/getPartidesUsuari/{id}', [GetGamesController::class, 'get']);

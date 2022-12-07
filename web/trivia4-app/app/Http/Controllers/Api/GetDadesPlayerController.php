@@ -11,7 +11,7 @@ class GetDadesPlayerController extends Controller
 {
     public function send(Request $request)
     {
-        $player = Player::where('nickname', $request->nickname)->firstOrFail();;
+        $player = Player::where('nickname', $request->nickname)->firstOrFail();
         if ($player != null) {
             if (Hash::check($request->psswd, $player->psswd)) {
                 $correcte = true;
