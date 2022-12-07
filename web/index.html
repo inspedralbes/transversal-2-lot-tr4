@@ -45,8 +45,8 @@
       <!-- `<router-link>` will render an `<a>` tag with the correct `href` attribute -->
       <router-link to="/" class="routerlink">Profile</router-link>
       <router-link to="/joc" class="routerlink">Play a game</router-link>
-      <router-link to="/partidesGuardades" class="routerlink">Partides guardades</router-link>
-      <router-link to="/registre" class="routerlink">Registre</router-link>
+      <router-link to="/partidesGuardades" class="routerlink" v-show="logged">Partides guardades</router-link>
+      <router-link to="/registre" class="routerlink" v-show="!logged">Registre</router-link>
     </p>
     <router-view></router-view>
   </div>
