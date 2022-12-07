@@ -204,21 +204,36 @@ const Partides = Vue.component("partides", {
   data: function () {
     return {
       partidas: [],
+      idPlayer: useLoginStore().getIdPlayer(),
+      player_name: useLoginStore().getPlayerName(),
     };
   },
   template: `
-  <div v-for="partida in partidas">
-    <h1>{{partida.id}}</h1>
+  <div>
+    <h1 v-show="idPlayer == 0">No has iniciat sessió!</h1>
+    <h1 v-show="partidas.length == 0 && idPlayer != 0">No hay partidas!</h1>
+    
+    <div v-show="idPlayer != 0">
+      <h1>Partides de l'usuari: {{player_name}}</h1>
+      <div v-for="partida in partidas">
+        <h1>{{partida.id}}</h1>
+        <li>Game: {{partida.id_game}}</li>
+        <li>Score: {{partida.score}}</li>
+        <li>Date: {{partida.date}}</li>
+      </div>
+    </div>
   </div>
   `,
   mounted: function () {
-    url = "./trivia4-app/public/api/getPartidesUsuari/"+ useLoginStore().getIdPlayer();
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        this.partidas = data;
-      });
+    if (this.idPlayer != 0) {
+      url = "./trivia4-app/public/api/getPartidesUsuari/" + this.idPlayer;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.partidas = data;
+        });
+    }
   },
 });
 
@@ -329,6 +344,7 @@ Vue.component("login", {
             this.logged = true;
             useLoginStore().login();
             useLoginStore().setIdPlayer(data[1].id);
+            useLoginStore().setPlayerName(data[1].nickname);
           }
           this.procesando = false;
         });
@@ -374,6 +390,7 @@ const useLoginStore = Pinia.defineStore("loggedSession", {
     return {
       logged: false,
       id_player: 0,
+      name_player: "",
     };
   },
   actions: {
@@ -381,13 +398,20 @@ const useLoginStore = Pinia.defineStore("loggedSession", {
       this.logged = true;
     },
     logout(state) {
-      this.logged = false;
+      this.logged = false
+      this.id_player = 0;
     },
     setIdPlayer(id) {
       this.id_player = id;
     },
     getIdPlayer() {
       return this.id_player;
+    },
+    setPlayerName(name) {
+      this.name_player = name;
+    },
+    getPlayerName() {
+      return this.name_player;
     }
   },
 });
