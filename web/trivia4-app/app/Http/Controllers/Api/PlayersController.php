@@ -6,9 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Player;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
-class GetDadesPlayerController extends Controller
+class PlayersController extends Controller
 {
+    public function store(Request $request)
+    {
+        $player = new Player;
+        $player->name = $request->name;
+        $player->surname = $request->surname;
+        $player->nickname = $request->nickname;
+        $player->mail = $request->mail;
+        $player->psswd = Hash::make($request->psswd);
+        $player->created_at = Carbon::now();
+        $player->save();
+    }
+
     public function send(Request $request)
     {
         $player = Player::where('nickname', $request->nickname)->firstOrFail();

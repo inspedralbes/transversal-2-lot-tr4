@@ -2,11 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\StoreGamesController;
-use App\Http\Controllers\Api\GetGamesController;
-use App\Http\Controllers\Api\StorePlayersController;
-use App\Http\Controllers\Api\GetDadesPlayerController;
-use App\Http\Controllers\Api\StoreGameXPlayerController;
+use App\Http\Controllers\Api\GamesController;
+use App\Http\Controllers\Api\PlayersController;
+use App\Http\Controllers\Api\GameXPlayerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,12 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/setDadesPartida', [StoreGamesController::class, 'store']);
+Route::post('/setDadesPartida', [GamesController::class, 'store']);
 
-Route::post('/setDadesPlayer', [StorePlayersController::class, 'store']);
+Route::post('/setDadesPlayer', [PlayersController::class, 'store']);
 
-Route::post('/getDadesPlayer', [GetDadesPlayerController::class, 'send']);
+Route::post('/getDadesPlayer', [PlayersController::class, 'send']);
 
-Route::post('/storeGameXPlayer', [StoreGameXPlayerController::class, 'store']);
+Route::post('/storeGameXPlayer', [GameXPlayerController::class, 'store']);
 
-Route::get('/getPartidesUsuari/{id}', [GetGamesController::class, 'get']);
+Route::get('/getPartidesUsuari/{id}', [GameXPlayerController::class, 'get']);

@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Game;
-use App\Models\Player;
 use App\Models\gamexplayer;
 use Carbon\Carbon;
 
-
-class StoreGameXPlayerController extends Controller
+class GameXPlayerController extends Controller
 {
+    public function get($id)
+    {
+        $game = gamexplayer::where('id_player', $id)->get();
+        return json_encode($game);
+    }
+
     public function store(Request $request)
     {
         $game = new gamexplayer();
