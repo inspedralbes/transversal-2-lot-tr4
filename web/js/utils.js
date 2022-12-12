@@ -1,4 +1,13 @@
 const Home = Vue.component("home", {
+  template: `<div class="loginSign">
+  <p>Hello there this is the best trivial game ever created</p>
+  
+  
+  
+  </div>`
+})
+
+const Profile = Vue.component("profile", {
   template: `<div>Perfil usuari</div>`,
 });
 
@@ -502,6 +511,7 @@ const Registre = Vue.component("registre-player", {
   },
 });
 
+<<<<<<< HEAD
 Vue.component("login", {
   template: `
   <div>
@@ -518,6 +528,25 @@ Vue.component("login", {
         <b-button @click="logOut" variant="primary">Logout</b-button>
     </div>
   </div>`,
+=======
+const Login = Vue.component("login", {
+  template: `<div class="loginSign">
+            <div v-show="!logged">
+            <br>
+            <p>LOG IN</p>
+                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
+                <b-form-input v-model="form.psswd" type="password" placeholder="Password" required></b-form-input><br>
+                <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+                    </b-spinner>
+                </b-button>
+            </div>
+            <div v-show="logged">
+                Bienvenido {{infoLogin.nombre}}<br>
+                <img :src="infoLogin.imagen"></img><br>
+                <b-button @click="logOut" variant="primary">Logout</b-button>
+            </div>
+        </div>`,
+>>>>>>> 339139981983f0c73a321de09895c9f79f403e4b
   data: function () {
     return {
       form: {
@@ -578,6 +607,10 @@ const routes = [
   {
     path: "/joc",
     component: Partida,
+  },
+  {
+    path: "/login",
+    component: Login
   },
   {
     path: "/partidesGuardades",
