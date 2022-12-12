@@ -178,7 +178,7 @@ p, label, option, h1, h2, h3, h4{
     font-weight: bold; 
 }
 
-#ResultsPrint{
+#resultsPrint{
     display: none;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
@@ -189,7 +189,7 @@ p, label, option, h1, h2, h3, h4{
     border-radius: 25px;
 }
 
-#ScorePrint{
+#scorePrint{
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
     font-size: 50px;
