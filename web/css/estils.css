@@ -310,14 +310,18 @@ th, td {
 table {
     border-collapse: separate;
     border-spacing: 10px 2px;
-    margin: auto
+    margin: auto;
 }
 
-.respuestaCorrecta {
+.currentQuestion {
+    background-color: yellow;
+}
+
+.correctAnswer {
     background-color: green;
 }
 
-.respuestaIncorrecta {
+.incorrectAnswer {
     background-color: red;
 }
 
