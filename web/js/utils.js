@@ -460,11 +460,6 @@ const routes = [
     path: "/totesLesPartides",
     component: totesLesPartides,
   },
-  {
-    path: "/challenge/:id",
-    component: Challenge,
-    props: true,
-  },
 ];
 
 // 3. Create the router instance and pass the `routes` option
