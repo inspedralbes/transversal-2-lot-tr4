@@ -1,4 +1,8 @@
-const Home = Vue.component("home", {
+const Home = Vue.component("home",{
+  template: `<div>Landing page</div>`
+})
+
+const Profile = Vue.component("profile", {
   template: `<div>Perfil usuari</div>`,
 });
 
@@ -52,8 +56,8 @@ const Partida = Vue.component("partida", {
                   <option value="sports_and_leisure">Entertainment & Sports</option>
               </select><br><br><br>
             </div>  
-            <div class = "buttonPlay">
-              <b-button  @click="jugar" variant="success">Play</b-button> 
+            <div class = "buttonPlayDiv">
+              <b-button class="buttonPlay"  @click="jugar" variant="success">Play</b-button> 
             </div>
             <br>
             <div class ="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
@@ -251,14 +255,16 @@ const Registre = Vue.component("registre-player", {
     };
   },
   template: `
-  <div>
-    <b-form-input v-model="form.name" placeholder="Nom" required></b-form-input>
-    <b-form-input v-model="form.surname" placeholder="Cognom" required></b-form-input>
-    <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
-    <b-form-input v-model="form.mail" placeholder="Correu" required></b-form-input>
+  <div class="loginSign"><br>
+    <p>SIGN IN</p><br>
+    <b-form-input v-model="form.name" placeholder="Name" required></b-form-input><br>
+    <b-form-input v-model="form.surname" placeholder="Surname" required></b-form-input><br>
+    <b-form-input v-model="form.nickname" placeholder="Username" required></b-form-input><br>
+    <b-form-input v-model="form.mail" placeholder="Email" required></b-form-input><br>
     <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+    <br>
         <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
-            </b-spinner>
+            </b-spinner><br>
         </b-button>
   </div>
   `,
@@ -294,11 +300,12 @@ const Registre = Vue.component("registre-player", {
 //     </b-card>`,
 // });
 
-Vue.component("login", {
-  template: `<div>
+const Login = Vue.component("login",{
+  template: `<div class="loginSign"><br>
+    <p>LOG IN</p><br>
             <div v-show="!logged">
-                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
-                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
+                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input><br>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
@@ -367,12 +374,20 @@ const routes = [
     component: Home,
   },
   {
+    path:"/profile",
+    component: Profile,
+  },
+  {
     path: "/joc",
     component: Partida,
   },
   {
     path: "/partidesGuardades",
     component: Partides,
+  },
+  {
+    path: "/login",
+    component: Login,
   },
   {
     path: "/registre",

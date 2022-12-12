@@ -17,4 +17,10 @@ class GamesController extends Controller
         $game->save();
         return $game->id;
     }
+
+    public function get($id)
+    {
+        $game = Game::where('id_game', $id)->get();
+        return json_encode($game->game_info);
+    }
 }

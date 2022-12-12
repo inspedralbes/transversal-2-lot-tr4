@@ -106,7 +106,7 @@ body {
 }
 
 body {
-    background-image: linear-gradient(to bottom right, rgb(165, 157, 157, 0.80), rgb(0, 0, 0, 0.80)), url("../img/fondo4.jpg");
+    background-image: linear-gradient(to bottom right, #1E282D, #0A1428);
 }
 
 .container {
@@ -124,7 +124,7 @@ body {
 }
 
 .Pregunta {
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -169,13 +169,17 @@ body {
     max-height: 100%;
 }
 
-.routerlink {
-    color: #000;
-}
 
-p, label, option, h1, h2, h3, h4{
+
+p,
+label,
+option,
+h1,
+h2,
+h3,
+h4 {
     font-family: "BeaufortforLOL-Bold";
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 #resultsPrint{
@@ -200,7 +204,7 @@ p, label, option, h1, h2, h3, h4{
 }
 
 
-.button{
+.button {
     display: block;
     background: #4E9CAF;
     padding: 10px;
@@ -213,68 +217,59 @@ p, label, option, h1, h2, h3, h4{
     height: 100%
 }
 
-.FinalMessage{    
+.FinalMessage {
     font-size: 50px;
 }
 
-a{
+a {
     color: white;
     text-decoration: none;
 }
 
-a:hover{
+a:hover {
     background-color: rgb(52, 142, 152);
     color: white;
     transform: scale(1.2)
 }
 
-.Titulo{
-    display: flex; 
+.Titulo {
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin: 50px;
     display: block;
-    background: #4E9CAF;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
     color: white;
     font-weight: bold;
-    border-style: solid;
-    border-color: wheat;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
 }
 
-.buttonPlay{
-    display: flex; 
+.buttonPlayDiv {
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    width: auto;
+    height: auto;
 }
 
-label{
+
+.buttonPlay {
+    background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
+    border-color: #C89B3C;
+    font-weight: bold;
+    font-family: "BeaufortforLOL-Bold";
     font-size: 20px;
 }
 
-h4{
+label {
+    font-size: 20px;
+}
+
+h4 {
     font-size: 35px;
-}
-
-tr,td {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-}
-
-table { 
-    border-spacing: 10px 0;
-    border-collapse: separate;
-    margin: auto;
-}
-
-.numPregunta {
-    background-color: white;
-}
-
-.prova {
-    background-color: red;
 }
