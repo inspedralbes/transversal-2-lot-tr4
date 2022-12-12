@@ -220,8 +220,8 @@ const Partida = Vue.component("partida", {
                   <option value="sports_and_leisure">Entertainment & Sports</option>
               </select><br><br><br>
             </div>  
-            <div class = "buttonPlay">
-              <b-button  @click="jugar" variant="success">Play</b-button> 
+            <div class = "buttonPlayDiv">
+              <b-button class="buttonPlay"  @click="jugar" variant="success">Play</b-button> 
             </div>
             <br>
             <div class ="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
