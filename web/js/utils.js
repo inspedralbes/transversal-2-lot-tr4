@@ -352,24 +352,6 @@ const Registre = Vue.component("registre-player", {
   },
 });
 
-<<<<<<< HEAD
-Vue.component("login", {
-  template: `
-  <div>
-    <div v-show="!logged">
-        <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
-        <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
-        <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
-            </b-spinner>
-        </b-button>
-    </div>
-    <div v-show="logged">
-        Bienvenido {{infoLogin.nombre}}<br>
-        <img :src="infoLogin.imagen"></img><br>
-        <b-button @click="logOut" variant="primary">Logout</b-button>
-    </div>
-  </div>`,
-=======
 const Login = Vue.component("login", {
   template: `<div class="loginSign">
             <div v-show="!logged">
@@ -387,7 +369,6 @@ const Login = Vue.component("login", {
                 <b-button @click="logOut" variant="primary">Logout</b-button>
             </div>
         </div>`,
->>>>>>> 339139981983f0c73a321de09895c9f79f403e4b
   data: function () {
     return {
       form: {
