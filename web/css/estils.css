@@ -319,3 +319,26 @@ h4 {
     overflow: hidden;
     background-color: #0A323C;
 }
+
+.rightNav{
+    float: right;
+}
+
+.activeSign{
+    background-color: #005A82;
+}
+
+.loginSign{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: block;
+    margin: 30px;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-radius: 5px;
+    font-weight: bold;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+}
