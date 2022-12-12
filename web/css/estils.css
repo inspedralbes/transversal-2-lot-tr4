@@ -189,7 +189,7 @@ h4 {
     font-weight: bold;
 }
 
-#ResultsPrint{
+#resultsPrint{
     font-family: "BeaufortforLOL-Bold";
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
@@ -198,13 +198,13 @@ h4 {
     border-color: #C89B3C;
     display: none;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     color: #eee;
     margin: 20px;
 }
 
-#ScorePrint{
+#scorePrint{
     font-family: "BeaufortforLOL-Bold";
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;

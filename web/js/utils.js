@@ -1,4 +1,4 @@
-const Home = Vue.component("home",{
+const Home = Vue.component("home", {
   template: `<div class="loginSign">
   <p>Hello there this is the best trivial game ever created</p>
   
@@ -141,11 +141,11 @@ const Challenge = Vue.component("chall", {
         this.enviarDadesPartidaJugador();
       }
 
-        if (this.contadorRespuestas == 10) {
-          this.acabado = true;
-          document.getElementById("scorePrint").innerHTML =
-            `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
-        }
+      if (this.contadorRespuestas == 10) {
+        this.acabado = true;
+        document.getElementById("scorePrint").innerHTML =
+          `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
+      }
     },
     shuffleRespostes: function () {
       this.respuestas.forEach((array) => {
@@ -347,11 +347,11 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 1000);
+          }, 1500);
           this.contadorBuenas++;
         } else {
           document.getElementById("resultsPrint").innerHTML =
-            `<p>Incorrect Answer ${respuestaCorrecta}</p>`;
+            `<p>Incorrect Answer / Correct Answer: ${respuestaCorrecta}</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
@@ -525,9 +525,11 @@ const Registre = Vue.component("registre-player", {
   },
 });
 
-Vue.component("login", {
-  template: `<div>
+const Login = Vue.component("login", {
+  template: `<div class="loginSign">
             <div v-show="!logged">
+            <br>
+            <p>LOG IN</p>
                 <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
                 <b-form-input v-model="form.psswd" type="password" placeholder="Password" required></b-form-input><br>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
@@ -600,6 +602,10 @@ const routes = [
   {
     path: "/joc",
     component: Partida,
+  },
+  {
+    path: "/login",
+    component: Login
   },
   {
     path: "/partidesGuardades",
