@@ -308,7 +308,7 @@ const Login = Vue.component("login",{
                 <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input><br>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
-                </b-button> <br>
+                </b-button>
             </div>
             <div v-show="logged">
                 Bienvenido {{infoLogin.nombre}}<br>

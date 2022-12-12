@@ -22,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/setDadesPartida', [GamesController::class, 'store']);
 
+Route::get('/getJSONPartida', [GamesController::class, 'getJSON']);
+
 Route::post('/setDadesPlayer', [PlayersController::class, 'store']);
 
 Route::post('/getDadesPlayer', [PlayersController::class, 'send']);
@@ -29,3 +31,5 @@ Route::post('/getDadesPlayer', [PlayersController::class, 'send']);
 Route::post('/storeGameXPlayer', [GameXPlayerController::class, 'store']);
 
 Route::get('/getPartidesUsuari/{id}', [GameXPlayerController::class, 'get']);
+
+Route::get('/getPartides', [GameXPlayerController::class, 'getPartides']);

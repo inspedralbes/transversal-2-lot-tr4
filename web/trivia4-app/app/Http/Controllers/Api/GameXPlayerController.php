@@ -24,4 +24,10 @@ class GameXPlayerController extends Controller
         $game->date = Carbon::now();
         $game->save();
     }
+
+    public function getPartides()
+    {
+        $game = gamexplayer::get();
+        return json_encode($game);
+    }
 }
