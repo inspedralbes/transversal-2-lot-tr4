@@ -296,6 +296,31 @@ h4 {
     font-size: 35px;
 }
 
+.tablaResultados {
+    margin: 30px;
+}
+
+th, td {
+    text-align: center;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px 2px;
+    margin: auto
+}
+
+.respuestaCorrecta {
+    background-color: green;
+}
+
+.respuestaIncorrecta {
+    background-color: red;
+}
+
 .gameName {
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
