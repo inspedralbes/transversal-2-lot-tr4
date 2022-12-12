@@ -1,5 +1,10 @@
 const Home = Vue.component("home",{
-  template: `<div>Landing page</div>`
+  template: `<div class="loginSign">
+  <p>Hello there this is the best trivial game ever created</p>
+  
+  
+  
+  </div>`
 })
 
 const Profile = Vue.component("profile", {
@@ -165,17 +170,22 @@ const Partida = Vue.component("partida", {
         }, 1000);
       }
       if (this.contadorBuenas + this.contadorMalas == 10) {
+        setTimeout(function () {
+          document.getElementById("ScorePrint").style.display = "block"; 
+        }, 1000);
+        document.getElementById("ScorePrint").style.display = "block";  
         document.getElementById("ScorePrint").innerHTML =
           "<p>Your score is " + this.contadorBuenas + "/10</p>";
+        
         if (this.contadorBuenas < 5) {
           document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Maybe you need to get better</p>";
+            "<p id='ScorePrint'>Maybe you need to get better</p>";
         } else if (this.contadorBuenas > 4 && this.contadorBuenas < 7) {
           document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Good job!</p>";
+            "<p id='ScorePrint'>Good job!</p>";
         } else {
           document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Impressive job! You are the best</p>";
+            "<p id='ScorePrint'>Impressive job! You are the best</p>";
         }
         this.enviarDadesPartidaJugador();
         this.acabado = true;
@@ -261,7 +271,7 @@ const Registre = Vue.component("registre-player", {
     <b-form-input v-model="form.surname" placeholder="Surname" required></b-form-input><br>
     <b-form-input v-model="form.nickname" placeholder="Username" required></b-form-input><br>
     <b-form-input v-model="form.mail" placeholder="Email" required></b-form-input><br>
-    <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+    <b-form-input v-model="form.psswd" placeholder="Password" type="password"required></b-form-input>
     <br>
         <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
             </b-spinner><br>
@@ -305,7 +315,7 @@ const Login = Vue.component("login",{
     <p>LOG IN</p><br>
             <div v-show="!logged">
                 <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
-                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input><br>
+                <b-form-input v-model="form.psswd" type="password" placeholder="Password" required></b-form-input><br>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
