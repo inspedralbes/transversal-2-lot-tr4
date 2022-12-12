@@ -258,3 +258,23 @@ label{
 h4{
     font-size: 35px;
 }
+
+tr,td {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+table { 
+    border-spacing: 10px 0;
+    border-collapse: separate;
+    margin: auto;
+}
+
+.numPregunta {
+    background-color: white;
+}
+
+.prova {
+    background-color: red;
+}

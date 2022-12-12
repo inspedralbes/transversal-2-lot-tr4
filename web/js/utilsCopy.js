@@ -86,12 +86,40 @@ const Partida = Vue.component("partida", {
                               v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
                               <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
                           </div>
-                      </div>
-                  </div>
-              </div>
-          </div>         
+                      </div>                      
+                  </div>                  
+              </div>              
+          </div>                   
       </div>
       <div id="resultsPrint" class="resultatsPrint">
+      </div>
+      <div v-show="empezado">
+        <table>
+          <tr class="numPregunta">
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+          </tr>
+          <tr class="prova">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
       </div>
       <div id="scorePrint" class="scorePrint" >
       </div>
