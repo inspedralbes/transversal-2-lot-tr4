@@ -38,16 +38,17 @@
 
 <body>
   <div id="app">
+    <ul id="navbar">
+      <li><a>Home</a></li>
+      <li><router-link to="/" class="routerlink">Profile</router-link></li>
+      <li><router-link to="/joc" class="routerlink">Play a game</router-link></li>
+      <li><router-link to="/partidesGuardades" class="routerlink" v-show="logged">Game history</router-link></li>
+      <li><router-link to="/registre" class="routerlink" v-show="!logged">Sign in</router-link></li>
+    </ul>
+    <div class="tituloDiv">
+      <p class="gameName">League of Trivial</p>
+    </div>
     <login></login>
-    <p>
-      <!-- use the router-link component for navigation. -->
-      <!-- specify the link by passing the `to` prop. -->
-      <!-- `<router-link>` will render an `<a>` tag with the correct `href` attribute -->
-      <router-link to="/" class="routerlink">Profile</router-link>
-      <router-link to="/joc" class="routerlink">Play a game</router-link>
-      <router-link to="/partidesGuardades" class="routerlink" v-show="logged">Partides guardades</router-link>
-      <router-link to="/registre" class="routerlink" v-show="!logged">Registre</router-link>
-    </p>
     <router-view></router-view>
   </div>
 </body>
