@@ -1,12 +1,9 @@
-const Home = Vue.component("home",{
-  template: `<div>Landing page</div>`
-})
-
-const Profile = Vue.component("profile", {
+const Home = Vue.component("home", {
   template: `<div>Perfil usuari</div>`,
 });
 
-const Partida = Vue.component("partida", {
+const Challenge = Vue.component("chall", {
+  props: ["idPartida"],
   data: function () {
     return {
       preguntas: [],
@@ -15,7 +12,174 @@ const Partida = Vue.component("partida", {
       contadorMalas: 0,
       dificultad: "",
       categoria: "",
-      categoriaF: "",
+      empezado: false,
+      acabado: false,
+      dificultadVacia: false,
+      idGame: 0,
+    };
+  },
+  template: `
+    <div>
+      <div class="b-slider">
+          <div class="slider">
+              <div class="slides">
+                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
+                      <div class="container">
+                          <div class="Pregunta">
+                              Category: {{pregunta.category}}<br>
+                              Question {{index + 1}}:<br>
+                              {{pregunta.question}}
+                          </div>
+                          <br><br><br>
+                          <div class="Respuesta-1"
+                              v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
+                              <a class="button" :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
+                          </div>
+                          <div class="Respuesta-2"
+                              v-on:click="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
+                              <a class="button" :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
+                          </div>
+                          <div class="Respuesta-3"
+                              v-on:click="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
+                              <a class="button" :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
+                          </div>
+                          <div class="Respuesta-4"
+                              v-on:click="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
+                              <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div id ="ScorePrint">
+      </div>
+      <div id="ResultsPrint">
+      </div>
+  </div>`,
+  mounted: function () {
+    let url = `./trivia4-app/public/api/getJSONPartida/` + this.idPartida;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  },
+  methods: {
+    jugar() {
+      let categoriaF = "";
+
+      if (this.categoria != "") {
+        categoriaF = "categories=" + this.categoria + "&";
+      }
+
+      if (this.dificultad == "") {
+        this.dificultadVacia = true;
+      } else {
+        let url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            this.preguntas = data;
+            data.forEach((question) => {
+              let pregunta = [];
+              question.incorrectAnswers.forEach((respostes) => {
+                pregunta.push(respostes);
+              });
+              pregunta.push(question.correctAnswer);
+              this.respuestas.push(pregunta);
+            });
+            this.shuffleRespostes();
+            this.empezado = true;
+
+            let datosEnvio = new FormData();
+            datosEnvio.append("difficulty", this.dificultad);
+            datosEnvio.append("category", this.categoria);
+            datosEnvio.append("json", JSON.stringify(this.preguntas));
+
+            this.enviarDades(datosEnvio);
+          });
+      }
+    },
+    enviarDades(datosPregunta) {
+      fetch("./trivia4-app/public/api/setDadesPartida", {
+        method: "POST",
+        body: datosPregunta,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.idGame = data;
+        });
+    },
+    comprovaResultats: function (respuestaUser, respuestaCorrecta) {
+      let respuesta = document.getElementById(respuestaUser).innerHTML;
+      if (respuesta == respuestaCorrecta) {
+        this.contadorBuenas++;
+        document.getElementById("ResultsPrint").innerHTML =
+          "<p>Correct Answer</p>";
+        document.getElementById("ResultsPrint").style.display = "block";
+        setTimeout(function () {
+          document.getElementById("ResultsPrint").style.display = "none";
+        }, 1000);
+      } else {
+        this.contadorMalas++;
+        document.getElementById("ResultsPrint").innerHTML =
+          "<p>Incorrect Answer</p>";
+        document.getElementById("ResultsPrint").style.display = "block";
+        setTimeout(function () {
+          document.getElementById("ResultsPrint").style.display = "none";
+        }, 1000);
+      }
+      if (this.contadorBuenas + this.contadorMalas == 10) {
+        document.getElementById("ScorePrint").innerHTML =
+          "<p>Your score is " + this.contadorBuenas + "/10</p>";
+        if (this.contadorBuenas < 5) {
+          document.getElementById("slide-9").innerHTML =
+            "<p class='FinalMessage'>Maybe you need to get better</p>";
+        } else if (this.contadorBuenas > 4 && this.contadorBuenas < 7) {
+          document.getElementById("slide-9").innerHTML =
+            "<p class='FinalMessage'>Good job!</p>";
+        } else {
+          document.getElementById("slide-9").innerHTML =
+            "<p class='FinalMessage'>Impressive job! You are the best</p>";
+        }
+        this.enviarDadesPartidaJugador();
+        this.acabado = true;
+      }
+    },
+    shuffleRespostes: function () {
+      this.respuestas.forEach((array) => {
+        for (var i = array.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+      });
+    },
+    enviarDadesPartidaJugador: function () {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_player", useLoginStore().getIdPlayer());
+      datosEnvio.append("id_game", this.idGame);
+      datosEnvio.append("score", this.contadorBuenas);
+      fetch("./trivia4-app/public/api/storeGameXPlayer", {
+        method: "POST",
+        body: datosEnvio,
+      });
+    },
+  },
+});
+
+const Partida = Vue.component("partida", {
+  props: ["id-partida"],
+  data: function () {
+    return {
+      preguntas: [],
+      respuestas: [],
+      contadorBuenas: 0,
+      contadorMalas: 0,
+      dificultad: "",
+      categoria: "",
       empezado: false,
       acabado: false,
       dificultadVacia: false,
@@ -204,7 +368,20 @@ const Partida = Vue.component("partida", {
   },
 });
 
-const Partides = Vue.component("partides", {
+// Vue.component("partides", {
+//   props: ["partidas"],
+//   template: `
+//   <div v-for="partida in partidas">
+//     <h1>{{partida.id}}</h1>
+//     <li>Game: {{partida.id_game}}</li>
+//     <li>Score: {{partida.score}}</li>
+//     <li>Date: {{partida.date}}</li>
+//   </div>
+//   `,
+// });
+
+const Partides = Vue.component("historial", {
+  props: ["url"],
   data: function () {
     return {
       partidas: [],
@@ -234,7 +411,44 @@ const Partides = Vue.component("partides", {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          this.partidas = data;
+        });
+    }
+  },
+});
+
+const totesLesPartides = Vue.component("historial-general", {
+  props: ["url"],
+  data: function () {
+    return {
+      partidas: [],
+      idPlayer: useLoginStore().getIdPlayer(),
+      player_name: useLoginStore().getPlayerName(),
+    };
+  },
+  template: `
+  <div>
+    <h1 v-show="idPlayer == 0">No has iniciat sessió!</h1>
+    <h1 v-show="partidas.length == 0 && idPlayer != 0">No hay partidas!</h1>
+    
+    <div v-show="idPlayer != 0">
+      <div v-for="partida in partidas">
+        <h1>{{partida.id}}</h1>
+        <li>Game: {{partida.id_game}}</li>
+        <li>Score: {{partida.score}}</li>
+        <li>Date: {{partida.date}}</li>
+        <router-link to="/joc" class="routerlink" id-partida=partida.id_game>Play a game</router-link>
+      </div>
+      <router-view></router-view>
+    </div>
+  </div>
+  `,
+  mounted: function () {
+    if (this.idPlayer != 0) {
+      url = "./trivia4-app/public/api/getPartides";
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
           this.partidas = data;
         });
     }
@@ -255,16 +469,14 @@ const Registre = Vue.component("registre-player", {
     };
   },
   template: `
-  <div class="loginSign"><br>
-    <p>SIGN IN</p><br>
-    <b-form-input v-model="form.name" placeholder="Name" required></b-form-input><br>
-    <b-form-input v-model="form.surname" placeholder="Surname" required></b-form-input><br>
-    <b-form-input v-model="form.nickname" placeholder="Username" required></b-form-input><br>
-    <b-form-input v-model="form.mail" placeholder="Email" required></b-form-input><br>
+  <div>
+    <b-form-input v-model="form.name" placeholder="Nom" required></b-form-input>
+    <b-form-input v-model="form.surname" placeholder="Cognom" required></b-form-input>
+    <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
+    <b-form-input v-model="form.mail" placeholder="Correu" required></b-form-input>
     <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
-    <br>
         <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
-            </b-spinner><br>
+            </b-spinner>
         </b-button>
   </div>
   `,
@@ -288,24 +500,11 @@ const Registre = Vue.component("registre-player", {
   },
 });
 
-// Vue.component("card", {
-//   props: ['datos'],
-//   template: `
-//     <b-card border-variant="secondary" :header="datos.Title" header-border-variant="secondary" align="center">
-//     <div>
-//         <b-img thumbnail fluid :src="datos.Poster" :alt="datos.Title"></b-img>
-//         <b-button class="button-orange" @click="$emit('evtMasInformacion', datos.imdbID)">Mas información</b-button>
-//         <b-button class="button-orange" pill @click="buscarInfo" variant="outline-dark">Afegir</b-button>
-//     </div>
-//     </b-card>`,
-// });
-
-const Login = Vue.component("login",{
-  template: `<div class="loginSign"><br>
-    <p>LOG IN</p><br>
+Vue.component("login", {
+  template: `<div>
             <div v-show="!logged">
-                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
-                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input><br>
+                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
+                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
@@ -374,10 +573,6 @@ const routes = [
     component: Home,
   },
   {
-    path:"/profile",
-    component: Profile,
-  },
-  {
     path: "/joc",
     component: Partida,
   },
@@ -386,12 +581,17 @@ const routes = [
     component: Partides,
   },
   {
-    path: "/login",
-    component: Login,
-  },
-  {
     path: "/registre",
     component: Registre,
+  },
+  {
+    path: "/totesLesPartides",
+    component: totesLesPartides,
+  },
+  {
+    path: "/challenge/:id",
+    component: Challenge,
+    props: true,
   },
 ];
 
@@ -413,7 +613,7 @@ const useLoginStore = Pinia.defineStore("loggedSession", {
       this.logged = true;
     },
     logout(state) {
-      this.logged = false
+      this.logged = false;
       this.id_player = 0;
     },
     setIdPlayer(id) {
@@ -427,7 +627,7 @@ const useLoginStore = Pinia.defineStore("loggedSession", {
     },
     getPlayerName() {
       return this.name_player;
-    }
+    },
   },
 });
 
