@@ -14,13 +14,20 @@ class GamesController extends Controller
         $game->difficulty = $request->difficulty;
         $game->category = $request->category;
         $game->game_info = json_encode($request->json);
+        $game->gameOfTheDay = false;
         $game->save();
         return $game->id;
     }
 
-    public function get($id)
+    public function getJSON($id)
     {
-        $game = Game::where('id_game', $id)->get();
-        return json_encode($game->game_info);
+        $game = Game::where('id', $id)->firstOrFail();
+        return $game->game_info;
+    }
+
+    public function getJSONgotd()
+    {
+        $game = Game::where('gameOfTheDay', true)->latest()->first();;
+        return $game->game_info;
     }
 }
