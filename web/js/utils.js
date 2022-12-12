@@ -1,4 +1,13 @@
 const Home = Vue.component("home", {
+  template: `<div class="loginSign">
+  <p>Hello there this is the best trivial game ever created</p>
+  
+  
+  
+  </div>`
+})
+
+const Profile = Vue.component("profile", {
   template: `<div>Perfil usuari</div>`,
 });
 
@@ -32,30 +41,28 @@ const Challenge = Vue.component("chall", {
                           </div>
                           <br><br><br>
                           <div class="Respuesta-1"
-                              v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
-                          </div>
-                          <div class="Respuesta-2"
-                              v-on:click="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
-                          </div>
-                          <div class="Respuesta-3"
-                              v-on:click="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
-                          </div>
-                          <div class="Respuesta-4"
-                              v-on:click="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
-                          </div>
+                          v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
+                      </div>
+                      <div class="Respuesta-2"
+                          v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
+                      </div>
+                      <div class="Respuesta-3"
+                          v-on:click.once="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
+                      </div>
+                      <div class="Respuesta-4"
+                          v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
+                      </div>
                       </div>
                   </div>
               </div>
           </div>
       </div>
-      <div id ="ScorePrint">
-      </div>
-      <div id="ResultsPrint">
-      </div>
+      <div id="scorePrint" class="scorePrint" ></div>
+
   </div>`,
   mounted: function () {
     let url = `./trivia4-app/public/api/getJSONPartida/` + this.idPartida;
@@ -113,38 +120,31 @@ const Challenge = Vue.component("chall", {
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
-      if (respuesta == respuestaCorrecta) {
-        this.contadorBuenas++;
-        document.getElementById("ResultsPrint").innerHTML =
-          "<p>Correct Answer</p>";
-        document.getElementById("ResultsPrint").style.display = "block";
-        setTimeout(function () {
-          document.getElementById("ResultsPrint").style.display = "none";
-        }, 1000);
-      } else {
-        this.contadorMalas++;
-        document.getElementById("ResultsPrint").innerHTML =
-          "<p>Incorrect Answer</p>";
-        document.getElementById("ResultsPrint").style.display = "block";
-        setTimeout(function () {
-          document.getElementById("ResultsPrint").style.display = "none";
-        }, 1000);
-      }
-      if (this.contadorBuenas + this.contadorMalas == 10) {
-        document.getElementById("ScorePrint").innerHTML =
-          "<p>Your score is " + this.contadorBuenas + "/10</p>";
-        if (this.contadorBuenas < 5) {
-          document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Maybe you need to get better</p>";
-        } else if (this.contadorBuenas > 4 && this.contadorBuenas < 7) {
-          document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Good job!</p>";
+      if (!this.acabado) {
+        if (respuesta == respuestaCorrecta) {
+          document.getElementById("resultsPrint").innerHTML =
+            `<p>Correct Answer</p>`;
+          document.getElementById("resultsPrint").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("resultsPrint").style.display = "none";
+          }, 1000);
+          this.contadorBuenas++;
         } else {
-          document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Impressive job! You are the best</p>";
+          document.getElementById("resultsPrint").innerHTML =
+            `<p>Incorrect Answer ${respuestaCorrecta}</p>`;
+          document.getElementById("resultsPrint").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("resultsPrint").style.display = "none";
+          }, 1000);
         }
+        this.contadorRespuestas++;
         this.enviarDadesPartidaJugador();
+      }
+
+      if (this.contadorRespuestas == 10) {
         this.acabado = true;
+        document.getElementById("scorePrint").innerHTML =
+          `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
       }
     },
     shuffleRespostes: function () {
@@ -178,6 +178,7 @@ const Partida = Vue.component("partida", {
       respuestas: [],
       contadorBuenas: 0,
       contadorMalas: 0,
+      contadorRespuestas: 0,
       dificultad: "",
       categoria: "",
       empezado: false,
@@ -226,7 +227,7 @@ const Partida = Vue.component("partida", {
             <br>
             <div class ="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty  !</div>
         </div>
-      <div class="b-slider">
+      <div class="b-slider" v-show="!acabado">
           <div class="slider">
               <div class="slides">
                   <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
@@ -238,29 +239,57 @@ const Partida = Vue.component("partida", {
                           </div>
                           <br><br><br>
                           <div class="Respuesta-1"
-                              v-on:click="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
-                          </div>
-                          <div class="Respuesta-2"
-                              v-on:click="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
-                          </div>
-                          <div class="Respuesta-3"
-                              v-on:click="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
-                          </div>
-                          <div class="Respuesta-4"
-                              v-on:click="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
-                              <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
-                          </div>
+                          v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta1-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
+                      </div>
+                      <div class="Respuesta-2"
+                          v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta2-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
+                      </div>
+                      <div class="Respuesta-3"
+                          v-on:click.once="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta3-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
+                      </div>
+                      <div class="Respuesta-4"
+                          v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer)">
+                          <a class="button" :id="'Resposta4-' + (index)" :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
+                      </div>
                       </div>
                   </div>
               </div>
           </div>
       </div>
-      <div id ="ScorePrint">
+      <div id="resultsPrint" class="resultatsPrint">
       </div>
-      <div id="ResultsPrint">
+      <div v-show="empezado" class="tablaResultados" >
+        <table>
+          <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div id="scorePrint" class="scorePrint" >
       </div>
   </div>`,
   methods: {
@@ -311,38 +340,32 @@ const Partida = Vue.component("partida", {
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
-      if (respuesta == respuestaCorrecta) {
-        this.contadorBuenas++;
-        document.getElementById("ResultsPrint").innerHTML =
-          "<p>Correct Answer</p>";
-        document.getElementById("ResultsPrint").style.display = "block";
-        setTimeout(function () {
-          document.getElementById("ResultsPrint").style.display = "none";
-        }, 1000);
-      } else {
-        this.contadorMalas++;
-        document.getElementById("ResultsPrint").innerHTML =
-          "<p>Incorrect Answer</p>";
-        document.getElementById("ResultsPrint").style.display = "block";
-        setTimeout(function () {
-          document.getElementById("ResultsPrint").style.display = "none";
-        }, 1000);
-      }
-      if (this.contadorBuenas + this.contadorMalas == 10) {
-        document.getElementById("ScorePrint").innerHTML =
-          "<p>Your score is " + this.contadorBuenas + "/10</p>";
-        if (this.contadorBuenas < 5) {
-          document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Maybe you need to get better</p>";
-        } else if (this.contadorBuenas > 4 && this.contadorBuenas < 7) {
-          document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Good job!</p>";
+      if (!this.acabado) {
+        if (respuesta == respuestaCorrecta) {
+          document.getElementById("resultsPrint").innerHTML =
+            `<p>Correct Answer</p>`;
+          document.getElementById("resultsPrint").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("resultsPrint").style.display = "none";
+          }, 1500);
+          this.contadorBuenas++;
         } else {
-          document.getElementById("slide-9").innerHTML =
-            "<p class='FinalMessage'>Impressive job! You are the best</p>";
+          document.getElementById("resultsPrint").innerHTML =
+            `<p>Incorrect Answer / Correct Answer: ${respuestaCorrecta}</p>`;
+          document.getElementById("resultsPrint").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("resultsPrint").style.display = "none";
+          }, 1000);
         }
+        this.contadorRespuestas++;
         this.enviarDadesPartidaJugador();
+      }
+
+      if (this.contadorRespuestas == 10) {
         this.acabado = true;
+
+        document.getElementById("scorePrint").innerHTML =
+          `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
       }
     },
     shuffleRespostes: function () {
@@ -469,12 +492,14 @@ const Registre = Vue.component("registre-player", {
     };
   },
   template: `
-  <div>
-    <b-form-input v-model="form.name" placeholder="Nom" required></b-form-input>
-    <b-form-input v-model="form.surname" placeholder="Cognom" required></b-form-input>
-    <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
-    <b-form-input v-model="form.mail" placeholder="Correu" required></b-form-input>
-    <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+  <div class="loginSign"><br>
+    <p>SIGN IN</p><br>
+    <b-form-input v-model="form.name" placeholder="Name" required></b-form-input><br>
+    <b-form-input v-model="form.surname" placeholder="Surname" required></b-form-input><br>
+    <b-form-input v-model="form.nickname" placeholder="Username" required></b-form-input><br>
+    <b-form-input v-model="form.mail" placeholder="Email" required></b-form-input><br>
+    <b-form-input v-model="form.psswd" placeholder="Password" type="password"required></b-form-input>
+    <br>
         <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
         </b-button>
@@ -500,11 +525,13 @@ const Registre = Vue.component("registre-player", {
   },
 });
 
-Vue.component("login", {
-  template: `<div>
+const Login = Vue.component("login", {
+  template: `<div class="loginSign">
             <div v-show="!logged">
-                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input>
-                <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+            <br>
+            <p>LOG IN</p>
+                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
+                <b-form-input v-model="form.psswd" type="password" placeholder="Password" required></b-form-input><br>
                 <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
                     </b-spinner>
                 </b-button>
@@ -575,6 +602,10 @@ const routes = [
   {
     path: "/joc",
     component: Partida,
+  },
+  {
+    path: "/login",
+    component: Login
   },
   {
     path: "/partidesGuardades",
