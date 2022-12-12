@@ -1,15 +1,15 @@
-+-tml>
-+-"ca">
-+-
-+-
-+-rset="UTF-8" />
-+-p-equiv="X-UA-Compatible" content="IE=edge" />
-+-e="viewport" content="width=device-width, initial-scale=1.0" />
-+-
-+-ague of Trivial</title>
-+-
-+- required Bootstrap and BootstrapVue CSS -->
-+-e="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>League of Trivial</title>
+
+  <!-- Load required Bootstrap and BootstrapVue CSS -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
   <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
   <!-- Load polyfills to support older browsers -->
@@ -47,7 +47,6 @@
       <li><router-link to="/registre" class="routerlink rightNav activeSign" v-show="!logged">Sign in</router-link></li>
       <li><router-link to="/login" class="routerlink rightNav" v-show="!logged">Log in</router-link></li>
     </ul>
-    <login></login>
     <div class="tituloDiv">
       <p class="gameName">League of Trivial</p>
     </div>
