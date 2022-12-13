@@ -322,12 +322,16 @@ const Registre = Vue.component("registre-player", {
     };
   },
   template: `
-  <div>
-    <b-form-input v-model="form.name" placeholder="Nom" required></b-form-input>
-    <b-form-input v-model="form.surname" placeholder="Cognom" required></b-form-input>
-    <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
-    <b-form-input v-model="form.mail" placeholder="Correu" required></b-form-input>
-    <b-form-input v-model="form.psswd" placeholder="Password" required></b-form-input>
+  <div class="loginSign">
+    <br>
+    <h2>Register</h2>
+    <b-col sm="5" class="mx-auto">
+      <b-form-input v-model="form.name" placeholder="Nom" class="m-3" required></b-form-input>
+      <b-form-input v-model="form.surname" placeholder="Cognom" class="m-3" required></b-form-input>
+      <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" class="m-3" required></b-form-input>
+      <b-form-input v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
+      <b-form-input v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
+    </b-col>
     <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
     </b-button>
@@ -360,21 +364,24 @@ const Login = Vue.component("login", {
       player_name: useLoginStore().getPlayerName(),
     };
   },
-  template: `<div class="loginSign">
-            <div v-show="!logged">
-            <br>
-            <p>LOG IN</p>
-                <b-form-input v-model="form.nickname" placeholder="Nickname" required></b-form-input><br>
-                <b-form-input v-model="form.psswd" type="password" placeholder="Password" required></b-form-input><br>
-                <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
-                    </b-spinner>
-                </b-button>
-            </div>
-            <div v-show="logged">
-                Bienvenido {{infoLogin.nombre}}<br>
-                <img :src="infoLogin.imagen"></img><br>
-            </div>
-        </div>`,
+  template: `
+  <div class="loginSign">
+      <div v-show="!logged">
+        <br>
+        <h2>LOG IN</h2>
+        <b-col sm="5" class="mx-auto">
+          <b-form-input v-model="form.nickname" placeholder="Nickname" class="m-3" required></b-form-input>
+          <b-form-input v-model="form.psswd" type="password" placeholder="Password" class="m-3" required></b-form-input>
+        </b-col>
+        <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+            </b-spinner>
+        </b-button>
+      </div>
+      <div v-show="logged">
+          Bienvenido {{infoLogin.nombre}}<br>
+          <img :src="infoLogin.imagen"></img><br>
+      </div>
+  </div>`,
   data: function () {
     return {
       form: {
