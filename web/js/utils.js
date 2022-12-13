@@ -492,7 +492,7 @@ Vue.component("navbar-router", {
   <ul id="navbar">
     <li><router-link to="/" class="routerlink">Home</router-link></li>
     <li><router-link to="/joc/false" class="routerlink">Play a game</router-link></li>
-    <li><router-link to="/joc/true" class="routerlink">Game of the day</router-link></li>
+    <li><router-link to="/joc/true" class="routerlink" v-show="store.logged">Game of the day</router-link></li>
     <li><router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link></li>
     <li><router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link></li>
     <li><router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link></li>
