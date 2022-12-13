@@ -27,7 +27,7 @@ class GamesController extends Controller
 
     public function getJSONgotd()
     {
-        $game = Game::where('gameOfTheDay', true)->latest()->first();;
+        $game = Game::where('gameOfTheDay', true)->latest()->first();
         return $game->game_info;
     }
 }

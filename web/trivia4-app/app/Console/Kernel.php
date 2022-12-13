@@ -46,7 +46,7 @@ class Kernel extends ConsoleKernel
             $game->gameOfTheDay = true;
             $game->created_at = Carbon::now();
             $game->save();
-        })->daily();
+        })->everyMinute();
     }
 
     /**
