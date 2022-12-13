@@ -26,6 +26,7 @@ const Partida = Vue.component("partida", {
       dificultadVacia: false,
       idGame: 0,
       store: useLoginStore(),
+      countDown: 20
     };
   },
   template: `
@@ -81,8 +82,7 @@ const Partida = Vue.component("partida", {
                         <br><br><br>
                         <div class="Respuesta-1"
                             v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                            <a class="button" :id="'Resposta1-' + (index)"
-                                 >{{respuestas[index][0]}}</a>
+                            <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                         </div>
                         <div class="Respuesta-2"
                             v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
@@ -101,24 +101,15 @@ const Partida = Vue.component("partida", {
             </div>
         </div>
     </div>
+    <div class="Pregunta">
+    {{ countDown }}
+    </div>
     <div id="resultsPrint">
     </div>
     <div id="scorePrint" class="scorePrint">
     </div>
     <div v-show="empezado">
         <table>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-            </tr>
             <tr>
                 <td id="pregunta0"></td>
                 <td id="pregunta1"></td>
@@ -135,11 +126,21 @@ const Partida = Vue.component("partida", {
     </div>
   </div>`,
   methods: {
+    countDownTimer() {
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown -= 1
+          this.countDownTimer()
+        }, 1000)
+      }
+    },
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
       }, 2000);
     },
+
+
     resetDades() {
       this.preguntas = [];
       this.respuestas = [];
@@ -185,6 +186,7 @@ const Partida = Vue.component("partida", {
 
               this.enviarDades(datosEnvio);
             }
+            this.countDownTimer();
           });
       }
     },
