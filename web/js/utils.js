@@ -1,9 +1,7 @@
 const Home = Vue.component("home", {
-  template: `<div class="loginSign">
-  <p>Hello there this is the best trivial game ever created</p>
-  
-  
-  
+  template: `
+  <div class="loginSign">
+    <p>Hello there this is the best trivial game ever created</p>
   </div>`,
 });
 
