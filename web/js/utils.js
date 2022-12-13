@@ -4,8 +4,8 @@ const Home = Vue.component("home", {
   
   
   
-  </div>`
-})
+  </div>`,
+});
 
 const Profile = Vue.component("profile", {
   template: `<div>Perfil usuari</div>`,
@@ -25,7 +25,6 @@ const Partida = Vue.component("partida", {
       acabado: false,
       dificultadVacia: false,
       idGame: 0,
-
     };
   },
   template: `
@@ -192,8 +191,9 @@ const Partida = Vue.component("partida", {
           this.contadorBuenas++;
         } else {
           pregunta.classList.add("incorrectAnswer");
-          document.getElementById("resultsPrint").innerHTML =
-            `<p>Incorrect Answer<br>Correct answer is: ${respuestaCorrecta}</p>`;
+          document.getElementById(
+            "resultsPrint"
+          ).innerHTML = `<p>Incorrect Answer<br>Correct answer is: ${respuestaCorrecta}</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
@@ -206,8 +206,9 @@ const Partida = Vue.component("partida", {
       if (this.contadorRespuestas == 10) {
         this.acabado = true;
 
-        document.getElementById("scorePrint").innerHTML =
-          `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
+        document.getElementById(
+          "scorePrint"
+        ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
       }
     },
     shuffleRespostes: function () {
@@ -353,6 +354,12 @@ const Registre = Vue.component("registre-player", {
 });
 
 const Login = Vue.component("login", {
+  data: function () {
+    return {
+      idPlayer: useLoginStore().getIdPlayer(),
+      player_name: useLoginStore().getPlayerName(),
+    };
+  },
   template: `<div class="loginSign">
             <div v-show="!logged">
             <br>
@@ -382,6 +389,7 @@ const Login = Vue.component("login", {
       },
       logged: false,
       procesando: false,
+      store: useLoginStore(),
     };
   },
   methods: {
@@ -402,9 +410,9 @@ const Login = Vue.component("login", {
             this.infoLogin.nombre = data[1].nickname;
             this.infoLogin.id = data[1].id;
             this.logged = true;
-            useLoginStore().login();
-            useLoginStore().setIdPlayer(data[1].id);
-            useLoginStore().setPlayerName(data[1].nickname);
+            this.store.login();
+            this.store.setIdPlayer(data[1].id);
+            this.store.setPlayerName(data[1].nickname);
           }
           this.procesando = false;
         });
@@ -415,6 +423,32 @@ const Login = Vue.component("login", {
       this.form.nickname = "";
       this.form.psswd = "";
       this.logged = false;
+      useLoginStore().logout();
+    },
+  },
+});
+
+Vue.component("navbar-router", {
+  data: function () {
+    return {
+      store: useLoginStore(),
+    };
+  },
+  template: `
+  <ul id="navbar">
+    <li><router-link to="/" class="routerlink">Home</router-link></li>
+    <li><router-link to="/joc" class="routerlink">Play a game</router-link></li>
+    <li><router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link></li>
+    <li><router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link></li>
+    <li><router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link></li>
+    <li><router-link to="/login" class="routerlink rightNav" v-show="!store.logged">Log in</router-link></li>
+    <li><b-button @click="logOut" class="routerlink rightNav" variant="primary" v-show="store.logged">Logout</b-button></li>
+    <li><router-link to="/profile" class="routerlink rightNav" v-show="store.logged">Profile</router-link></li>
+    <li><h3 class="routerlink rightNav">{{store.name_player}}</h3></li>
+  </ul>
+  `,
+  methods: {
+    logOut() {
       useLoginStore().logout();
     },
   },
@@ -432,7 +466,7 @@ const routes = [
   },
   {
     path: "/login",
-    component: Login
+    component: Login,
   },
   {
     path: "/partidesGuardades",
@@ -468,6 +502,7 @@ const useLoginStore = Pinia.defineStore("loggedSession", {
     logout(state) {
       this.logged = false;
       this.id_player = 0;
+      this.name_player = "";
     },
     setIdPlayer(id) {
       this.id_player = id;

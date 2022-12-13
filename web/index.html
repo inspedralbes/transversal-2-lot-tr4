@@ -38,15 +38,7 @@
 
 <body>
   <div id="app">
-    <ul id="navbar">
-      <li><router-link to="/" class="routerlink">Home</router-link></li>
-      <li><router-link to="/profile" class="routerlink" v-show="logged">Profile</router-link></li>
-      <li><router-link to="/joc" class="routerlink">Play a game</router-link></li>
-      <li><router-link to="/totesLesPartides" class="routerlink" v-show="logged">All games</router-link></li>
-      <li><router-link to="/partidesGuardades" class="routerlink" v-show="logged">Game history</router-link></li>
-      <li><router-link to="/registre" class="routerlink rightNav activeSign" v-show="!logged">Sign in</router-link></li>
-      <li><router-link to="/login" class="routerlink rightNav" v-show="!logged">Log in</router-link></li>
-    </ul>
+    <navbar-router></navbar-router>
     <div class="tituloDiv">
       <a class="gameName">LEAGUE </a> <a class = "gameName2"> OF </a> <a class="gameName"> TRIVIAL</a>
     </div>
