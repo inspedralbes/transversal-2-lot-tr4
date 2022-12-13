@@ -373,7 +373,6 @@ const Login = Vue.component("login", {
             <div v-show="logged">
                 Bienvenido {{infoLogin.nombre}}<br>
                 <img :src="infoLogin.imagen"></img><br>
-                <b-button @click="logOut" variant="primary">Logout</b-button>
             </div>
         </div>`,
   data: function () {
@@ -416,14 +415,6 @@ const Login = Vue.component("login", {
           }
           this.procesando = false;
         });
-    },
-    logOut() {
-      this.infoLogin.nombre = "";
-      this.infoLogin.id = "";
-      this.form.nickname = "";
-      this.form.psswd = "";
-      this.logged = false;
-      useLoginStore().logout();
     },
   },
 });
