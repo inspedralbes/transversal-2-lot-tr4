@@ -38,6 +38,8 @@ const Partida = Vue.component("partida", {
       acabado: false,
       dificultadVacia: false,
       idGame: 0,
+      store: useLoginStore(),
+      countDown: 20
     };
   },
   template: `
@@ -127,18 +129,6 @@ const Partida = Vue.component("partida", {
     <div v-show="empezado">
         <table>
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-            </tr>
-            <tr>
                 <td id="pregunta0"></td>
                 <td id="pregunta1"></td>
                 <td id="pregunta2"></td>
@@ -154,10 +144,32 @@ const Partida = Vue.component("partida", {
     </div>
   </div>`,
   methods: {
+    countDownTimer() {
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown -= 1
+          this.countDownTimer()
+        }, 1000)
+      }
+    },
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
       }, 2000);
+    },
+
+
+    resetDades() {
+      this.preguntas = [];
+      this.respuestas = [];
+      this.contadorBuenas = 0;
+      this.contadorRespuestas = 0;
+      this.dificultad = "";
+      this.categoria = "";
+      this.empezado = false;
+      this.acabado = false;
+      this.dificultadVacia = false;
+      this.idGame = 0;
     },
     jugar() {
       let categoriaF = "";
@@ -184,13 +196,15 @@ const Partida = Vue.component("partida", {
             });
             this.shuffleRespostes();
             this.empezado = true;
+            if (this.store.logged) {
+              let datosEnvio = new FormData();
+              datosEnvio.append("difficulty", this.dificultad);
+              datosEnvio.append("category", this.categoria);
+              datosEnvio.append("json", JSON.stringify(this.preguntas));
 
-            let datosEnvio = new FormData();
-            datosEnvio.append("difficulty", this.dificultad);
-            datosEnvio.append("category", this.categoria);
-            datosEnvio.append("json", JSON.stringify(this.preguntas));
-
-            this.enviarDades(datosEnvio);
+              this.enviarDades(datosEnvio);
+            }
+            this.countDownTimer();
           });
       }
     },
@@ -222,7 +236,6 @@ const Partida = Vue.component("partida", {
           }, 2000);
         }
         this.contadorRespuestas++;
-        this.enviarDadesPartidaJugador();
       }
 
       if (this.contadorRespuestas == 10) {
@@ -231,6 +244,9 @@ const Partida = Vue.component("partida", {
         document.getElementById(
           "scorePrint"
         ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
+        if (this.store.logged) {
+          this.enviarDadesPartidaJugador();
+        }
       }
     },
     shuffleRespostes: function () {
@@ -312,7 +328,6 @@ const totesLesPartides = Vue.component("historial-general", {
             <li>Game: {{partida.id_game}}</li>
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
-            <router-link to="/joc" class="routerlink" id-partida=partida.id_game>Play a game</router-link>
         </div>
         <router-view></router-view>
     </div>
