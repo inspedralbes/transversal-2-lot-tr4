@@ -417,7 +417,7 @@ table {
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 100%;
 }

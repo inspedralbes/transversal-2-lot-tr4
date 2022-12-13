@@ -197,7 +197,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 1000);
+          }, 2000);
         }
         this.contadorRespuestas++;
         this.enviarDadesPartidaJugador();
