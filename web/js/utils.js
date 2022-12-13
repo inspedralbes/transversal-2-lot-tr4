@@ -61,7 +61,7 @@ const Partida = Vue.component("partida", {
                 <option value="sports_and_leisure">Entertainment & Sports</option>
             </select><br><br><br>
         </div>
-        <div class="buttonPlayDiv">
+        <div class="buttonPlayDiv" v-on:click="countDownTimer()">
             <b-button class="buttonPlay" @click="jugar" variant="success">Play</b-button>
         </div>
         <br>
@@ -79,19 +79,19 @@ const Partida = Vue.component("partida", {
                         </div>
                         <br><br><br>
                         <div class="Respuesta-1"
-                            v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                             <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                         </div>
                         <div class="Respuesta-2"
-                            v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                             <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                         </div>
                         <div class="Respuesta-3"
-                            v-on:click.once="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            v-on:click.once="resetTime(), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                             <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                         </div>
                         <div class="Respuesta-4"
-                            v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                             <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ const Partida = Vue.component("partida", {
         </div>
     </div>
     <div class="Pregunta">
-    {{ countDown }}
+        {{ countDown }}
     </div>
     <div id="resultsPrint">
     </div>
@@ -138,6 +138,11 @@ const Partida = Vue.component("partida", {
       }, 2000);
     },
 
+    resetTime() {
+      setTimeout(() => {
+        this.countDown = 20;
+      }, 2000);
+    },
 
     resetDades() {
       this.preguntas = [];
@@ -184,7 +189,6 @@ const Partida = Vue.component("partida", {
 
               this.enviarDades(datosEnvio);
             }
-            this.countDownTimer();
           });
       }
     },
