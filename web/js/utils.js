@@ -25,7 +25,7 @@ const Profile = Vue.component("profile", {
 });
 
 const Partida = Vue.component("partida", {
-  props: ["id-partida"],
+  props: ["gotdPROP"],
   data: function () {
     return {
       preguntas: [],
@@ -39,7 +39,7 @@ const Partida = Vue.component("partida", {
       dificultadVacia: false,
       idGame: 0,
       store: useLoginStore(),
-      countDown: 20
+      countDown: 20,
     };
   },
   template: `
@@ -143,7 +143,16 @@ const Partida = Vue.component("partida", {
         </table>
     </div>
   </div>`,
+  mounted: function () {
+    if (this.gotd == true) {
+      this.jugar();
+    }
+  },
+
   methods: {
+    getGOTD(){
+      return this.gotdPROP;
+    },
     countDownTimer() {
       if (this.countDown > 0) {
         setTimeout(() => {
@@ -185,10 +194,16 @@ const Partida = Vue.component("partida", {
         categoriaF = "categories=" + this.categoria + "&";
       }
 
-      if (this.dificultad == "") {
+      if (this.dificultad == "" && !this.gotd) {
         this.dificultadVacia = true;
       } else {
-        let url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
+        let url;
+        if (this.gotdPROP) {
+          url = "./trivia4-app/public/api/getJSONPartidaDelDia";
+          console.log(url);
+        } else {
+          url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
+        }
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
@@ -286,7 +301,6 @@ const Partida = Vue.component("partida", {
 });
 
 const Partides = Vue.component("historial", {
-  props: ["url"],
   data: function () {
     return {
       partidas: [],
@@ -485,7 +499,8 @@ Vue.component("navbar-router", {
   template: `
   <ul id="navbar">
     <li><router-link to="/" class="routerlink">Home</router-link></li>
-    <li><router-link to="/joc" class="routerlink">Play a game</router-link></li>
+    <li><router-link to="/joc/false" class="routerlink">Play a game</router-link></li>
+    <li><router-link to="/joc/true" class="routerlink">Game of the day</router-link></li>
     <li><router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link></li>
     <li><router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link></li>
     <li><router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link></li>
@@ -509,8 +524,9 @@ const routes = [
     component: Home,
   },
   {
-    path: "/joc",
+    path: "/joc/:gotdPROP",
     component: Partida,
+    props: true,
   },
   {
     path: "/login",
