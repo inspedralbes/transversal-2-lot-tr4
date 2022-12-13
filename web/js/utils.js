@@ -198,7 +198,7 @@ const Partida = Vue.component("partida", {
         this.dificultadVacia = true;
       } else {
         let url;
-        if (this.gotd) {
+        if (this.gotdPROP) {
           url = "./trivia4-app/public/api/getJSONPartidaDelDia";
           console.log(url);
         } else {
