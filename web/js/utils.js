@@ -73,30 +73,27 @@ const Partida = Vue.component("partida", {
                 <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                     <div class="container">
                         <div class="Pregunta">
-                            Category: {{pregunta.category}}<br>
+                            <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
                             Question {{index + 1}}:<br>
                             {{pregunta.question}}
                         </div>
                         <br><br><br>
                         <div class="Respuesta-1"
-                            v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index)">
+                            v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                             <a class="button" :id="'Resposta1-' + (index)"
-                                :href="'#slide-' + (index + 1)">{{respuestas[index][0]}}</a>
+                                 >{{respuestas[index][0]}}</a>
                         </div>
                         <div class="Respuesta-2"
-                            v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index)">
-                            <a class="button" :id="'Resposta2-' + (index)"
-                                :href="'#slide-' + (index + 1)">{{respuestas[index][1]}}</a>
+                            v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                         </div>
                         <div class="Respuesta-3"
-                            v-on:click.once="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index)">
-                            <a class="button" :id="'Resposta3-' + (index)"
-                                :href="'#slide-' + (index + 1)">{{respuestas[index][2]}}</a>
+                            v-on:click.once="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                         </div>
                         <div class="Respuesta-4"
-                            v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index)">
-                            <a class="button" :id="'Resposta4-' + (index)"
-                                :href="'#slide-' + (index + 1)">{{respuestas[index][3]}}</a>
+                            v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                            <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                         </div>
                     </div>
                 </div>
@@ -137,6 +134,11 @@ const Partida = Vue.component("partida", {
     </div>
   </div>`,
   methods: {
+    delay(URL) {
+      setTimeout(function () {
+        window.location = URL;
+      }, 2000);
+    },
     jugar() {
       let categoriaF = "";
 
