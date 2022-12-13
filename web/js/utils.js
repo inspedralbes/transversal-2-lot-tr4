@@ -146,15 +146,12 @@ const Partida = Vue.component("partida", {
     </div>
   </div>`,
   mounted: function () {
-    if (this.gotd == true) {
+    if (this.gotdPROP == "true") {
       this.jugar();
     }
   },
 
   methods: {
-    getGOTD(){
-      return this.gotdPROP;
-    },
     countDownTimer() {
       if (this.countDown > 0) {
         setTimeout(() => {
@@ -194,40 +191,35 @@ const Partida = Vue.component("partida", {
         categoriaF = "categories=" + this.categoria + "&";
       }
 
-      if (this.dificultad == "" && !this.gotd) {
-        this.dificultadVacia = true;
+      let url;
+      if (this.gotdPROP == "true") {
+        url = "./trivia4-app/public/api/getJSONPartidaDelDia";
       } else {
-        let url;
-        if (this.gotdPROP) {
-          url = "./trivia4-app/public/api/getJSONPartidaDelDia";
-          console.log(url);
-        } else {
-          url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
-        }
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            this.preguntas = data;
-            data.forEach((question) => {
-              let pregunta = [];
-              question.incorrectAnswers.forEach((respostes) => {
-                pregunta.push(respostes);
-              });
-              pregunta.push(question.correctAnswer);
-              this.respuestas.push(pregunta);
-            });
-            this.shuffleRespostes();
-            this.empezado = true;
-            if (this.store.logged) {
-              let datosEnvio = new FormData();
-              datosEnvio.append("difficulty", this.dificultad);
-              datosEnvio.append("category", this.categoria);
-              datosEnvio.append("json", JSON.stringify(this.preguntas));
-
-              this.enviarDades(datosEnvio);
-            }
-          });
+        url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
       }
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          this.preguntas = data;
+          data.forEach((question) => {
+            let pregunta = [];
+            question.incorrectAnswers.forEach((respostes) => {
+              pregunta.push(respostes);
+            });
+            pregunta.push(question.correctAnswer);
+            this.respuestas.push(pregunta);
+          });
+          this.shuffleRespostes();
+          this.empezado = true;
+          if (this.store.logged) {
+            let datosEnvio = new FormData();
+            datosEnvio.append("difficulty", this.dificultad);
+            datosEnvio.append("category", this.categoria);
+            datosEnvio.append("json", JSON.stringify(this.preguntas));
+
+            this.enviarDades(datosEnvio);
+          }
+        });
     },
     enviarDades(datosPregunta) {
       fetch("./trivia4-app/public/api/setDadesPartida", {
@@ -248,11 +240,11 @@ const Partida = Vue.component("partida", {
           this.contadorBuenas++;
           document.getElementById(
             "resultsPrint"
-          ).innerHTML = `<p>Correct Answer!</p>`
+          ).innerHTML = `<p>Correct Answer!</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 2000); 
+          }, 2000);
         } else {
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
