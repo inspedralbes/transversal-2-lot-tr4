@@ -25,6 +25,7 @@ const Partida = Vue.component("partida", {
       acabado: false,
       dificultadVacia: false,
       idGame: 0,
+      store: useLoginStore(),
     };
   },
   template: `
@@ -139,6 +140,18 @@ const Partida = Vue.component("partida", {
         window.location = URL;
       }, 2000);
     },
+    resetDades() {
+      this.preguntas = [];
+      this.respuestas = [];
+      this.contadorBuenas = 0;
+      this.contadorRespuestas = 0;
+      this.dificultad = "";
+      this.categoria = "";
+      this.empezado = false;
+      this.acabado = false;
+      this.dificultadVacia = false;
+      this.idGame = 0;
+    },
     jugar() {
       let categoriaF = "";
 
@@ -164,13 +177,14 @@ const Partida = Vue.component("partida", {
             });
             this.shuffleRespostes();
             this.empezado = true;
+            if (this.store.logged) {
+              let datosEnvio = new FormData();
+              datosEnvio.append("difficulty", this.dificultad);
+              datosEnvio.append("category", this.categoria);
+              datosEnvio.append("json", JSON.stringify(this.preguntas));
 
-            let datosEnvio = new FormData();
-            datosEnvio.append("difficulty", this.dificultad);
-            datosEnvio.append("category", this.categoria);
-            datosEnvio.append("json", JSON.stringify(this.preguntas));
-
-            this.enviarDades(datosEnvio);
+              this.enviarDades(datosEnvio);
+            }
           });
       }
     },
@@ -202,7 +216,6 @@ const Partida = Vue.component("partida", {
           }, 2000);
         }
         this.contadorRespuestas++;
-        this.enviarDadesPartidaJugador();
       }
 
       if (this.contadorRespuestas == 10) {
@@ -211,6 +224,9 @@ const Partida = Vue.component("partida", {
         document.getElementById(
           "scorePrint"
         ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
+        if (this.store.logged) {
+          this.enviarDadesPartidaJugador();
+        }
       }
     },
     shuffleRespostes: function () {
