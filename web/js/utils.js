@@ -1,9 +1,7 @@
 const Home = Vue.component("home", {
-  template: `<div class="loginSign">
-  <p>Hello there this is the best trivial game ever created</p>
-  
-  
-  
+  template: `
+  <div class="loginSign">
+    <p>Hello there this is the best trivial game ever created</p>
   </div>`,
 });
 
@@ -310,7 +308,6 @@ const totesLesPartides = Vue.component("historial-general", {
             <li>Game: {{partida.id_game}}</li>
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
-            <router-link to="/joc" class="routerlink" id-partida=partida.id_game>Play a game</router-link>
         </div>
         <router-view></router-view>
     </div>
