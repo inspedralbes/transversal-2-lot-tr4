@@ -225,6 +225,13 @@ const Partida = Vue.component("partida", {
         if (respuesta == respuestaCorrecta) {
           pregunta.classList.add("correctAnswer");
           this.contadorBuenas++;
+          document.getElementById(
+            "resultsPrint"
+          ).innerHTML = `<p>Correct Answer!</p>`
+          document.getElementById("resultsPrint").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("resultsPrint").style.display = "none";
+          }, 2000); 
         } else {
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
