@@ -1,7 +1,22 @@
 const Home = Vue.component("home", {
-  template: `
-  <div class="loginSign">
-    <p>Hello there this is the best trivial game ever created</p>
+  template: `<div class="loginSign">
+    <div class="menu">
+      <div class="news">
+      <br>
+        <p>Welcome to League of Trivia. This is the first update of the game, so stay stunned for more news in the future!</p>
+      </div>
+      <div class="inspedralbes">
+        <p>Aqui la pagina del instituto para el cual se entrega este juegazo</p>
+        <br>
+        <img src="img/LogoPedralbes.png" alt="Logo Pedralbes">
+      </div>
+      <div class="fotoquiz">
+        <img src="img/quiz_invi.png" alt="Quiz Foto">
+      </div>
+      <div class="extra">
+        <p>In this extra part we will be informing about other things to our players!</p>
+      </div>
+    </div>
   </div>`,
 });
 
@@ -67,43 +82,48 @@ const Partida = Vue.component("partida", {
         <br>
         <div class="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
     </div>
-    <div class="b-slider" v-show="!acabado">
-        <div class="slider">
-            <div class="slides">
-                <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
-                    <div class="container">
-                        <div class="Pregunta">
-                            <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
-                            Question {{index + 1}}:<br>
-                            {{pregunta.question}}
-                        </div>
-                        <br><br><br>
-                        <div class="Respuesta-1"
-                            v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                            <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
-                        </div>
-                        <div class="Respuesta-2"
-                            v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                            <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
-                        </div>
-                        <div class="Respuesta-3"
-                            v-on:click.once="resetTime(), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                            <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
-                        </div>
-                        <div class="Respuesta-4"
-                            v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                            <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="wrapper">
+      <div class="contador">
+        <div id="number">
         </div>
-    </div>
-    <div class="Pregunta">
-        {{ countDown }}
-    </div>
-    <div id="resultsPrint">
-    </div>
+      </div>
+      <div class="b-slider" v-show="!acabado">
+          <div class="slider">
+              <div class="slides">
+                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
+                      <div class="container">
+                          <div class="Pregunta">
+                              <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
+                              Question {{index + 1}}:<br>
+                              {{pregunta.question}}
+                          </div>
+                          <br><br><br>
+                          <div class="Respuesta-1"
+                              v-on:click.once="comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                              <a class="button" :id="'Resposta1-' + (index)"
+                                  >{{respuestas[index][0]}}</a>
+                          </div>
+                          <div class="Respuesta-2"
+                              v-on:click.once="comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                              <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
+                          </div>
+                          <div class="Respuesta-3"
+                              v-on:click.once="comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                              <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
+                          </div>
+                          <div class="Respuesta-4"
+                              v-on:click.once="comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                              <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div id="resultsPrint">
+      </div>
+    </div>  
+    
     <div id="scorePrint" class="scorePrint">
     </div>
     <div v-show="empezado">
@@ -209,6 +229,13 @@ const Partida = Vue.component("partida", {
         if (respuesta == respuestaCorrecta) {
           pregunta.classList.add("correctAnswer");
           this.contadorBuenas++;
+          document.getElementById(
+            "resultsPrint"
+          ).innerHTML = `<p>Correct Answer!</p>`
+          document.getElementById("resultsPrint").style.display = "block";
+          setTimeout(function () {
+            document.getElementById("resultsPrint").style.display = "none";
+          }, 2000); 
         } else {
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
@@ -345,7 +372,7 @@ const Registre = Vue.component("registre-player", {
   template: `
   <div class="loginSign">
     <br>
-    <h2>Register</h2>
+    <h2>REGISTER</h2>
     <b-col sm="5" class="mx-auto">
       <b-form-input v-model="form.name" placeholder="Nom" class="m-3" required></b-form-input>
       <b-form-input v-model="form.surname" placeholder="Cognom" class="m-3" required></b-form-input>
@@ -353,7 +380,7 @@ const Registre = Vue.component("registre-player", {
       <b-form-input v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
       <b-form-input v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
     </b-col>
-    <b-button @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+    <b-button class="buttonPlay"@click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
     </b-button>
   </div>
@@ -394,7 +421,7 @@ const Login = Vue.component("login", {
           <b-form-input v-model="form.nickname" placeholder="Nickname" class="m-3" required></b-form-input>
           <b-form-input v-model="form.psswd" type="password" placeholder="Password" class="m-3" required></b-form-input>
         </b-col>
-        <b-button @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+        <b-button class="buttonPlay" @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
         </b-button>
       </div>
