@@ -362,6 +362,10 @@ table {
     border-color: #C89B3C;
 }
 
+b-form-input {
+    max-width: 200px;
+}
+
 .routerlink {
     float: left;
     color: #A09B8C;
