@@ -103,7 +103,7 @@
 html,
 body {
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 body {
@@ -251,7 +251,8 @@ a {
 a:hover {
     background-color: rgb(52, 142, 152);
     color: white;
-    transform: scale(1.2)
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 .Titulo {
@@ -421,7 +422,5 @@ b-form-input {
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-    /* position: fixed; */
     bottom: 0;
-    width: 100%;
 }
