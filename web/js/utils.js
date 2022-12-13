@@ -37,7 +37,6 @@ const Partida = Vue.component("partida", {
       empezado: false,
       acabado: false,
       dificultadVacia: false,
-      gotd: this.getGOTD(),
       idGame: 0,
       store: useLoginStore(),
       countDown: 20,
