@@ -84,7 +84,8 @@ const Partida = Vue.component("partida", {
     </div>
     <div class="wrapper">
       <div class="contador">
-        <div id="number">
+        <div id="buttonPlayGame" class="timer">
+        {{ countDown }}
         </div>
       </div>
       <div class="b-slider" v-show="!acabado">
@@ -123,9 +124,6 @@ const Partida = Vue.component("partida", {
       <div id="resultsPrint">
       </div>
     </div>  
-    <div class="Pregunta">
-    {{ countDown }}
-    </div>
     <div id="scorePrint" class="scorePrint">
     </div>
     <div v-show="empezado">
@@ -151,8 +149,10 @@ const Partida = Vue.component("partida", {
         setTimeout(() => {
           this.countDown -= 1
           this.countDownTimer()
+          document.getElementById("buttonPlayGame").style.display = "block";
         }, 1000)
       }
+      
     },
     delay(URL) {
       setTimeout(function () {

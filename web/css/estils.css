@@ -436,6 +436,7 @@ b-form-input {
 
 .contador{
     grid-area: 1 / 1 / 2 / 2;
+    line-height: 500px;
 }
 
 .wrapper{
@@ -464,3 +465,17 @@ b-form-input {
   .fotoquiz { grid-area: fotoquiz; }
   
   .extra { grid-area: extra; }
+
+  .timer{
+    display: none;
+    margin: 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: "BeaufortforLOL-Bold";
+    font-size: 200px;
+    background: -webkit-linear-gradient(#005A82, #0AC8B9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    -webkit-text-stroke: 1px #C89B3C;
+  }
