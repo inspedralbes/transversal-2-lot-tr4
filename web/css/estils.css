@@ -178,6 +178,12 @@ body {
     max-height: 100%;
 }
 
+.Respuesta-5{
+    display: none;
+}
+
+
+
 p,
 label,
 option,

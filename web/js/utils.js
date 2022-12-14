@@ -1,5 +1,7 @@
 const Home = Vue.component("home", {
-  template: `<div class="loginSign">
+  template: `
+  <div class="loginSign">
+    <jugadors></jugadors>
     <div class="menu">
       <div class="news">
       <br>
@@ -40,6 +42,7 @@ const Partida = Vue.component("partida", {
       idGame: 0,
       store: useLoginStore(),
       countDown: 20,
+      indice: 1,
     };
   },
   template: `
@@ -116,6 +119,10 @@ const Partida = Vue.component("partida", {
                               v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                               <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                           </div>
+                          <div class="Respuesta-5"
+                              v-on:click.once="resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                              <a class="button" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -151,24 +158,71 @@ const Partida = Vue.component("partida", {
 
   methods: {
     countDownTimer() {
-      if (this.countDown > 0) {
-        setTimeout(() => {
+      if(this.countDown != 0){
+        const myTimeout = setTimeout(() => {
           this.countDown -= 1
           this.countDownTimer()
           document.getElementById("buttonPlayGame").style.display = "block";
         }, 1000)
+      }else if (this.countDown == 0){
+        if (this.indice == 1){
+          document.getElementById("Resposta5-0").click();
+          this.indice++;
+        }
+        else if (this.indice == 2){
+          document.getElementById("Resposta5-1").click();
+          this.indice++;
+        }
+        else if (this.indice == 3){
+          document.getElementById("Resposta5-2").click();
+          this.indice++;
+        }
+        else if (this.indice == 4){
+          document.getElementById("Resposta5-3").click();
+          this.indice++;
+        }
+        else if (this.indice == 5){
+          document.getElementById("Resposta5-4").click();
+          this.indice++;
+        }
+        else if (this.indice == 6){
+          document.getElementById("Resposta5-5").click();
+          this.indice++;
+        }
+        else if (this.indice == 7){
+          document.getElementById("Resposta5-6").click();
+          this.indice++;
+        }
+        else if (this.indice == 8){
+          document.getElementById("Resposta5-7").click();
+          this.indice++;
+        }
+        else if (this.indice == 9){
+          document.getElementById("Resposta5-8").click();
+          this.indice++;
+        }
+        else if (this.indice == 10){
+          document.getElementById("Resposta5-9").click();
+          this.indice++;
+        }
       }
-      
     },
+
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
       }, 2000);
     },
 
-    resetTime() {
+    resetTime(index) {
       setTimeout(() => {
-        this.countDown = 20;
+        if(this.countDown == 0){
+          this.countDown = 20;
+          this.countDownTimer(index);
+        }else{
+          this.countDown = 20;
+          this.indice++;
+        }       
       }, 2000);
     },
 
@@ -217,7 +271,9 @@ const Partida = Vue.component("partida", {
             datosEnvio.append("category", this.categoria);
             datosEnvio.append("json", JSON.stringify(this.preguntas));
 
-            this.enviarDades(datosEnvio);
+            if (this.gotdPROP != "true") {
+              this.enviarDades(datosEnvio);
+            }
           }
         });
     },
@@ -348,7 +404,6 @@ const totesLesPartides = Vue.component("historial-general", {
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
         </div>
-        <router-view></router-view>
     </div>
   </div>
   `,
@@ -361,6 +416,47 @@ const totesLesPartides = Vue.component("historial-general", {
           this.partidas = data;
         });
     }
+  },
+});
+
+Vue.component("jugadors", {
+  data: function () {
+    return {
+      players: [],
+      mostrar: false,
+      store: useLoginStore(),
+    };
+  },
+  template: `
+    <div v-show="mostrar">
+      <div v-for="player in players" >
+        <h1>{{player.id}}</h1>
+        <li>{{player.nickname}}</li>
+        <b-button v-show="store.logged" class="buttonPlay" @click="enviarSolicitud(player.id)">Enviar sol·licitud d'amistat</b-button>
+      </div>
+    </div>
+  `,
+  mounted: function () {
+    url = "./trivia4-app/public/api/getPlayers";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        this.players = data;
+        // console.log(this.players);
+        this.mostrar = true;
+      });
+  },
+  methods: {
+    enviarSolicitud(idSolicitat) {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_requester", this.store.getIdPlayer());
+      datosEnvio.append("id_requested", idSolicitat);
+
+      fetch(`./trivia4-app/public/api/mandarSolicitutAmistat`, {
+        method: "POST",
+        body: datosEnvio,
+      });
+    },
   },
 });
 
@@ -388,7 +484,7 @@ const Registre = Vue.component("registre-player", {
       <b-form-input v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
       <b-form-input v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
     </b-col>
-    <b-button class="buttonPlay"@click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+    <b-button class="buttonPlay" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
     </b-button>
   </div>
