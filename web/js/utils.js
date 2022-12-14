@@ -158,50 +158,50 @@ const Partida = Vue.component("partida", {
 
   methods: {
     countDownTimer() {
-      if(this.countDown != 0){
+      document.getElementById("buttonPlayGame").style.display = "block";
+      if (this.countDown != 0) {
         const myTimeout = setTimeout(() => {
           this.countDown -= 1
           this.countDownTimer()
-          document.getElementById("buttonPlayGame").style.display = "block";
         }, 1000)
-      }else if (this.countDown == 0){
-        if (this.indice == 1){
+      } else if (this.countDown == 0) {
+        if (this.indice == 1) {
           document.getElementById("Resposta5-0").click();
           this.indice++;
         }
-        else if (this.indice == 2){
+        else if (this.indice == 2) {
           document.getElementById("Resposta5-1").click();
           this.indice++;
         }
-        else if (this.indice == 3){
+        else if (this.indice == 3) {
           document.getElementById("Resposta5-2").click();
           this.indice++;
         }
-        else if (this.indice == 4){
+        else if (this.indice == 4) {
           document.getElementById("Resposta5-3").click();
           this.indice++;
         }
-        else if (this.indice == 5){
+        else if (this.indice == 5) {
           document.getElementById("Resposta5-4").click();
           this.indice++;
         }
-        else if (this.indice == 6){
+        else if (this.indice == 6) {
           document.getElementById("Resposta5-5").click();
           this.indice++;
         }
-        else if (this.indice == 7){
+        else if (this.indice == 7) {
           document.getElementById("Resposta5-6").click();
           this.indice++;
         }
-        else if (this.indice == 8){
+        else if (this.indice == 8) {
           document.getElementById("Resposta5-7").click();
           this.indice++;
         }
-        else if (this.indice == 9){
+        else if (this.indice == 9) {
           document.getElementById("Resposta5-8").click();
           this.indice++;
         }
-        else if (this.indice == 10){
+        else if (this.indice == 10) {
           document.getElementById("Resposta5-9").click();
           this.indice++;
         }
@@ -214,16 +214,16 @@ const Partida = Vue.component("partida", {
       }, 2000);
     },
 
-    resetTime(index) {
-      setTimeout(() => {
-        if(this.countDown == 0){
-          this.countDown = 20;
-          this.countDownTimer(index);
-        }else{
-          this.countDown = 20;
-          this.indice++;
-        }       
-      }, 2000);
+    resetTime() {
+        setTimeout(() => {
+          if (this.countDown == 0) {
+            this.countDown = 20;
+            this.countDownTimer(index);
+          } else {
+            this.countDown = 20;
+            this.indice++;
+          }
+        }, 2000);
     },
 
     resetDades() {
