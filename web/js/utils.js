@@ -699,7 +699,7 @@ Vue.component("navbar-router", {
       <router-link to="/joc/false" class="routerlink">Play a game</router-link>
   </li>
   <li>
-      <router-link to="/joc/true" class="routerlink" v-show="store.logged">Game of the day</router-link>
+      <router-link to="/gotd" class="routerlink" v-show="store.logged">Game of the day</router-link>
   </li>
   <li>
       <router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link>
@@ -733,6 +733,18 @@ Vue.component("navbar-router", {
   },
 });
 
+const Gotd = Vue.component('gotd', {
+  data: function () {
+    return {
+      idPlayer: useLoginStore().getIdPlayer(),
+    };
+  },
+  template: `
+  <div class="loginSign">
+      <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
+  </div>`,
+})
+
 // =============== Routes ===============
 const routes = [
   {
@@ -743,6 +755,10 @@ const routes = [
     path: "/joc/:gotdPROP",
     component: Partida,
     props: true,
+  },
+  {
+    path: "/gotd",
+    component: Gotd,
   },
   {
     path: "/login",
