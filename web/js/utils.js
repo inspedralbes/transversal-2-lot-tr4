@@ -2,6 +2,7 @@ const Home = Vue.component("home", {
   template: `
   <div class="loginSign">
     <jugadors></jugadors>
+    <solicituts></solicituts>
     <div class="menu">
       <div class="news">
       <br>
@@ -376,10 +377,10 @@ Vue.component("jugadors", {
   },
   template: `
     <div v-show="mostrar">
+      <h1>Llista de jugadors.</h1>
       <div v-for="player in players" >
-        <h1>{{player.id}}</h1>
-        <li>{{player.nickname}}</li>
-        <b-button v-show="store.logged" class="buttonPlay" @click="enviarSolicitud(player.id)">Enviar sol·licitud d'amistat</b-button>
+        <li>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
+        <b-button v-show="store.logged && store.id_player != player.id" class="buttonPlay" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
       </div>
     </div>
   `,
@@ -403,9 +404,73 @@ Vue.component("jugadors", {
         method: "POST",
         body: datosEnvio,
       });
+      boton = document.getElementById("boto" + idSolicitat);
+      boton.disabled = true;
+      boton.innerHTML = "Pendent...";
     },
   },
 });
+
+Vue.component("solicituts", {
+  data: function () {
+    return {
+      solicituts: [],
+      mostrar: false,
+      store: useLoginStore(),
+    };
+  },
+  template: `
+  <div>
+    <div v-show="mostrar">
+      <h1 v-show="solicituts.length == 0">You didn't add any player to your friends list!</h1>
+      <div v-for="solicitut in solicituts">
+        <h1>{{solicitut.id_requester}}</h1>
+        <p>
+          <b-button class="buttonPlay" @click="envia(true, solicitut.id)">Accept</b-button>
+          <b-button class="buttonPlay" variant="danger" @click="envia(false, solicitut.id)">Deny</b-button>
+        </p> 
+      </div>
+    </div>
+    <div v-show="!mostrar">
+      <h1>Encara no has iniciat sessió!</h1>
+    </div>
+  </div>
+  `,
+  mounted: function () {
+    if (this.store.logged) {
+      this.rebreSolicituts();
+    }
+  },
+  methods: {
+    envia(opcio, id) {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id", id);
+      datosEnvio.append("accept", opcio);
+
+      fetch(`./trivia4-app/public/api/resultatSolicitutAmistat`, {
+        method: "POST",
+        body: datosEnvio,
+      });
+      this.rebreSolicituts();
+    },
+    rebreSolicituts() {
+      url =
+        "./trivia4-app/public/api/getSolicitutsPendents/" +
+        this.store.getIdPlayer();
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data != null) {
+            this.solicituts = data;
+            // console.log(this.solicituts);
+            this.mostrar = true;
+          }
+        });
+    },
+  },
+});
+
+Vue.component("llista-amics", {});
 
 const Registre = Vue.component("registre-player", {
   data: function () {
