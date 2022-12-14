@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\GamesController;
 use App\Http\Controllers\Api\PlayersController;
 use App\Http\Controllers\Api\GameXPlayerController;
+use App\Http\Controllers\Api\FriendsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,18 +22,32 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/setDadesPartida', [GamesController::class, 'store']);
+// ---- Players ----
+
+Route::post('/setDadesPlayer', [PlayersController::class, 'store']);
+
+Route::post('/getDadesPlayer', [PlayersController::class, 'send']);
+
+// ---- Dades partida ----
 
 Route::get('/getJSONPartida/{id}', [GamesController::class, 'getJSON']);
 
 Route::get('/getJSONPartidaDelDia', [GamesController::class, 'getJSONgotd']);
 
-Route::post('/setDadesPlayer', [PlayersController::class, 'store']);
+Route::post('/setDadesPartida', [GamesController::class, 'store']);
 
-Route::post('/getDadesPlayer', [PlayersController::class, 'send']);
+// ---- Dades partida + jugador ----
 
 Route::post('/storeGameXPlayer', [GameXPlayerController::class, 'store']);
 
 Route::get('/getPartidesUsuari/{id}', [GameXPlayerController::class, 'get']);
 
 Route::get('/getPartides', [GameXPlayerController::class, 'getPartides']);
+
+// ---- Solicituts d'amistat ----
+
+Route::get('/getSolicitutsPendents/{id}', [FriendsController::class, 'getPendingRequests']);
+
+Route::post('/mandarSolicitutAmistat', [FriendsController::class, 'sendFriendRequest']);
+
+Route::post('/resultatSolicitutAmistat', [FriendsController::class, 'endFriendRequest']);
