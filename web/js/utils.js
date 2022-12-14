@@ -199,11 +199,11 @@ const Partida = Vue.component("partida", {
 
   methods: {
     countDownTimer() {
+      document.getElementById("buttonPlayGame").style.display = "block";
       if (this.countDown != 0) {
         const myTimeout = setTimeout(() => {
           this.countDown -= 1
           this.countDownTimer()
-          document.getElementById("buttonPlayGame").style.display = "block";
         }, 1000)
       } else if (this.countDown == 0) {
         if (this.indice == 1) {
@@ -255,16 +255,16 @@ const Partida = Vue.component("partida", {
       }, 2000);
     },
 
-    resetTime(index) {
-      setTimeout(() => {
-        if (this.countDown == 0) {
-          this.countDown = 20;
-          this.countDownTimer(index);
-        } else {
-          this.countDown = 20;
-          this.indice++;
-        }
-      }, 2000);
+    resetTime() {
+        setTimeout(() => {
+          if (this.countDown == 0) {
+            this.countDown = 20;
+            this.countDownTimer(index);
+          } else {
+            this.countDown = 20;
+            this.indice++;
+          }
+        }, 2000);
     },
 
     resetDades() {
