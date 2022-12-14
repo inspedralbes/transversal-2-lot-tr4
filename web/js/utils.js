@@ -1,5 +1,7 @@
 const Home = Vue.component("home", {
-  template: `<div class="loginSign">
+  template: `
+  <div class="loginSign">
+    <jugadors></jugadors>
     <div class="menu">
       <div class="news">
       <br>
@@ -269,7 +271,9 @@ const Partida = Vue.component("partida", {
             datosEnvio.append("category", this.categoria);
             datosEnvio.append("json", JSON.stringify(this.preguntas));
 
-            this.enviarDades(datosEnvio);
+            if (this.gotdPROP != "true") {
+              this.enviarDades(datosEnvio);
+            }
           }
         });
     },
@@ -400,7 +404,6 @@ const totesLesPartides = Vue.component("historial-general", {
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
         </div>
-        <router-view></router-view>
     </div>
   </div>
   `,
@@ -413,6 +416,47 @@ const totesLesPartides = Vue.component("historial-general", {
           this.partidas = data;
         });
     }
+  },
+});
+
+Vue.component("jugadors", {
+  data: function () {
+    return {
+      players: [],
+      mostrar: false,
+      store: useLoginStore(),
+    };
+  },
+  template: `
+    <div v-show="mostrar">
+      <div v-for="player in players" >
+        <h1>{{player.id}}</h1>
+        <li>{{player.nickname}}</li>
+        <b-button v-show="store.logged" class="buttonPlay" @click="enviarSolicitud(player.id)">Enviar sol·licitud d'amistat</b-button>
+      </div>
+    </div>
+  `,
+  mounted: function () {
+    url = "./trivia4-app/public/api/getPlayers";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        this.players = data;
+        // console.log(this.players);
+        this.mostrar = true;
+      });
+  },
+  methods: {
+    enviarSolicitud(idSolicitat) {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_requester", this.store.getIdPlayer());
+      datosEnvio.append("id_requested", idSolicitat);
+
+      fetch(`./trivia4-app/public/api/mandarSolicitutAmistat`, {
+        method: "POST",
+        body: datosEnvio,
+      });
+    },
   },
 });
 
@@ -440,7 +484,7 @@ const Registre = Vue.component("registre-player", {
       <b-form-input v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
       <b-form-input v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
     </b-col>
-    <b-button class="buttonPlay"@click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+    <b-button class="buttonPlay" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
     </b-button>
   </div>

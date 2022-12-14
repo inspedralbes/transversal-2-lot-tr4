@@ -19,8 +19,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
 
-            $difficulty = "medium";
-
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
