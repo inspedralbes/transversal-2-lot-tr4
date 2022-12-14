@@ -42,4 +42,10 @@ class PlayersController extends Controller
             }
         }
     }
+
+    public function getAllPlayers()
+    {
+        $players = Player::get();
+        return $players;
+    }
 }

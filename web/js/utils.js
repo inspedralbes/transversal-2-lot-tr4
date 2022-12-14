@@ -1,5 +1,7 @@
 const Home = Vue.component("home", {
-  template: `<div class="loginSign">
+  template: `
+  <div class="loginSign">
+    <jugadors></jugadors>
     <div class="menu">
       <div class="news">
       <br>
@@ -153,12 +155,11 @@ const Partida = Vue.component("partida", {
     countDownTimer() {
       if (this.countDown > 0) {
         setTimeout(() => {
-          this.countDown -= 1
-          this.countDownTimer()
+          this.countDown -= 1;
+          this.countDownTimer();
           document.getElementById("buttonPlayGame").style.display = "block";
-        }, 1000)
+        }, 1000);
       }
-      
     },
     delay(URL) {
       setTimeout(function () {
@@ -217,7 +218,9 @@ const Partida = Vue.component("partida", {
             datosEnvio.append("category", this.categoria);
             datosEnvio.append("json", JSON.stringify(this.preguntas));
 
-            this.enviarDades(datosEnvio);
+            if (this.gotdPROP != "true") {
+              this.enviarDades(datosEnvio);
+            }
           }
         });
     },
@@ -479,6 +482,27 @@ const Login = Vue.component("login", {
           this.procesando = false;
         });
     },
+  },
+});
+
+Vue.component("jugadors", {
+  data: function () {
+    return {
+      players: [],
+    };
+  },
+  template: `
+    <div v-for="player in players">
+      <li>{{player.nickname}}</li>
+    </div>
+  `,
+  mounted: function () {
+    fetch("./trivia4-app/public/api/getPlayers")
+      .then((response) => response.json())
+      .then((data) => {
+        this.players = data;
+        console.log(this.players);
+      });
   },
 });
 
