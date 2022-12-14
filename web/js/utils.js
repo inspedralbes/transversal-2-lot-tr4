@@ -40,6 +40,7 @@ const Partida = Vue.component("partida", {
       idGame: 0,
       store: useLoginStore(),
       countDown: 20,
+      indice: 1,
     };
   },
   template: `
@@ -116,6 +117,10 @@ const Partida = Vue.component("partida", {
                               v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                               <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                           </div>
+                          <div class="Respuesta-5"
+                              v-on:click.once="resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                              <a class="button" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -151,24 +156,71 @@ const Partida = Vue.component("partida", {
 
   methods: {
     countDownTimer() {
-      if (this.countDown > 0) {
-        setTimeout(() => {
+      if(this.countDown != 0){
+        const myTimeout = setTimeout(() => {
           this.countDown -= 1
           this.countDownTimer()
           document.getElementById("buttonPlayGame").style.display = "block";
         }, 1000)
+      }else if (this.countDown == 0){
+        if (this.indice == 1){
+          document.getElementById("Resposta5-0").click();
+          this.indice++;
+        }
+        else if (this.indice == 2){
+          document.getElementById("Resposta5-1").click();
+          this.indice++;
+        }
+        else if (this.indice == 3){
+          document.getElementById("Resposta5-2").click();
+          this.indice++;
+        }
+        else if (this.indice == 4){
+          document.getElementById("Resposta5-3").click();
+          this.indice++;
+        }
+        else if (this.indice == 5){
+          document.getElementById("Resposta5-4").click();
+          this.indice++;
+        }
+        else if (this.indice == 6){
+          document.getElementById("Resposta5-5").click();
+          this.indice++;
+        }
+        else if (this.indice == 7){
+          document.getElementById("Resposta5-6").click();
+          this.indice++;
+        }
+        else if (this.indice == 8){
+          document.getElementById("Resposta5-7").click();
+          this.indice++;
+        }
+        else if (this.indice == 9){
+          document.getElementById("Resposta5-8").click();
+          this.indice++;
+        }
+        else if (this.indice == 10){
+          document.getElementById("Resposta5-9").click();
+          this.indice++;
+        }
       }
-      
     },
+
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
       }, 2000);
     },
 
-    resetTime() {
+    resetTime(index) {
       setTimeout(() => {
-        this.countDown = 20;
+        if(this.countDown == 0){
+          this.countDown = 20;
+          this.countDownTimer(index);
+        }else{
+          this.countDown = 20;
+          this.indice++;
+        }       
       }, 2000);
     },
 
