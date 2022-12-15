@@ -218,7 +218,7 @@ const Partida = Vue.component("partida", {
         setTimeout(() => {
           if (this.countDown == 0) {
             this.countDown = 20;
-            this.countDownTimer(index);
+            this.countDownTimer();
           } else {
             this.countDown = 20;
             this.indice++;
