@@ -598,7 +598,7 @@ const Amics = Vue.component("llista-amics", {
   methods: {
     rebreSolicituts() {
       this.amics = [];
-      url = "./trivia4-app/public/api/dadesAmics";
+      url = "./trivia4-app/public/api/dadesAmics/"+this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {

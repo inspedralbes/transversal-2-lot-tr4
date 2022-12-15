@@ -46,14 +46,21 @@ class FriendsController extends Controller
         return "200";
     }
 
-    public function dadesAmics()
+    public function dadesAmics($id)
     {
         $users = DB::table('friends')
             ->leftJoin('players', function ($join) {
                 $join->on('friends.id_requester', '=', 'players.id')
                     ->orOn('friends.id_requested', '=', 'players.id');
             })
-            ->where('accepted', true)
+            ->where([
+                ['id_requested', '=', $id],
+                ['accepted', '=', true]
+            ])
+            ->where([
+                ['id_requester', '=', $id],
+                ['accepted', '=', true]
+            ])
             ->select('friends.*', 'players.nickname', 'players.id as friend_id')
             ->get();
 
