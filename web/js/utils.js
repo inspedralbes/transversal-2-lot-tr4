@@ -248,15 +248,15 @@ const Partida = Vue.component("partida", {
     },
 
     resetTime() {
-      setTimeout(() => {
-        if (this.countDown == 0) {
-          this.countDown = 20;
-          this.countDownTimer(index);
-        } else {
-          this.countDown = 20;
-          this.indice++;
-        }
-      }, 2000);
+        setTimeout(() => {
+          if (this.countDown == 0) {
+            this.countDown = 20;
+            this.countDownTimer();
+          } else {
+            this.countDown = 20;
+            this.indice++;
+          }
+        }, 2000);
     },
 
     resetDades() {
