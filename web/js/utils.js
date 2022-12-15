@@ -39,6 +39,7 @@ const Partida = Vue.component("partida", {
       store: useLoginStore(),
       countDown: 20,
       indice: 1,
+      timer: null,
     };
   },
   template: `
@@ -151,7 +152,7 @@ const Partida = Vue.component("partida", {
                                 <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
                             <div class="Respuesta-3"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
                             <div class="Respuesta-4"
@@ -200,7 +201,7 @@ const Partida = Vue.component("partida", {
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
       if (this.countDown != 0) {
-        const myTimeout = setTimeout(() => {
+        this.timer = setTimeout(() => {
           this.countDown -= 1;
           this.countDownTimer();
         }, 1000);
@@ -246,15 +247,24 @@ const Partida = Vue.component("partida", {
     },
 
     resetTime() {
-      setTimeout(() => {
-        if (this.countDown == 0) {
-          this.countDown = 20;
-          this.countDownTimer();
-        } else {
-          this.countDown = 20;
-          this.indice++;
-        }
-      }, 2000);
+      clearTimeout(this.timer);
+      if (this.indice == 10) {
+        this.indice = 1;
+        document.getElementById("buttonPlayGame").style.display = "none";
+        this.countDown = 20;
+      } else {
+        setTimeout(() => {
+          if (this.countDown == 0) {
+            this.countDown = 20;
+            this.countDownTimer();
+          } else {
+            this.countDown = 20;
+            this.indice++;
+            this.countDownTimer();
+          }
+        }, 2000);
+      }
+
     },
 
     resetDades() {
@@ -270,11 +280,16 @@ const Partida = Vue.component("partida", {
       this.idGame = 0;
     },
     jugar() {
+      clearTimeout(this.timer);
+      this.indice = 1;
+      this.countDown = 20;
+
       let categoriaF = "";
 
       if (this.categoria != "") {
         categoriaF = "categories=" + this.categoria + "&";
       }
+
 
       let url;
       if (this.gotdPROP == "true") {
@@ -721,8 +736,8 @@ Vue.component("navbar-router", {
   },
   template: `
   <ul id="navbar">
-  <li>
-      <router-link to="/" class="routerlink">Home</router-link>
+  <li v-on:click="HomeResetPartida()">
+      <router-link  to="/" class="routerlink">Home</router-link>
   </li>
   <li>
       <router-link to="/joc/false" class="routerlink">Play a game</router-link>
@@ -761,6 +776,12 @@ Vue.component("navbar-router", {
     logOut() {
       useLoginStore().logout();
     },
+
+    HomeResetPartida() {
+      this.indice = 1;
+      clearTimeout(timer);
+      this.countDown = 20;
+    }
   },
 });
 
