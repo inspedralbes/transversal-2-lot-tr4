@@ -48,4 +48,9 @@ class PlayersController extends Controller
         $players = Player::get();
         return json_encode($players);
     }
+
+    public function getPlayerName($id) {
+        $player = Player::where('id', $id)->firstOrFail();
+        return $player->nickname;
+    }
 }

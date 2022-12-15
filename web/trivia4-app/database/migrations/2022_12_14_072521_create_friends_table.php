@@ -18,8 +18,7 @@ class CreateFriendsTable extends Migration
             $table->unsignedBigInteger('id_requester');
             $table->unsignedBigInteger('id_requested');
             $table->boolean('pending');
-            $table->date('cancelled')->nullable();
-            $table->date('accepted')->nullable();
+            $table->boolean('accepted');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@ const Home = Vue.component("home", {
   template: `
   <div class="loginSign">
     <jugadors></jugadors>
+    <solicituts></solicituts>
     <div class="menu">
       <div class="news">
       <br>
@@ -20,10 +21,6 @@ const Home = Vue.component("home", {
       </div>
     </div>
   </div>`,
-});
-
-const Profile = Vue.component("profile", {
-  template: `<div>Perfil usuari</div>`,
 });
 
 const Partida = Vue.component("partida", {
@@ -48,36 +45,80 @@ const Partida = Vue.component("partida", {
   template: `
   <div>
     <div v-show="!empezado">
-        <div class="Titulo">
-            <br>
-            <h4>Difficulty</h4>
-            <br>
-            <input type="radio" id="facil" value="easy" v-model="dificultad">
-            <label for="facil">Easy</label>
-            <br><br>
-            <input type="radio" id="media" value="medium" v-model="dificultad">
-            <label for="media">Medium</label>
-            <br><br>
-            <input type="radio" id="dificil" value="hard" v-model="dificultad">
-            <label for="dificil">Hard</label>
-            <br><br>
+        <h2 class="Pregunta">Difficulty</h2>
+        <div class="container_dificultad">
+            <div class="selector row">
+                <div class="col">
+                    <input type="radio" name="selector" class="selector-item_radio" id="facil" value="easy"
+                        v-model="dificultad">
+                    <label for="facil" class="selector-item_label">Easy</label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="selector" class="selector-item_radio" id="media" value="medium"
+                        v-model="dificultad">
+                    <label for="media" class="selector-item_label">Medium</label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="selector" class="selector-item_radio" id="dificil" value="hard"
+                        v-model="dificultad">
+                    <label for="dificil" class="selector-item_label">Hard</label>
+                </div>
+            </div>
         </div>
-        <div class="Titulo">
-            <br>
-            <h4>Category</h4>
-            <br>
-            <select v-model="categoria">
-                <option value="arts_and_literature">Art & Literature</option>
-                <option value="film_and_tv">TV shows & Films</option>
-                <option value="food_and_drink">Drinks & Foods</option>
-                <option value="general_knowledge">General Knowlegde</option>
-                <option value="geography">Geography</option>
-                <option value="history">History</option>
-                <option value="music">Music</option>
-                <option value="science">Science</option>
-                <option value="society_and_culture">Culture & Society</option>
-                <option value="sports_and_leisure">Entertainment & Sports</option>
-            </select><br><br><br>
+        <h2 class="Pregunta">Category</h2>
+        <div class="container_categoria">
+            <div class="selector row">
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="arts_and_literature"
+                        value="arts_and_literature" v-model="categoria">
+                    <label for="arts_and_literature" class="selector-item_label">Art& Literature</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="film_and_tv"
+                        value="film_and_tv" v-model="categoria">
+                    <label for="film_and_tv" class="selector-item_label">TV shows & Films</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="food_and_drink"
+                        value="food_and_drink" v-model="categoria">
+                    <label for="food_and_drink" class="selector-item_label">Drinks & Foods</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="general_knowledge"
+                        value="general_knowledge" v-model="categoria">
+                    <label for="general_knowledge" class="selector-item_label">General Knowlegde</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="geography"
+                        value="geography" v-model="categoria">
+                    <label for="geography" class="selector-item_label">Geography</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="history"
+                        value="history" v-model="categoria">
+                    <label for="history" class="selector-item_label">History</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="music" value="music"
+                        v-model="categoria">
+                    <label for="music" class="selector-item_label">Music</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="science"
+                        value="science" v-model="categoria">
+                    <label for="science" class="selector-item_label">Science</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="society_and_culture"
+                        value="society_and_culture" v-model="categoria">
+                    <label for="society_and_culture" class="selector-item_label">Culture & Society</label>
+                </div>
+                <div class="col-6">
+                    <input type="radio" name="selector_categoria" class="selector-item_radio" id="sports_and_leisure"
+                        value="sports_and_leisure" v-model="categoria">
+                    <label for="sports_and_leisure" class="selector-item_label">Entertainment & Sports</label>
+                </div>
+            </div>
         </div>
         <div class="buttonPlayDiv" v-on:click="countDownTimer()">
             <b-button class="buttonPlay" @click="jugar" variant="success">Play</b-button>
@@ -86,51 +127,50 @@ const Partida = Vue.component("partida", {
         <div class="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
     </div>
     <div class="wrapper">
-      <div class="contador">
-        <div id="buttonPlayGame" class="timer">
-        {{ countDown }}
+        <div class="contador">
+            <div id="buttonPlayGame" class="timer">
+                {{ countDown }}
+            </div>
         </div>
-      </div>
-      <div class="b-slider" v-show="!acabado">
-          <div class="slider">
-              <div class="slides">
-                  <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
-                      <div class="container">
-                          <div class="Pregunta">
-                              <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
-                              Question {{index + 1}}:<br>
-                              {{pregunta.question}}
-                          </div>
-                          <br><br><br>
-                          <div class="Respuesta-1"
-                              v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                              <a class="button" :id="'Resposta1-' + (index)"
-                                  >{{respuestas[index][0]}}</a>
-                          </div>
-                          <div class="Respuesta-2"
-                              v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                              <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
-                          </div>
-                          <div class="Respuesta-3"
-                              v-on:click.once="resetTime(), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                              <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
-                          </div>
-                          <div class="Respuesta-4"
-                              v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                              <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
-                          </div>
-                          <div class="Respuesta-5"
-                              v-on:click.once="resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                              <a class="button" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div id="resultsPrint">
-      </div>
-    </div>  
+        <div class="b-slider" v-show="!acabado">
+            <div class="slider">
+                <div class="slides">
+                    <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
+                        <div class="container">
+                            <div class="Pregunta">
+                                <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
+                                Question {{index + 1}}:<br>
+                                {{pregunta.question}}
+                            </div>
+                            <br><br><br>
+                            <div class="Respuesta-1"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
+                            </div>
+                            <div class="Respuesta-2"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
+                            </div>
+                            <div class="Respuesta-3"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
+                            </div>
+                            <div class="Respuesta-4"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+                            </div>
+                            <div class="Respuesta-5"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resultsPrint">
+        </div>
+    </div>
     <div id="scorePrint" class="scorePrint">
     </div>
     <div v-show="empezado">
@@ -149,7 +189,8 @@ const Partida = Vue.component("partida", {
             </tr>
         </table>
     </div>
-  </div>`,
+</div>
+  `,
   mounted: function () {
     if (this.gotdPROP == "true") {
       this.jugar();
@@ -161,47 +202,38 @@ const Partida = Vue.component("partida", {
       document.getElementById("buttonPlayGame").style.display = "block";
       if (this.countDown != 0) {
         const myTimeout = setTimeout(() => {
-          this.countDown -= 1
-          this.countDownTimer()
-        }, 1000)
+          this.countDown -= 1;
+          this.countDownTimer();
+        }, 1000);
       } else if (this.countDown == 0) {
         if (this.indice == 1) {
           document.getElementById("Resposta5-0").click();
           this.indice++;
-        }
-        else if (this.indice == 2) {
+        } else if (this.indice == 2) {
           document.getElementById("Resposta5-1").click();
           this.indice++;
-        }
-        else if (this.indice == 3) {
+        } else if (this.indice == 3) {
           document.getElementById("Resposta5-2").click();
           this.indice++;
-        }
-        else if (this.indice == 4) {
+        } else if (this.indice == 4) {
           document.getElementById("Resposta5-3").click();
           this.indice++;
-        }
-        else if (this.indice == 5) {
+        } else if (this.indice == 5) {
           document.getElementById("Resposta5-4").click();
           this.indice++;
-        }
-        else if (this.indice == 6) {
+        } else if (this.indice == 6) {
           document.getElementById("Resposta5-5").click();
           this.indice++;
-        }
-        else if (this.indice == 7) {
+        } else if (this.indice == 7) {
           document.getElementById("Resposta5-6").click();
           this.indice++;
-        }
-        else if (this.indice == 8) {
+        } else if (this.indice == 8) {
           document.getElementById("Resposta5-7").click();
           this.indice++;
-        }
-        else if (this.indice == 9) {
+        } else if (this.indice == 9) {
           document.getElementById("Resposta5-8").click();
           this.indice++;
-        }
-        else if (this.indice == 10) {
+        } else if (this.indice == 10) {
           document.getElementById("Resposta5-9").click();
           this.indice++;
         }
@@ -429,10 +461,10 @@ Vue.component("jugadors", {
   },
   template: `
     <div v-show="mostrar">
+      <h1>Llista de jugadors.</h1>
       <div v-for="player in players" >
-        <h1>{{player.id}}</h1>
-        <li>{{player.nickname}}</li>
-        <b-button v-show="store.logged" class="buttonPlay" @click="enviarSolicitud(player.id)">Enviar sol·licitud d'amistat</b-button>
+        <li>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
+        <b-button v-show="store.logged && store.id_player != player.id" class="buttonPlay" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
       </div>
     </div>
   `,
@@ -456,9 +488,88 @@ Vue.component("jugadors", {
         method: "POST",
         body: datosEnvio,
       });
+      boton = document.getElementById("boto" + idSolicitat);
+      boton.disabled = true;
+      boton.innerHTML = "Pendent...";
     },
   },
 });
+
+Vue.component("solicituts", {
+  data: function () {
+    return {
+      solicituts: [],
+      mostrar: false,
+      store: useLoginStore(),
+    };
+  },
+  template: `
+  <div>
+    <h1>Solicituts d'amistat.</h1>
+    <div v-show="mostrar">
+      <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
+      <div v-for="solicitut in solicituts">
+        <h1>{{solicitut}}</h1>
+        <p>
+          <b-button class="buttonPlay" @click="envia(true, solicitut.id)">Accept</b-button>
+          <b-button class="buttonPlay" @click="envia(false, solicitut.id)">Deny</b-button>
+        </p> 
+      </div>
+    </div>
+    <div v-show="!mostrar">
+      <h2>No hi ha resultats!</h2>
+    </div>
+  </div>
+  `,
+  mounted: function () {
+    if (this.store.logged) {
+      this.rebreSolicituts();
+    }
+  },
+  methods: {
+    envia(opcio, id) {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id", id);
+      datosEnvio.append("accept", opcio);
+
+      fetch(`./trivia4-app/public/api/resultatSolicitutAmistat`, {
+        method: "POST",
+        body: datosEnvio,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.rebreSolicituts();
+        });
+    },
+    rebreSolicituts() {
+      this.solicituts = [];
+      url =
+        "./trivia4-app/public/api/getSolicitutsPendents/" +
+        this.store.getIdPlayer();
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data != false) {
+            for (let i = 0; i < data.length; i++) {
+              this.solicituts.push(this.getPlayerName(data[i].id_requester));
+            }
+            console.log(data);
+            this.mostrar = true;
+          }
+        });
+    },
+    getPlayerName(id) {
+      url = "./trivia4-app/public/api/getPlayerName/" + id;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          return data;
+        });
+    },
+  },
+});
+
+Vue.component("llista-amics", {});
 
 const Registre = Vue.component("registre-player", {
   data: function () {
@@ -586,23 +697,57 @@ Vue.component("navbar-router", {
   },
   template: `
   <ul id="navbar">
-    <li><router-link to="/" class="routerlink">Home</router-link></li>
-    <li><router-link to="/joc/false" class="routerlink">Play a game</router-link></li>
-    <li><router-link to="/joc/true" class="routerlink" v-show="store.logged">Game of the day</router-link></li>
-    <li><router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link></li>
-    <li><router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link></li>
-    <li><router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link></li>
-    <li><router-link to="/login" class="routerlink rightNav" v-show="!store.logged">Log in</router-link></li>
-    <li><b-button @click="logOut" class="routerlink rightNav" variant="primary" v-show="store.logged">Logout</b-button></li>
-    <li><router-link to="/profile" class="routerlink rightNav" v-show="store.logged">Profile</router-link></li>
-    <li><h3 class="routerlink rightNav">{{store.name_player}}</h3></li>
-  </ul>
+  <li>
+      <router-link to="/" class="routerlink">Home</router-link>
+  </li>
+  <li>
+      <router-link to="/joc/false" class="routerlink">Play a game</router-link>
+  </li>
+  <li>
+      <router-link to="/gotd" class="routerlink" v-show="store.logged">Game of the day</router-link>
+  </li>
+  <li>
+      <router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link>
+  </li>
+  <li>
+      <router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link>
+  </li>
+  <li>
+      <router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link>
+  </li>
+  <li>
+      <router-link to="/login" class="routerlink rightNav" v-show="!store.logged">Log in</router-link>
+  </li>
+  <li>
+      <b-button @click="logOut" class="routerlink rightNav" variant="primary" v-show="store.logged">Logout</b-button>
+  </li>
+  <div>
+      <b-button v-show="store.logged" v-b-modal.modal-center class="routerlink rightNav">{{store.name_player}}
+      </b-button>
+      <b-modal id="modal-center" centered title="Perfil">
+          <p>Nom Usuari:</p>
+          <p class="my-4">{{ player_name }}</p>
+      </b-modal>
+  </div>
+</ul>
   `,
   methods: {
     logOut() {
       useLoginStore().logout();
     },
   },
+});
+
+const Gotd = Vue.component("gotd", {
+  data: function () {
+    return {
+      idPlayer: useLoginStore().getIdPlayer(),
+    };
+  },
+  template: `
+  <div class="loginSign">
+      <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
+  </div>`,
 });
 
 // =============== Routes ===============
@@ -615,6 +760,10 @@ const routes = [
     path: "/joc/:gotdPROP",
     component: Partida,
     props: true,
+  },
+  {
+    path: "/gotd",
+    component: Gotd,
   },
   {
     path: "/login",

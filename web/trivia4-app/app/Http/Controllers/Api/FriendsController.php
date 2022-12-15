@@ -15,27 +15,35 @@ class FriendsController extends Controller
         $friend->id_requester = $request->id_requester;
         $friend->id_requested = $request->id_requested;
         $friend->pending = true;
+        $friend->accepted = false;
         $friend->save();
     }
 
     public function getPendingRequests($id)
     {
-        $friend = Friend::where('id_requested', $id)
-            ->where('pending', false)
-            ->get();
+        $friend = Friend::where([
+            ['id_requested', '=', $id],
+            ['pending', '=', true]
+        ])->get();
 
-        return $friend;
+        if ($friend != null) {
+            return $friend;
+        } else {
+            return false;
+        }
     }
 
     public function endFriendRequest(Request $request)
     {
         $friend = Friend::where('id', $request->id)->firstOrFail();
         $friend->pending = false;
-        if ($request->accept) {
-            $friend->accepted = Carbon::now();
+        if ($request->accept == "true") {
+            $friend->accepted = true;
         } else {
-            $friend->cancelled = Carbon::now();
+            $friend->accepted = false;
         }
+
         $friend->save();
+        return "200";
     }
 }
