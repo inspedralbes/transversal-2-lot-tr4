@@ -248,15 +248,15 @@ const Partida = Vue.component("partida", {
     },
 
     resetTime() {
-        setTimeout(() => {
-          if (this.countDown == 0) {
-            this.countDown = 20;
-            this.countDownTimer();
-          } else {
-            this.countDown = 20;
-            this.indice++;
-          }
-        }, 2000);
+      setTimeout(() => {
+        if (this.countDown == 0) {
+          this.countDown = 20;
+          this.countDownTimer();
+        } else {
+          this.countDown = 20;
+          this.indice++;
+        }
+      }, 2000);
     },
 
     resetDades() {
@@ -756,8 +756,7 @@ Vue.component("navbar-router", {
       <b-button v-show="store.logged" v-b-modal.modal-center class="routerlink rightNav">{{store.name_player}}
       </b-button>
       <b-modal id="modal-center" centered title="Perfil">
-          <p>Nom Usuari:</p>
-          <p class="my-4">{{ player_name }}</p>
+          <p>Nom Usuari: <strong class="my-4">{{ store.name_player }}</strong></p>
       </b-modal>
   </div>
 </ul>
