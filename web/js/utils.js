@@ -2,8 +2,6 @@ const Home = Vue.component("home", {
   template: `
   <div class="loginSign">
     <jugadors></jugadors>
-    <solicituts></solicituts>
-    <llista-amics></llista-amics>
     <div class="menu">
       <div class="news">
       <br>
@@ -510,7 +508,7 @@ Vue.component("solicituts", {
     <div v-show="mostrar">
       <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
       <div v-for="solicitut in solicituts">
-        <h1>{{solicitut}}</h1>
+        <h1>L'usuari {{solicitut.id_requester}} t'ha enviat una sol·licitut d'amistat</h1>
         <p>
           <b-button class="buttonPlay" @click="envia(true, solicitut.id)">Accept</b-button>
           <b-button class="buttonPlay" @click="envia(false, solicitut.id)">Deny</b-button>
@@ -556,19 +554,10 @@ Vue.component("solicituts", {
           }
         });
     },
-    getPlayerName(id) {
-      url = "./trivia4-app/public/api/getPlayerName/" + id;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(JSON.stringify(data));
-          return JSON.stringify(data);
-        });
-    },
   },
 });
 
-Vue.component("llista-amics", {
+const Amics = Vue.component("llista-amics", {
   data: function () {
     return {
       amics: [],
@@ -577,10 +566,13 @@ Vue.component("llista-amics", {
     };
   },
   template: `
-  <div v-show="mostrar">
+  <div v-show="mostrar" class="loginSign">
+    <h1>Amics</h1>
     <div v-for="amic in amics">
       <h3>{{amic.nickname}}</h3>
     </div>
+    <h4>=====================================</h4>
+    <solicituts></solicituts>
   </div>
   `,
   mounted: function () {
@@ -596,6 +588,7 @@ Vue.component("llista-amics", {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          this.amics = data;
           this.mostrar = true;
         });
     },
@@ -744,6 +737,9 @@ Vue.component("navbar-router", {
       <router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link>
   </li>
   <li>
+      <router-link to="/amics" class="routerlink" v-show="store.logged">Friends</router-link>
+  </li>
+  <li>
       <router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link>
   </li>
   <li>
@@ -810,6 +806,10 @@ const routes = [
   {
     path: "/totesLesPartides",
     component: totesLesPartides,
+  },
+  {
+    path: "/amics",
+    component: Amics,
   },
 ];
 

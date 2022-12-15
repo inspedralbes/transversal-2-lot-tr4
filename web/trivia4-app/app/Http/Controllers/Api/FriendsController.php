@@ -49,7 +49,7 @@ class FriendsController extends Controller
     public function dadesAmics()
     {
         $users = DB::table('friends')
-            ->join('players', function ($join) {
+            ->leftJoin('players', function ($join) {
                 $join->on('friends.id_requester', '=', 'players.id')
                     ->orOn('friends.id_requested', '=', 'players.id');
             })
