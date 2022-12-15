@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Friend;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class FriendsController extends Controller
@@ -28,8 +29,6 @@ class FriendsController extends Controller
 
         if ($friend != null) {
             return $friend;
-        } else {
-            return false;
         }
     }
 
@@ -45,5 +44,19 @@ class FriendsController extends Controller
 
         $friend->save();
         return "200";
+    }
+
+    public function dadesAmics()
+    {
+        $users = DB::table('friends')
+            ->join('players', function ($join) {
+                $join->on('friends.id_requester', '=', 'players.id')
+                    ->orOn('friends.id_requested', '=', 'players.id');
+            })
+            ->where('accepted', true)
+            ->select('friends.*', 'players.nickname', 'players.id as friend_id')
+            ->get();
+
+        return $users;
     }
 }

@@ -3,6 +3,7 @@ const Home = Vue.component("home", {
   <div class="loginSign">
     <jugadors></jugadors>
     <solicituts></solicituts>
+    <llista-amics></llista-amics>
     <div class="menu">
       <div class="news">
       <br>
@@ -565,10 +566,7 @@ Vue.component("solicituts", {
         .then((response) => response.json())
         .then((data) => {
           if (data != false) {
-            for (let i = 0; i < data.length; i++) {
-              this.solicituts.push(this.getPlayerName(data[i].id_requester));
-            }
-            console.log(data);
+            this.solicituts = data;
             this.mostrar = true;
           }
         });
@@ -578,13 +576,46 @@ Vue.component("solicituts", {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          return data;
+          console.log(JSON.stringify(data));
+          return JSON.stringify(data);
         });
     },
   },
 });
 
-Vue.component("llista-amics", {});
+Vue.component("llista-amics", {
+  data: function () {
+    return {
+      amics: [],
+      mostrar: false,
+      store: useLoginStore(),
+    };
+  },
+  template: `
+  <div v-show="mostrar">
+    <div v-for="amic in amics">
+      <h3>{{amic.nickname}}</h3>
+    </div>
+  </div>
+  `,
+  mounted: function () {
+    if (this.store.logged) {
+      this.rebreSolicituts();
+    }
+  },
+  methods: {
+    rebreSolicituts() {
+      this.amics = [];
+      url = "./trivia4-app/public/api/dadesAmics";
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.mostrar = true;
+        });
+    },
+  },
+});
 
 const Registre = Vue.component("registre-player", {
   data: function () {
@@ -740,8 +771,7 @@ Vue.component("navbar-router", {
       <b-button v-show="store.logged" v-b-modal.modal-center class="routerlink rightNav">{{store.name_player}}
       </b-button>
       <b-modal id="modal-center" centered title="Perfil">
-          <p>Nom Usuari:</p>
-          <p class="my-4">{{ player_name }}</p>
+          <p>Nom Usuari: <strong class="my-4">{{ store.name_player }}</strong></p>
       </b-modal>
   </div>
 </ul>

@@ -55,3 +55,5 @@ Route::get('/getSolicitutsPendents/{id}', [FriendsController::class, 'getPending
 Route::post('/mandarSolicitutAmistat', [FriendsController::class, 'sendFriendRequest']);
 
 Route::post('/resultatSolicitutAmistat', [FriendsController::class, 'endFriendRequest']);
+
+Route::get('/dadesAmics', [FriendsController::class, 'dadesAmics']);
