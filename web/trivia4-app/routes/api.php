@@ -30,6 +30,8 @@ Route::post('/getDadesPlayer', [PlayersController::class, 'send']);
 
 Route::get('/getPlayers', [PlayersController::class, 'getAllPlayers']);
 
+Route::get('/getPlayerName/{id}', [PlayersController::class, 'getPlayerName']);
+
 // ---- Dades partida ----
 
 Route::get('/getJSONPartida/{id}', [GamesController::class, 'getJSON']);

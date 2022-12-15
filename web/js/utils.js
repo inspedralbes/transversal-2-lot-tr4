@@ -42,8 +42,7 @@ const Partida = Vue.component("partida", {
       indice: 1,
     };
   },
-  template:
-    `
+  template: `
   <div>
     <div v-show="!empezado">
         <h2 class="Pregunta">Difficulty</h2>
@@ -203,47 +202,38 @@ const Partida = Vue.component("partida", {
       document.getElementById("buttonPlayGame").style.display = "block";
       if (this.countDown != 0) {
         const myTimeout = setTimeout(() => {
-          this.countDown -= 1
-          this.countDownTimer()
-        }, 1000)
+          this.countDown -= 1;
+          this.countDownTimer();
+        }, 1000);
       } else if (this.countDown == 0) {
         if (this.indice == 1) {
           document.getElementById("Resposta5-0").click();
           this.indice++;
-        }
-        else if (this.indice == 2) {
+        } else if (this.indice == 2) {
           document.getElementById("Resposta5-1").click();
           this.indice++;
-        }
-        else if (this.indice == 3) {
+        } else if (this.indice == 3) {
           document.getElementById("Resposta5-2").click();
           this.indice++;
-        }
-        else if (this.indice == 4) {
+        } else if (this.indice == 4) {
           document.getElementById("Resposta5-3").click();
           this.indice++;
-        }
-        else if (this.indice == 5) {
+        } else if (this.indice == 5) {
           document.getElementById("Resposta5-4").click();
           this.indice++;
-        }
-        else if (this.indice == 6) {
+        } else if (this.indice == 6) {
           document.getElementById("Resposta5-5").click();
           this.indice++;
-        }
-        else if (this.indice == 7) {
+        } else if (this.indice == 7) {
           document.getElementById("Resposta5-6").click();
           this.indice++;
-        }
-        else if (this.indice == 8) {
+        } else if (this.indice == 8) {
           document.getElementById("Resposta5-7").click();
           this.indice++;
-        }
-        else if (this.indice == 9) {
+        } else if (this.indice == 9) {
           document.getElementById("Resposta5-8").click();
           this.indice++;
-        }
-        else if (this.indice == 10) {
+        } else if (this.indice == 10) {
           document.getElementById("Resposta5-9").click();
           this.indice++;
         }
@@ -257,15 +247,15 @@ const Partida = Vue.component("partida", {
     },
 
     resetTime() {
-        setTimeout(() => {
-          if (this.countDown == 0) {
-            this.countDown = 20;
-            this.countDownTimer(index);
-          } else {
-            this.countDown = 20;
-            this.indice++;
-          }
-        }, 2000);
+      setTimeout(() => {
+        if (this.countDown == 0) {
+          this.countDown = 20;
+          this.countDownTimer(index);
+        } else {
+          this.countDown = 20;
+          this.indice++;
+        }
+      }, 2000);
     },
 
     resetDades() {
@@ -515,18 +505,19 @@ Vue.component("solicituts", {
   },
   template: `
   <div>
+    <h1>Solicituts d'amistat.</h1>
     <div v-show="mostrar">
-      <h1 v-show="solicituts.length == 0">You didn't add any player to your friends list!</h1>
+      <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
       <div v-for="solicitut in solicituts">
-        <h1>{{solicitut.id_requester}}</h1>
+        <h1>{{solicitut}}</h1>
         <p>
           <b-button class="buttonPlay" @click="envia(true, solicitut.id)">Accept</b-button>
-          <b-button class="buttonPlay" variant="danger" @click="envia(false, solicitut.id)">Deny</b-button>
+          <b-button class="buttonPlay" @click="envia(false, solicitut.id)">Deny</b-button>
         </p> 
       </div>
     </div>
     <div v-show="!mostrar">
-      <h1>Encara no has iniciat sessió!</h1>
+      <h2>No hi ha resultats!</h2>
     </div>
   </div>
   `,
@@ -544,21 +535,35 @@ Vue.component("solicituts", {
       fetch(`./trivia4-app/public/api/resultatSolicitutAmistat`, {
         method: "POST",
         body: datosEnvio,
-      });
-      this.rebreSolicituts();
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.rebreSolicituts();
+        });
     },
     rebreSolicituts() {
+      this.solicituts = [];
       url =
         "./trivia4-app/public/api/getSolicitutsPendents/" +
         this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          if (data != null) {
-            this.solicituts = data;
-            // console.log(this.solicituts);
+          if (data != false) {
+            for (let i = 0; i < data.length; i++) {
+              this.solicituts.push(this.getPlayerName(data[i].id_requester));
+            }
+            console.log(data);
             this.mostrar = true;
           }
+        });
+    },
+    getPlayerName(id) {
+      url = "./trivia4-app/public/api/getPlayerName/" + id;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          return data;
         });
     },
   },
@@ -733,7 +738,7 @@ Vue.component("navbar-router", {
   },
 });
 
-const Gotd = Vue.component('gotd', {
+const Gotd = Vue.component("gotd", {
   data: function () {
     return {
       idPlayer: useLoginStore().getIdPlayer(),
@@ -743,7 +748,7 @@ const Gotd = Vue.component('gotd', {
   <div class="loginSign">
       <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
   </div>`,
-})
+});
 
 // =============== Routes ===============
 const routes = [
