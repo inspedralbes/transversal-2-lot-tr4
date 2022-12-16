@@ -490,7 +490,7 @@
     content: "╳"; /* use the hex value here... */
     font-size: 25px; 
     color: #FFF;
-    line-height: 50px;
+    line-height: 40px;
     text-align: center;
 }
 
@@ -508,7 +508,7 @@
     content: "\2713"; /* use the hex value here... */
     font-size: 35px; 
     color: #FFF;
-    line-height: 50px;
+    line-height: 45px;
     text-align: center;
 }
 .mensajeErrorDificultad {
