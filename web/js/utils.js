@@ -134,7 +134,7 @@ const Partida = Vue.component("partida", {
         </div>
         <div class="b-slider" v-show="!acabado">
             <div class="slider">
-                <div class="slides">
+                <div class="slides" id="respuestas">
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                         <div class="container">
                             <div class="Pregunta">
@@ -144,19 +144,19 @@ const Partida = Vue.component("partida", {
                             </div>
                             <br><br><br>
                             <div class="Respuesta-1"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
                             <div class="Respuesta-2"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
                             <div class="Respuesta-3"
-                                v-on:click.once="resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
                             <div class="Respuesta-4"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                             </div>
                             <div class="Respuesta-5"
@@ -198,6 +198,13 @@ const Partida = Vue.component("partida", {
   },
 
   methods: {
+    blockOrUnblockRespuesta() {
+      var element = document.getElementById("respuestas");
+      element.classList.toggle("disabled");
+      setTimeout(function () {
+        element.classList.toggle("disabled");
+      }, 2000);
+    },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
       if (this.countDown != 0) {
@@ -599,7 +606,7 @@ const Amics = Vue.component("llista-amics", {
   methods: {
     rebreSolicituts() {
       this.amics = [];
-      url = "./trivia4-app/public/api/dadesAmics/"+this.store.getIdPlayer();
+      url = "./trivia4-app/public/api/dadesAmics/" + this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {

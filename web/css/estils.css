@@ -540,3 +540,7 @@ b-form-input {
 		width: 90%;
 	}
 }
+
+.disabled {
+    pointer-events: none;
+}
