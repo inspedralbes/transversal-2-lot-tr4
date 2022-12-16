@@ -240,7 +240,7 @@
     height: auto;
 }
 
-.buttonPlay {
+.button__Play--leagueStyle {
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
     border-color: #C89B3C;
     font-size: 20px;
@@ -248,13 +248,14 @@
     width: 200px;
     height: 60px
 }
-
-.tablaResultados {
-    margin: 30px;
+/*Tabla para mostrar respuestas correctas al final*/
+.tabla {
+    border-collapse: separate;
+    border-spacing: 10px 2px;
+    margin: auto;
 }
 
-th,
-td {
+.tabla__respuestas{
     text-align: center;
     background-color: white;
     width: 50px;
@@ -262,11 +263,7 @@ td {
     border-radius: 50%;
 }
 
-table {
-    border-collapse: separate;
-    border-spacing: 10px 2px;
-    margin: auto;
-}
+
 
 .currentQuestion {
     background-color: yellow;

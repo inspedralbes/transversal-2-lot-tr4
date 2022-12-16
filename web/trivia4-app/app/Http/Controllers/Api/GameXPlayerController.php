@@ -15,12 +15,12 @@ class GameXPlayerController extends Controller
         return json_encode($game);
     }
 
-    public function store(Request $request)
+    public function storeInicial(Request $request)
     {
         $game = new gamexplayer();
         $game->id_player = $request->id_player;
         $game->id_game = $request->id_game;
-        $game->score = $request->score;
+        $game->score = 0;
         $game->date = Carbon::now();
         $game->save();
     }
