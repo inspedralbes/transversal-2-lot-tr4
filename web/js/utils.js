@@ -45,7 +45,7 @@ const Partida = Vue.component("partida", {
   <div>
     <div v-show="!empezado">
         <h2 class="Pregunta">Difficulty</h2>
-        <div class="container_dificultad">
+        <div class="container__dificultad">
             <div class="selector row">
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="facil" value="easy"
@@ -65,7 +65,7 @@ const Partida = Vue.component("partida", {
             </div>
         </div>
         <h2 class="Pregunta">Category</h2>
-        <div class="container_categoria">
+        <div class="container__categoria">
             <div class="selector row">
                 <div class="col-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="arts_and_literature"
@@ -119,7 +119,7 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
-        <div class="buttonPlayDiv" v-on:click="countDownTimer()">
+        <div class="button__PlayDiv" v-on:click="countDownTimer()">
             <b-button class="buttonPlay" @click="jugar" variant="success">Play</b-button>
         </div>
         <br>
@@ -135,13 +135,14 @@ const Partida = Vue.component("partida", {
             <div class="slider">
                 <div class="slides" id="respuestas">
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
-                        <div class="container">
+                        <div class="container__preguntes">
                             <div class="Pregunta">
                                 <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
                             <br><br><br>
+<<<<<<< Updated upstream
                             <div class="Respuesta-1"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
@@ -157,17 +158,34 @@ const Partida = Vue.component("partida", {
                             <div class="Respuesta-4"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+=======
+                            <div class="Respuesta__1"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
-                            <div class="Respuesta-5"
+                            <div class="Respuesta__2"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button__respuestas" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
+                            </div>
+                            <div class="Respuesta__3"
+                                v-on:click.once="resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button__respuestas" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
+                            </div>
+                            <div class="Respuesta__4"
+                                v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button__respuestas" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+>>>>>>> Stashed changes
+                            </div>
+                            <div class="Respuesta__5"
                                 v-on:click.once="resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                                <a class="button" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                                <a class="button__respuestas" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="resultsPrint">
+        <div class = "resultsPrint" id="resultsPrint">
         </div>
     </div>
     <div id="scorePrint" class="scorePrint">
