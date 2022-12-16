@@ -101,6 +101,7 @@
 .container__preguntes{
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
+    font-size:25px;
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
