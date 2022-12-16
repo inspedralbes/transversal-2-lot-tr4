@@ -133,7 +133,7 @@ const Partida = Vue.component("partida", {
         </div>
         <div class="b-slider" v-show="!acabado">
             <div class="slider">
-                <div class="slides">
+                <div class="slides" id="respuestas">
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                         <div class="container">
                             <div class="Pregunta">
@@ -143,19 +143,19 @@ const Partida = Vue.component("partida", {
                             </div>
                             <br><br><br>
                             <div class="Respuesta-1"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
                             <div class="Respuesta-2"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
                             <div class="Respuesta-3"
-                                v-on:click.once="resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
                             <div class="Respuesta-4"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
                                 <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                             </div>
                             <div class="Respuesta-5"
@@ -197,6 +197,13 @@ const Partida = Vue.component("partida", {
   },
 
   methods: {
+    blockOrUnblockRespuesta() {
+      var element = document.getElementById("respuestas");
+      element.classList.toggle("disabled");
+      setTimeout(function () {
+        element.classList.toggle("disabled");
+      }, 2000);
+    },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
       if (this.countDown != 0) {
@@ -317,6 +324,9 @@ const Partida = Vue.component("partida", {
             if (this.gotdPROP != "true") {
               this.enviarDades(datosEnvio);
             }
+            if (this.store.logged) {
+              this.enviarDadesPartidaJugador();
+            }
           }
         });
     },
@@ -359,13 +369,12 @@ const Partida = Vue.component("partida", {
 
       if (this.contadorRespuestas == 10) {
         this.acabado = true;
-
         document.getElementById(
           "scorePrint"
         ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
         document.getElementById("scorePrint").style.display = "block";
         if (this.store.logged) {
-          this.enviarDadesPartidaJugador();
+          this.enviarScorePlayer();
         }
       }
     },
@@ -389,7 +398,18 @@ const Partida = Vue.component("partida", {
         body: datosEnvio,
       });
     },
-  },
+    enviarScorePlayer: function () {
+      url = "./trivia4-app/public/api/setScorePlayer";
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_player", useLoginStore().getIdPlayer());
+      datosEnvio.append("id_game", this.idGame);
+      datosEnvio.append("score", this.contadorBuenas);
+      fetch(url, {
+        method: "POST",
+        body: datosEnvio,
+      });
+    }
+  }
 });
 
 const Partides = Vue.component("historial", {
