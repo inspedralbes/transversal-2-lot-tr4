@@ -271,19 +271,6 @@ const Partida = Vue.component("partida", {
         }, 2000);
       }
     },
-
-    resetDades() {
-      this.preguntas = [];
-      this.respuestas = [];
-      this.contadorBuenas = 0;
-      this.contadorRespuestas = 0;
-      this.dificultad = "";
-      this.categoria = "";
-      this.empezado = false;
-      this.acabado = false;
-      this.dificultadVacia = false;
-      this.idGame = 0;
-    },
     jugar() {
       clearTimeout(this.timer);
       this.indice = 1;
@@ -323,9 +310,15 @@ const Partida = Vue.component("partida", {
 
             if (this.gotdPROP != "true") {
               this.enviarDades(datosEnvio);
+            } else {
+              fetch("./trivia4-app/public/api/getIdPartidaDelDia")
+                .then((response) => response.json())
+                .then((data) => {
+                  this.idGame = data;
+                });
             }
             if (this.store.logged) {
-              this.enviarDadesPartidaJugador();
+              this.enviarPuntuacioInicial();
             }
           }
         });
@@ -339,6 +332,26 @@ const Partida = Vue.component("partida", {
         .then((data) => {
           this.idGame = data;
         });
+    },
+    enviarPuntuacioInicial: function () {
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_player", this.store.getIdPlayer());
+      datosEnvio.append("id_game", this.idGame);
+      fetch("./trivia4-app/public/api/storeGameXPlayerInicial", {
+        method: "POST",
+        body: datosEnvio,
+      });
+    },
+    enviarScorePlayer: function () {
+      url = "./trivia4-app/public/api/setScorePlayer";
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_player", this.store.getIdPlayer());
+      datosEnvio.append("id_game", this.idGame);
+      datosEnvio.append("score", this.contadorBuenas);
+      fetch(url, {
+        method: "POST",
+        body: datosEnvio,
+      });
     },
     comprovaResultats: function (respuestaUser, respuestaCorrecta, idPregunta) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
@@ -388,28 +401,7 @@ const Partida = Vue.component("partida", {
         }
       });
     },
-    enviarDadesPartidaJugador: function () {
-      let datosEnvio = new FormData();
-      datosEnvio.append("id_player", useLoginStore().getIdPlayer());
-      datosEnvio.append("id_game", this.idGame);
-      datosEnvio.append("score", this.contadorBuenas);
-      fetch("./trivia4-app/public/api/storeGameXPlayer", {
-        method: "POST",
-        body: datosEnvio,
-      });
-    },
-    enviarScorePlayer: function () {
-      url = "./trivia4-app/public/api/setScorePlayer";
-      let datosEnvio = new FormData();
-      datosEnvio.append("id_player", useLoginStore().getIdPlayer());
-      datosEnvio.append("id_game", this.idGame);
-      datosEnvio.append("score", this.contadorBuenas);
-      fetch(url, {
-        method: "POST",
-        body: datosEnvio,
-      });
-    }
-  }
+  },
 });
 
 const Partides = Vue.component("historial", {
@@ -421,7 +413,7 @@ const Partides = Vue.component("historial", {
     };
   },
   template: `
-  <div>
+  <div class="loginSign">
     <h1 v-show="idPlayer == 0">No has iniciat sessió!</h1>
     <h1 v-show="partidas.length == 0 && idPlayer != 0">No hay partidas!</h1>
 
@@ -457,7 +449,7 @@ const totesLesPartides = Vue.component("historial-general", {
     };
   },
   template: `
-  <div>
+  <div class="loginSign">
     <h1 v-show="idPlayer == 0">No has iniciat sessió!</h1>
     <h1 v-show="partidas.length == 0 && idPlayer != 0">No hay partidas!</h1>
 

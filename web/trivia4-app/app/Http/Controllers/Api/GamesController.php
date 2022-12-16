@@ -33,6 +33,12 @@ class GamesController extends Controller
         return json_decode($game->game_info);
     }
 
+    public function getIdGotd()
+    {
+        $game = Game::where('gameOfTheDay', true)->latest()->first();
+        return $game->id;
+    }
+
     public function partidaDelDiaPuntuacions()
     {
         $gameOfTheDayId = Game::where('gameOfTheDay', true)
