@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Friend;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class FriendsController extends Controller
 {
@@ -22,10 +21,14 @@ class FriendsController extends Controller
 
     public function getPendingRequests($id)
     {
-        $friend = Friend::where([
-            ['id_requested', '=', $id],
-            ['pending', '=', true]
-        ])->get();
+        $friend = DB::table('friends')
+            ->join('players', 'friends.id_requester', '=', 'players.id')
+            ->where([
+                ['id_requested', '=', $id],
+                ['pending', '=', true]
+            ])
+            ->select('friends.*', 'players.nickname', 'players.id as friend_id')
+            ->get();
 
         if ($friend != null) {
             return $friend;
@@ -48,8 +51,8 @@ class FriendsController extends Controller
 
     public function dadesAmics($id)
     {
-        $users = DB::table('friends')
-            ->leftJoin('players', function ($join) {
+        $players = DB::table('friends')
+            ->join('players', function ($join) {
                 $join->on('friends.id_requester', '=', 'players.id')
                     ->orOn('friends.id_requested', '=', 'players.id');
             })
@@ -57,13 +60,26 @@ class FriendsController extends Controller
                 ['id_requested', '=', $id],
                 ['accepted', '=', true]
             ])
-            ->where([
+            ->orWhere([
                 ['id_requester', '=', $id],
                 ['accepted', '=', true]
             ])
             ->select('friends.*', 'players.nickname', 'players.id as friend_id')
             ->get();
 
-        return $users;
+        return $players;
+    }
+
+    public function esborrarAmic($id)
+    {
+        $friend = Friend::where([
+            ['id_requested', '=', $id],
+            ['accepted', '=', true]
+        ])
+            ->orWhere([
+                ['id_requester', '=', $id],
+                ['accepted', '=', true]
+            ])->firstOrFail()->delete();
+        return $friend;
     }
 }
