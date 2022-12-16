@@ -197,7 +197,6 @@
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-    display: none;
     font-size: 50px;
     text-align: center;
     color: #eee;
@@ -246,6 +245,8 @@
     border-color: #C89B3C;
     font-size: 20px;
     margin: 5px;
+    width: 200px;
+    height: 60px
 }
 /*Tabla para mostrar respuestas correctas al final*/
 .tabla {
