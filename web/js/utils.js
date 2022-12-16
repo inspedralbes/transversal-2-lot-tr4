@@ -45,7 +45,7 @@ const Partida = Vue.component("partida", {
   <div>
     <div v-show="!empezado">
         <h2 class="Pregunta">Difficulty</h2>
-        <div class="container_dificultad">
+        <div class="container__dificultad">
             <div class="selector row">
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="facil" value="easy"
@@ -65,7 +65,7 @@ const Partida = Vue.component("partida", {
             </div>
         </div>
         <h2 class="Pregunta">Category</h2>
-        <div class="container_categoria">
+        <div class="container__categoria">
             <div class="selector row">
                 <div class="col-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="arts_and_literature"
@@ -97,7 +97,7 @@ const Partida = Vue.component("partida", {
                         value="history" v-model="categoria">
                     <label for="history" class="selector-item_label">History</label>
                 </div>
-                <div class="col-6">
+                <div class="colbuttonPlay-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="music" value="music"
                         v-model="categoria">
                     <label for="music" class="selector-item_label">Music</label>
@@ -119,11 +119,11 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
-        <div class="buttonPlayDiv" v-on:click="countDownTimer()">
-            <b-button class="buttonPlay" @click="jugar" variant="success">Play</b-button>
+        <div class="button__PlayDiv" v-on:click="countDownTimer()">
+            <b-button class="button__Play--leagueStyle" @click="jugar" variant="success">Play</b-button>
         </div>
         <br>
-        <div class="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
+        <div class="button__Play--leagueStyle" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
     </div>
     <div class="wrapper">
         <div class="contador">
@@ -135,56 +135,56 @@ const Partida = Vue.component("partida", {
             <div class="slider">
                 <div class="slides" id="respuestas">
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
-                        <div class="container">
+                        <div class="container__preguntes">
                             <div class="Pregunta">
                                 <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
                             <br><br><br>
-                            <div class="Respuesta-1"
+                            <div class="Respuesta__1"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                                <a class="button" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
+                                <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
-                            <div class="Respuesta-2"
+                            <div class="Respuesta__2"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                                <a class="button" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
+                                <a class="button__respuestas" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
-                            <div class="Respuesta-3"
+                            <div class="Respuesta__3"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                                <a class="button" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
+                                <a class="button__respuestas" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
-                            <div class="Respuesta-4"
+                            <div class="Respuesta__4"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                                <a class="button" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+                                <a class="button__respuestas" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                             </div>
-                            <div class="Respuesta-5"
-                                v-on:click.once="resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
-                                <a class="button" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                            <div class="Respuesta__5"
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                <a class="button__respuestas" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="resultsPrint">
+        <div class = "resultsPrint" id="resultsPrint">
         </div>
     </div>
     <div id="scorePrint" class="scorePrint">
     </div>
     <div v-show="empezado">
-        <table>
+        <table class="tabla">
             <tr>
-                <td id="pregunta0"></td>
-                <td id="pregunta1"></td>
-                <td id="pregunta2"></td>
-                <td id="pregunta3"></td>
-                <td id="pregunta4"></td>
-                <td id="pregunta5"></td>
-                <td id="pregunta6"></td>
-                <td id="pregunta7"></td>
-                <td id="pregunta8"></td>
-                <td id="pregunta9"></td>
+                <td class = "tabla__respuestas" id="pregunta0"></td>
+                <td class = "tabla__respuestas" id="pregunta1"></td>
+                <td class = "tabla__respuestas" id="pregunta2"></td>
+                <td class = "tabla__respuestas" id="pregunta3"></td>
+                <td class = "tabla__respuestas" id="pregunta4"></td>
+                <td class = "tabla__respuestas" id="pregunta5"></td>
+                <td class = "tabla__respuestas" id="pregunta6"></td>
+                <td class = "tabla__respuestas" id="pregunta7"></td>
+                <td class = "tabla__respuestas" id="pregunta8"></td>
+                <td class = "tabla__respuestas" id="pregunta9"></td>
             </tr>
         </table>
     </div>
@@ -488,7 +488,7 @@ const Ranking = Vue.component("ranking", {
       <h1>Llista de jugadors.</h1>
       <div v-for="player in players" >
         <li>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
-        <b-button v-show="store.logged && store.id_player != player.id" class="buttonPlay" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
+        <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--leagueStyle" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
       </div>
     </div>
   `,
@@ -535,8 +535,8 @@ Vue.component("solicituts", {
       <div v-for="solicitut in solicituts">
         <h1>L'usuari {{solicitut.nickname}} t'ha enviat una sol·licitut d'amistat</h1>
         <p>
-          <b-button class="buttonPlay" @click="envia(true, solicitut.id)">Accept</b-button>
-          <b-button class="buttonPlay" @click="envia(false, solicitut.id)">Deny</b-button>
+          <b-button class="button__Play--leagueStyle" @click="envia(true, solicitut.id)">Accept</b-button>
+          <b-button class="button__Play--leagueStyle" @click="envia(false, solicitut.id)">Deny</b-button>
         </p> 
       </div>
     </div>
@@ -653,7 +653,7 @@ const Registre = Vue.component("registre-player", {
       <b-form-input v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
       <b-form-input v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
     </b-col>
-    <b-button class="buttonPlay" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+    <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
     </b-button>
   </div>
@@ -694,7 +694,7 @@ const Login = Vue.component("login", {
           <b-form-input v-model="form.nickname" placeholder="Nickname" class="m-3" required></b-form-input>
           <b-form-input v-model="form.psswd" type="password" placeholder="Password" class="m-3" required></b-form-input>
         </b-col>
-        <b-button class="buttonPlay" @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
+        <b-button class="button__Play--leagueStyle" @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
         </b-button>
       </div>
