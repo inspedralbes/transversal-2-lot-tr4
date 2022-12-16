@@ -463,7 +463,6 @@ b-form-input {
 }
 
 @media (max-width:480px) {
-<<<<<<< Updated upstream
 	.selector{
 		width: 90%;
 	}
@@ -471,9 +470,4 @@ b-form-input {
 
 .disabled {
     pointer-events: none;
-=======
-    .selector {
-        width: 90%;
-    }
->>>>>>> Stashed changes
 }
