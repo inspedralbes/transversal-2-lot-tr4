@@ -324,6 +324,9 @@ const Partida = Vue.component("partida", {
             if (this.gotdPROP != "true") {
               this.enviarDades(datosEnvio);
             }
+            if (this.store.logged) {
+              this.enviarDadesPartidaJugador();
+            }
           }
         });
     },
@@ -366,13 +369,12 @@ const Partida = Vue.component("partida", {
 
       if (this.contadorRespuestas == 10) {
         this.acabado = true;
-
         document.getElementById(
           "scorePrint"
         ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
         document.getElementById("scorePrint").style.display = "block";
         if (this.store.logged) {
-          this.enviarDadesPartidaJugador();
+          this.enviarScorePlayer();
         }
       }
     },
@@ -396,7 +398,18 @@ const Partida = Vue.component("partida", {
         body: datosEnvio,
       });
     },
-  },
+    enviarScorePlayer: function () {
+      url = "./trivia4-app/public/api/setScorePlayer";
+      let datosEnvio = new FormData();
+      datosEnvio.append("id_player", useLoginStore().getIdPlayer());
+      datosEnvio.append("id_game", this.idGame);
+      datosEnvio.append("score", this.contadorBuenas);
+      fetch(url, {
+        method: "POST",
+        body: datosEnvio,
+      });
+    }
+  }
 });
 
 const Partides = Vue.component("historial", {
