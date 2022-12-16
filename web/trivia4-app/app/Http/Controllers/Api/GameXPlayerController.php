@@ -25,6 +25,14 @@ class GameXPlayerController extends Controller
         $game->save();
     }
 
+    public function setScorePlayer(Request $request)
+    {
+        $game = gamexplayer::where(
+            ['id_game', $request->id_game],
+            ['id_player', $request->id_player]
+        )->update(['score' => $request->score]);
+    }
+
     public function getPartides()
     {
         $game = gamexplayer::get();

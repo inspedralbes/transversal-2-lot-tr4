@@ -627,7 +627,6 @@ const Amics = Vue.component("llista-amics", {
         });
     },
     eliminarAmic(id) {
-      console.log(id);
       url = "./trivia4-app/public/api/esborrarAmic/" + id;
       fetch(url)
         .then((response) => response.json())
@@ -819,13 +818,27 @@ Vue.component("navbar-router", {
 const Gotd = Vue.component("gotd", {
   data: function () {
     return {
-      idPlayer: useLoginStore().getIdPlayer(),
+      store: useLoginStore(),
+      puntuacions: [],
+      mostrar: false,
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="loginSign" v-show="store.logged" v-show="mostrar">
       <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
+      <div v-for="puntuacio in puntuacions">
+        <h3>{{puntuacio.id_player}} -> {{puntuacio.score}}</h3>
+      </div>
   </div>`,
+  mounted: function () {
+    url = "./trivia4-app/public/api/puntuacionsDelDia";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        this.puntuacions = data;
+        this.mostrar = true;
+      });
+  },
 });
 
 // =============== Routes ===============

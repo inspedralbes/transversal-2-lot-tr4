@@ -40,9 +40,13 @@ Route::get('/getJSONPartidaDelDia', [GamesController::class, 'getJSONgotd']);
 
 Route::post('/setDadesPartida', [GamesController::class, 'store']);
 
+Route::get('/puntuacionsDelDia', [GamesController::class, 'partidaDelDiaPuntuacions']);
+
 // ---- Dades partida + jugador ----
 
 Route::post('/storeGameXPlayer', [GameXPlayerController::class, 'store']);
+
+Route::post('/setScorePlayer', [GameXPlayerController::class, 'setScorePlayer']);
 
 Route::get('/getPartidesUsuari/{id}', [GameXPlayerController::class, 'get']);
 
