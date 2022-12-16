@@ -232,6 +232,7 @@
     cursor: pointer;
 }
 
+/*Altres botons del joc com play*/
 .button__PlayDiv {
     display: flex;
     justify-content: center;
@@ -262,20 +263,7 @@
     border-radius: 50%;
 }
 
-
-
-.currentQuestion {
-    background-color: yellow;
-}
-
-.correctAnswer {
-    background-color: green;
-}
-
-.incorrectAnswer {
-    background-color: red;
-}
-
+/*Titulo de la pagina web*/
 .gameName {
     font-size: 50px;
     text-align: center;
@@ -310,10 +298,30 @@
     border-color: #C89B3C;
 }
 
-b-form-input {
+/*Length de los input de log in y registro*/
+.input__logYsign{
     max-width: 200px;
 }
 
+/*Timer para las preguntas*/
+.contador {
+    grid-area: 1 / 1 / 2 / 2;
+    line-height: 500px;
+}
+
+.timer {
+    display: none;
+    margin: 25px;
+    border-radius: 5px;
+    font-size: 200px;
+    background: -webkit-linear-gradient(#005A82, #0AC8B9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    -webkit-text-stroke: 1px #C89B3C;
+}
+
+/*Navbar i las rutas*/
 .routerlink {
     float: left;
     color: #A09B8C;
@@ -322,23 +330,26 @@ b-form-input {
     text-decoration:none;
 }
 
-#navbar {
+.navbar {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background-color: #0A323C;
 }
 
 .rightNav {
     float: right;
+    color: #A09B8C;
+    font-size: 20px;
+    padding: 15px 15px;
+    text-decoration:none;
 }
 
 .activeSign {
     background-color: #005A82;
 }
+/*Fondo del div general el qual se utiliza en la mayoria de div's*/
 
-.loginSign {
+.divGeneral {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -353,6 +364,7 @@ b-form-input {
     border-color: #C89B3C;
 }
 
+/*Dissenyo i posicionameiento del div el qual contiene la mencion a la api del trivial*/
 .mencionApi {
     display: flex;
     justify-content: center;
@@ -368,10 +380,7 @@ b-form-input {
     bottom: 0;
 }
 
-.contador {
-    grid-area: 1 / 1 / 2 / 2;
-    line-height: 500px;
-}
+/*Grid que divide la pantalla entre el timer las preguntas i la correccion de las mismas*/
 
 .wrapper {
     display: grid;
@@ -381,6 +390,10 @@ b-form-input {
     grid-row-gap: 0px;
 }
 
+
+
+
+/*Estructuracion y disseño de la landing page*/
 .menu {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -409,19 +422,7 @@ b-form-input {
     grid-area: extra;
 }
 
-.timer {
-    display: none;
-    margin: 25px;
-    border-radius: 5px;
-    font-size: 200px;
-    background: -webkit-linear-gradient(#005A82, #0AC8B9);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    -webkit-text-stroke: 1px #C89B3C;
-}
-
-
+/*Selector de categorias con raido buttons*/
 
 .selector {
     position: relative;
@@ -465,6 +466,43 @@ b-form-input {
 	}
 }
 
+/*Para no poder cambiar de respuesta*/
 .disabled {
     pointer-events: none;
+}
+
+.incorrectAnswer {
+    background-color: rgb(221, 65, 65);
+    position: relative;
+}
+
+.incorrectAnswer:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "╳"; /* use the hex value here... */
+    font-size: 25px; 
+    color: #FFF;
+    line-height: 50px;
+    text-align: center;
+}
+
+.correctAnswer {
+    background-color: rgb(15, 209, 103);
+    position: relative;
+}
+
+.correctAnswer:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "\2713"; /* use the hex value here... */
+    font-size: 35px; 
+    color: #FFF;
+    line-height: 50px;
+    text-align: center;
 }
