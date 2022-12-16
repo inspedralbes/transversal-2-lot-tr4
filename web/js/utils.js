@@ -64,6 +64,8 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
+        <div v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
+
         <h2 class="Pregunta">Category</h2>
         <div class="container__categoria">
             <div class="selector row">
@@ -119,11 +121,10 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
-        <div class="button__PlayDiv" v-on:click="countDownTimer()">
+        <div class="button__PlayDiv">
             <b-button class="button__Play--leagueStyle" @click="jugar" variant="success">Play</b-button>
         </div>
         <br>
-        <div class="button__Play--leagueStyle" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
     </div>
     <div class="wrapper">
         <div class="contador" v-show="empezado">
@@ -294,12 +295,17 @@ const Partida = Vue.component("partida", {
     },
 
     jugar() {
-      clearTimeout(this.timer);
-      this.indice = 1;
-      this.countDown = 20;
-
       let categoriaF = "";
 
+      if (this.dificultad == "") {
+        this.dificultadVacia = true;
+        
+      } else {
+        clearTimeout(this.timer);
+        this.indice = 1;
+        this.countDown = 20;
+        this.countDownTimer();
+      }
       if (this.categoria != "") {
         categoriaF = "categories=" + this.categoria + "&";
       }
