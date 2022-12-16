@@ -126,7 +126,7 @@ const Partida = Vue.component("partida", {
         <div class="buttonPlay" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
     </div>
     <div class="wrapper">
-        <div class="contador">
+        <div class="contador" v-show="empezado">
             <div id="buttonPlayGame" class="timer">
                 {{ countDown }}
             </div>
@@ -134,6 +134,7 @@ const Partida = Vue.component("partida", {
         <div class="b-slider" v-show="!acabado">
             <div class="slider">
                 <div class="slides" id="respuestas">
+
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                         <div class="container__preguntes">
                             <div class="Pregunta">
@@ -167,10 +168,12 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
-        <div class = "resultsPrint" id="resultsPrint">
+        <div class="resultsPrint" id="resultsPrint">
         </div>
     </div>
-    <div id="scorePrint" class="scorePrint">
+    <div v-show="acabado" class="scorePrint">
+      <p>Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
+      <b-button class="buttonPlay" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table>
@@ -202,7 +205,7 @@ const Partida = Vue.component("partida", {
       element.classList.toggle("disabled");
       setTimeout(function () {
         element.classList.toggle("disabled");
-      }, 2000);
+      }, 10);
     },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
@@ -249,7 +252,7 @@ const Partida = Vue.component("partida", {
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
-      }, 2000);
+      }, 10);
     },
 
     resetTime() {
@@ -268,7 +271,7 @@ const Partida = Vue.component("partida", {
             this.indice++;
             this.countDownTimer();
           }
-        }, 2000);
+        }, 10);
       }
     },
 
@@ -283,7 +286,13 @@ const Partida = Vue.component("partida", {
       this.acabado = false;
       this.dificultadVacia = false;
       this.idGame = 0;
+      for (let i = 0; i < 10; i++) {
+        var element = document.getElementById(`pregunta${i}`);
+        element.classList.remove("incorrectAnswer");
+        element.classList.remove("correctAnswer");
+      }
     },
+
     jugar() {
       clearTimeout(this.timer);
       this.indice = 1;
@@ -369,10 +378,6 @@ const Partida = Vue.component("partida", {
 
       if (this.contadorRespuestas == 10) {
         this.acabado = true;
-        document.getElementById(
-          "scorePrint"
-        ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
-        document.getElementById("scorePrint").style.display = "block";
         if (this.store.logged) {
           this.enviarScorePlayer();
         }
