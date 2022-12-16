@@ -197,7 +197,6 @@
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-    display: none;
     font-size: 50px;
     text-align: center;
     color: #eee;
@@ -247,9 +246,12 @@
     border-color: #C89B3C;
     font-size: 20px;
     margin: 5px;
+    width: 200px;
+    height: 60px
 }
 /*Tabla para mostrar respuestas correctas al final*/
 .tabla {
+    padding-top: 20px;
     border-collapse: separate;
     border-spacing: 10px 2px;
     margin: auto;
@@ -261,6 +263,9 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;    
 }
 
 /*Titulo de la pagina web*/
@@ -506,3 +511,13 @@
     line-height: 50px;
     text-align: center;
 }
+.mensajeErrorDificultad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-area: Pregunta;
+    margin: 25px;
+    display: block;
+    border-radius: 5px;
+    color: red;}
