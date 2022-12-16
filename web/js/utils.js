@@ -345,9 +345,7 @@ const Partida = Vue.component("partida", {
                   this.idGame = data;
                 });
             }
-            if (this.store.logged) {
-              this.enviarPuntuacioInicial();
-            }
+           
           }
         });
     },
@@ -359,6 +357,9 @@ const Partida = Vue.component("partida", {
         .then((response) => response.json())
         .then((data) => {
           this.idGame = data;
+          if (this.store.logged) {
+            this.enviarPuntuacioInicial();
+          }
         });
     },
     enviarPuntuacioInicial: function () {
