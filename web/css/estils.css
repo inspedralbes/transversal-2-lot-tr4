@@ -469,3 +469,14 @@ b-form-input {
 .disabled {
     pointer-events: none;
 }
+
+.mensajeErrorDificultad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-area: Pregunta;
+    margin: 25px;
+    display: block;
+    border-radius: 5px;
+    color: red;}
