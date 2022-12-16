@@ -57,3 +57,5 @@ Route::post('/mandarSolicitutAmistat', [FriendsController::class, 'sendFriendReq
 Route::post('/resultatSolicitutAmistat', [FriendsController::class, 'endFriendRequest']);
 
 Route::get('/dadesAmics/{id}', [FriendsController::class, 'dadesAmics']);
+
+Route::get('/esborrarAmic/{id}', [FriendsController::class, 'esborrarAmic']);
