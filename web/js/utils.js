@@ -1,6 +1,6 @@
 const Home = Vue.component("home", {
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
     <div class="menu">
       <div class="news">
       <br>
@@ -64,6 +64,8 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
+        <div class="mensajeErrorDificultad" v-show="dificultadVacia"><h4>Error! You need to choose a difficulty !</h4></div>
+
         <h2 class="Pregunta">Category</h2>
         <div class="container__categoria">
             <div class="selector row">
@@ -97,7 +99,7 @@ const Partida = Vue.component("partida", {
                         value="history" v-model="categoria">
                     <label for="history" class="selector-item_label">History</label>
                 </div>
-                <div class="colbuttonPlay-6">
+                <div class="col-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="music" value="music"
                         v-model="categoria">
                     <label for="music" class="selector-item_label">Music</label>
@@ -119,11 +121,10 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
-        <div class="button__PlayDiv" v-on:click="countDownTimer()">
+        <div class="button__PlayDiv">
             <b-button class="button__Play--leagueStyle" @click="jugar" variant="success">Play</b-button>
         </div>
         <br>
-        <div class="button__Play--leagueStyle" v-show="dificultadVacia">Error! You need to choose a difficulty !</div>
     </div>
     <div class="wrapper">
         <div class="contador" v-show="empezado">
@@ -134,7 +135,6 @@ const Partida = Vue.component("partida", {
         <div class="b-slider" v-show="!acabado">
             <div class="slider">
                 <div class="slides" id="respuestas">
-
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                         <div class="container__preguntes">
                             <div class="Pregunta">
@@ -205,7 +205,7 @@ const Partida = Vue.component("partida", {
       element.classList.toggle("disabled");
       setTimeout(function () {
         element.classList.toggle("disabled");
-      }, 10);
+      }, 1000);
     },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
@@ -252,7 +252,7 @@ const Partida = Vue.component("partida", {
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
-      }, 10);
+      }, 1000);
     },
 
     resetTime() {
@@ -271,7 +271,7 @@ const Partida = Vue.component("partida", {
             this.indice++;
             this.countDownTimer();
           }
-        }, 10);
+        }, 1000);
       }
     },
 
@@ -294,12 +294,17 @@ const Partida = Vue.component("partida", {
     },
 
     jugar() {
-      clearTimeout(this.timer);
-      this.indice = 1;
-      this.countDown = 20;
-
       let categoriaF = "";
 
+      if (this.dificultad == "") {
+        this.dificultadVacia = true;
+        
+      } else {
+        clearTimeout(this.timer);
+        this.indice = 1;
+        this.countDown = 20;
+        this.countDownTimer();
+      }
       if (this.categoria != "") {
         categoriaF = "categories=" + this.categoria + "&";
       }
@@ -391,7 +396,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 2000);
+          }, 1000);
         } else {
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
@@ -400,7 +405,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 2000);
+          }, 1000);
         }
         this.contadorRespuestas++;
       }
@@ -505,7 +510,7 @@ const Ranking = Vue.component("ranking", {
     };
   },
   template: `
-    <div v-show="mostrar" class="loginSign">
+    <div v-show="mostrar" class="divGeneral">
       <h1>Llista de jugadors.</h1>
       <div v-for="player in players" >
         <li>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
@@ -612,7 +617,7 @@ const Amics = Vue.component("llista-amics", {
     };
   },
   template: `
-  <div v-show="mostrar" class="loginSign">
+  <div v-show="mostrar" class="divGeneral">
     <h1>Amics</h1>
     <h2 v-show="amics.length == 0">You don't have friends!</h2>
     <div v-for="amic in amics" v-show="amic.nickname != store.getPlayerName()">
@@ -664,15 +669,15 @@ const Registre = Vue.component("registre-player", {
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
     <br>
     <h2>REGISTER</h2>
     <b-col sm="5" class="mx-auto">
-      <b-form-input v-model="form.name" placeholder="Nom" class="m-3" required></b-form-input>
-      <b-form-input v-model="form.surname" placeholder="Cognom" class="m-3" required></b-form-input>
-      <b-form-input v-model="form.nickname" placeholder="Nom d'usuari" class="m-3" required></b-form-input>
-      <b-form-input v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
-      <b-form-input v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" class="m-3" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom" class="m-3" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari" class="m-3" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
     </b-col>
     <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
@@ -707,13 +712,13 @@ const Login = Vue.component("login", {
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
       <div v-show="!logged">
         <br>
         <h2>LOG IN</h2>
         <b-col sm="5" class="mx-auto">
-          <b-form-input v-model="form.nickname" placeholder="Nickname" class="m-3" required></b-form-input>
-          <b-form-input v-model="form.psswd" type="password" placeholder="Password" class="m-3" required></b-form-input>
+          <b-form-input class="input__logYsign" v-model="form.nickname" placeholder="Nickname" required></b-form-input>
+          <b-form-input class ="input__logYsign" v-model="form.psswd" type="password" placeholder="Password" required></b-form-input>
         </b-col>
         <b-button class="button__Play--leagueStyle" @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
@@ -775,7 +780,7 @@ Vue.component("navbar-router", {
     };
   },
   template: `
-  <ul id="navbar">
+  <ul class ="navbar" id="navbar">
   <li v-on:click="HomeResetPartida()">
       <router-link  to="/" class="routerlink">Home</router-link>
   </li>
@@ -798,13 +803,13 @@ Vue.component("navbar-router", {
       <router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link>
   </li>
   <li>
-      <router-link to="/registre" class="routerlink rightNav activeSign" v-show="!store.logged">Sign up</router-link>
+      <router-link to="/registre" class="rightNav activeSign" v-show="!store.logged">Sign up</router-link>
   </li>
   <li>
-      <router-link to="/login" class="routerlink rightNav" v-show="!store.logged">Log in</router-link>
+      <router-link to="/login" class="rightNav" v-show="!store.logged">Log in</router-link>
   </li>
   <li>
-      <b-button @click="logOut" class="routerlink rightNav" variant="primary" v-show="store.logged">Logout</b-button>
+      <b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button>
   </li>
   <div>
       <b-button v-show="store.logged" v-b-modal.modal-center class="routerlink rightNav">{{store.name_player}}
@@ -838,7 +843,7 @@ const Gotd = Vue.component("gotd", {
     };
   },
   template: `
-  <div class="loginSign" v-show="store.logged" v-show="mostrar">
+  <div class="divGeneral" v-show="store.logged" v-show="mostrar">
       <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
       <div v-for="puntuacio in puntuacions">
         <h3>{{puntuacio.id_player}} -> {{puntuacio.score}}</h3>
