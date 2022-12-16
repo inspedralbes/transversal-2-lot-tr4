@@ -366,6 +366,7 @@ const Partida = Vue.component("partida", {
         document.getElementById(
           "scorePrint"
         ).innerHTML = `<p>Your score is ${this.contadorBuenas}/${this.contadorRespuestas}</p>`;
+        document.getElementById("scorePrint").style.display = "block";
         if (this.store.logged) {
           this.enviarDadesPartidaJugador();
         }
