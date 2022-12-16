@@ -42,8 +42,6 @@ Route::get('/getIdPartidaDelDia', [GamesController::class, 'getIdGotd']);
 
 Route::post('/setDadesPartida', [GamesController::class, 'store']);
 
-Route::get('/puntuacionsDelDia', [GamesController::class, 'partidaDelDiaPuntuacions']);
-
 // ---- Dades partida + jugador ----
 
 Route::post('/storeGameXPlayerInicial', [GameXPlayerController::class, 'storeInicial']);
@@ -53,6 +51,8 @@ Route::post('/setScorePlayer', [GameXPlayerController::class, 'setScorePlayer'])
 Route::get('/getPartidesUsuari/{id}', [GameXPlayerController::class, 'get']);
 
 Route::get('/getPartides', [GameXPlayerController::class, 'getPartides']);
+
+Route::get('/puntuacionsPartida/{id}', [GameXPlayerController::class, 'puntuacionsPartida']);
 
 // ---- Solicituts d'amistat ----
 

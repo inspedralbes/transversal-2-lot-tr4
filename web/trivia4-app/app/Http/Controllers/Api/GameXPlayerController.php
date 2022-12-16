@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\gamexplayer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class GameXPlayerController extends Controller
 {
@@ -37,5 +38,13 @@ class GameXPlayerController extends Controller
     {
         $game = gamexplayer::get();
         return json_encode($game);
+    }
+
+    public function puntuacionsPartida($id)
+    {
+        $game = gamexplayer::where('id_game', '=', $id)
+            ->select("id_player", 'score', 'date')
+            ->get();
+        return $game;
     }
 }

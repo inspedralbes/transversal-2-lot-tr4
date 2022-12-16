@@ -337,9 +337,11 @@ const Partida = Vue.component("partida", {
                 .then((response) => response.json())
                 .then((data) => {
                   this.idGame = data;
+                  if (this.store.logged) {
+                    this.enviarPuntuacioInicial();
+                  }
                 });
             }
-           
           }
         });
     },
@@ -832,6 +834,7 @@ const Gotd = Vue.component("gotd", {
       store: useLoginStore(),
       puntuacions: [],
       mostrar: false,
+      idGame: 0,
     };
   },
   template: `
@@ -842,13 +845,23 @@ const Gotd = Vue.component("gotd", {
       </div>
   </div>`,
   mounted: function () {
-    url = "./trivia4-app/public/api/puntuacionsDelDia";
-    fetch(url)
+    fetch("./trivia4-app/public/api/getIdPartidaDelDia")
       .then((response) => response.json())
       .then((data) => {
-        this.puntuacions = data;
-        this.mostrar = true;
+        this.idGame = data;
+        this.buscarPuntuacions();
       });
+  },
+  methods: {
+    buscarPuntuacions() {
+      url = "./trivia4-app/public/api/puntuacionsPartida/" + this.idGame;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          this.puntuacions = data;
+          this.mostrar = true;
+        });
+    },
   },
 });
 

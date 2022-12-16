@@ -38,19 +38,4 @@ class GamesController extends Controller
         $game = Game::where('gameOfTheDay', true)->latest()->first();
         return $game->id;
     }
-
-    public function partidaDelDiaPuntuacions()
-    {
-        $gameOfTheDayId = Game::where('gameOfTheDay', true)
-        ->latest()
-        ->first()
-        ->select('id_game');
-
-        $game = DB::table('games')
-            ->join('gamexplayers', 'games.id', '=', 'gamexplayers.id_game')
-            ->where('games.id', '=', $gameOfTheDayId)->latest()->first()
-            ->select('games.id', "gamexplayer.id_player", 'gamexplayers.score', 'gamexplayers.date')
-            ->get();
-        return $game;
-    }
 }
