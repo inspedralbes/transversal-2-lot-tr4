@@ -135,7 +135,6 @@ const Partida = Vue.component("partida", {
         <div class="b-slider" v-show="!acabado">
             <div class="slider">
                 <div class="slides" id="respuestas">
-
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
                         <div class="container__preguntes">
                             <div class="Pregunta">
@@ -206,7 +205,7 @@ const Partida = Vue.component("partida", {
       element.classList.toggle("disabled");
       setTimeout(function () {
         element.classList.toggle("disabled");
-      }, 10);
+      }, 1000);
     },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
@@ -253,7 +252,7 @@ const Partida = Vue.component("partida", {
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
-      }, 10);
+      }, 1000);
     },
 
     resetTime() {
@@ -272,7 +271,7 @@ const Partida = Vue.component("partida", {
             this.indice++;
             this.countDownTimer();
           }
-        }, 10);
+        }, 1000);
       }
     },
 
@@ -395,7 +394,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 2000);
+          }, 1000);
         } else {
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
@@ -404,7 +403,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 2000);
+          }, 1000);
         }
         this.contadorRespuestas++;
       }
