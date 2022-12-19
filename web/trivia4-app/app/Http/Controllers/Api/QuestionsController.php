@@ -11,8 +11,12 @@ class QuestionsController extends Controller
     public function storeQuestion(Request $request)
     {
         $game = new Question;
-        $game->idApi = $request->idApi;
-        $game->correcta = $request->correcta;
+        $game->id_api = $request->idApi;
+        if ($request->correcta == "true") {
+            $game->correcta = true;
+        } else {
+            $game->correcta = false;
+        }
         $game->save();
     }
 }

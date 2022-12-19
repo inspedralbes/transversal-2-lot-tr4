@@ -15,7 +15,7 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idApi');
+            $table->string('id_api');
             $table->boolean('correcta');
             $table->timestamps();
         });
