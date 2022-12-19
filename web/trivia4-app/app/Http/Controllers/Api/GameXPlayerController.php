@@ -28,7 +28,7 @@ class GameXPlayerController extends Controller
 
     public function setScorePlayer(Request $request)
     {
-        $game = gamexplayer::where([
+        gamexplayer::where([
             ['id_game', '=', $request->id_game],
             ['id_player', '=', $request->id_player]
         ])->update(['score' => $request->score]);
@@ -36,15 +36,34 @@ class GameXPlayerController extends Controller
 
     public function getPartides()
     {
-        $game = gamexplayer::get();
-        return json_encode($game);
+        $games = gamexplayer::get();
+        return json_encode($games);
     }
 
     public function puntuacionsPartida($id)
     {
-        $game = gamexplayer::where('id_game', '=', $id)
-            ->select("id_player", 'score', 'date')
+        $games = gamexplayer::where('id_game', '=', $id)
+            ->join('players', 'gamexplayers.id_player', '=', 'players.id')
+            ->orderBy('gamexplayers.score', 'desc')
+            ->select("gamexplayers.id_player", "players.nickname", 'gamexplayers.score', 'gamexplayers.date')
             ->get();
-        return $game;
+        return $games;
+    }
+
+    public function haJugatPartidaDelDia($id)
+    {
+        $idGotd = DB::select(DB::raw("SELECT games.id FROM games WHERE games.gameOfTheDay=1 ORDER BY games.created_at DESC LIMIT 1"));
+        $gamexplayer = DB::table('gamexplayers')
+            ->where([
+                ['id_player', '=', $id],
+                ['id_game', '=', $idGotd[0]->id]
+            ]);
+
+        if ($gamexplayer->exists()) {
+            $response = true;
+        } else {
+            $response = false;
+        }
+        return response()->json($response, 200);
     }
 }

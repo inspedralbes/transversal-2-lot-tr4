@@ -173,7 +173,7 @@ const Partida = Vue.component("partida", {
     </div>
     <div v-show="acabado" class="scorePrint">
       <p>Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
-      <b-button class="button__Play--leagueStyle" @click="resetDades" variant="success">Play Again</b-button>
+      <b-button class="button__Play--leagueStyle" v-show="!gotdPROP" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table class="tabla">
@@ -298,7 +298,6 @@ const Partida = Vue.component("partida", {
 
       if (this.dificultad == "") {
         this.dificultadVacia = true;
-        
       } else {
         clearTimeout(this.timer);
         this.indice = 1;
@@ -673,11 +672,11 @@ const Registre = Vue.component("registre-player", {
     <br>
     <h2>REGISTER</h2>
     <b-col sm="5" class="mx-auto">
-      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
+      <b-form-input class="input__logYsign m-3" v-model="form.name" placeholder="Nom" required></b-form-input>
+      <b-form-input class="input__logYsign m-3" v-model="form.surname" placeholder="Cognom" required></b-form-input>
+      <b-form-input class="input__logYsign m-3" v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
+      <b-form-input class="input__logYsign m-3" v-model="form.mail" placeholder="Correu" required></b-form-input>
+      <b-form-input class="input__logYsign m-3" v-model="form.psswd" placeholder="Password" required></b-form-input>
     </b-col>
     <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
@@ -788,7 +787,7 @@ Vue.component("navbar-router", {
       <router-link to="/joc/false" class="routerlink">Play a game</router-link>
   </li>
   <li>
-      <router-link to="/gotd" class="routerlink" v-show="store.logged">Game of the day</router-link>
+      <router-link to="/gotd" class="routerlink">Game of the day</router-link>
   </li>
   <li>
       <router-link to="/ranking" class="routerlink">Ranking</router-link>
@@ -837,17 +836,28 @@ const Gotd = Vue.component("gotd", {
   data: function () {
     return {
       store: useLoginStore(),
+      jugat: false,
       puntuacions: [],
       mostrar: false,
       idGame: 0,
     };
   },
   template: `
-  <div class="divGeneral" v-show="store.logged" v-show="mostrar">
+  <div class="divGeneral">
+    <div v-show="store.logged && mostrar && !jugat">
       <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
-      <div v-for="puntuacio in puntuacions">
-        <h3>{{puntuacio.id_player}} -> {{puntuacio.score}}</h3>
-      </div>
+    </div>
+    <div v-show="!store.logged">
+      <h2>Inicia sessió per poder jugar la partida del dia!</h2>
+    </div>
+    <div v-show="jugat">
+      <h2>Ja has jugat la partida del dia</h2>
+    </div>
+    <h2>================================</h2>
+    <h2>Puntuacions Game of the Day</h2>
+    <ol v-for="(puntuacio, index) in puntuacions">
+      <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
+    </ol>
   </div>`,
   mounted: function () {
     fetch("./trivia4-app/public/api/getIdPartidaDelDia")
@@ -855,6 +865,7 @@ const Gotd = Vue.component("gotd", {
       .then((data) => {
         this.idGame = data;
         this.buscarPuntuacions();
+        this.haJugatGotd();
       });
   },
   methods: {
@@ -867,6 +878,13 @@ const Gotd = Vue.component("gotd", {
           this.mostrar = true;
         });
     },
+    haJugatGotd() {
+      fetch("./trivia4-app/public/api/haJugatPartidaDelDia/" + this.store.getIdPlayer())
+        .then((response) => response.json())
+        .then((data) => {
+          this.jugat = data;
+        });
+    }
   },
 });
 
