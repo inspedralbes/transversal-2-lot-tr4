@@ -17,7 +17,8 @@ class CreateGamexplayersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_player');
             $table->unsignedBigInteger('id_game');
-            $table->unsignedBigInteger('score');
+            $table->unsignedInteger('score');
+            $table->unsignedInteger('maxScore')->nullable();
             $table->timestamp('date');
             $table->timestamps();
         });
