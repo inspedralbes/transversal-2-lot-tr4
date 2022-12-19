@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Game;
-use App\Models\gamexplayer;
-use Illuminate\Support\Facades\DB;
 
 class GamesController extends Controller
 {

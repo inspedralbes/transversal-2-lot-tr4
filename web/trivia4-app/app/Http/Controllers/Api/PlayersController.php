@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Player;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class PlayersController extends Controller
 {
