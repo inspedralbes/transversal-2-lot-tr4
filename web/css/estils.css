@@ -255,11 +255,27 @@
 .button__Play--leagueStyle {
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
     border-color: #C89B3C;
-    font-size: 2vw;
+    font-size: 1.5vw;
     margin: 5px;
     width: 15%;
     height: 100%
 }
+
+.button__Play--RankingList {
+    background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
+    float: right;
+    border-color: #C89B3C;
+    font-size: 1.5vw;
+    margin: 5px;
+    width: 25%;
+    height: 100%
+}
+
+.li__personaRanking{
+    width: 75%;
+    float: left;
+}
+
 /*Tabla para mostrar respuestas correctas al final*/
 .tabla {
 
@@ -390,6 +406,8 @@
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
+    width: 100%;
+    height: 100%;
 }
 
 /*Dissenyo i posicionameiento del div el qual contiene la mencion a la api del trivial*/
@@ -421,6 +439,8 @@
       grid-template-areas:
         "contador b-slider resultsPrint";
     }
+
+
 }
 
 /*Estructuracion y disseño de la landing page*/

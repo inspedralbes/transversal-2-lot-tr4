@@ -541,9 +541,9 @@ const Ranking = Vue.component("ranking", {
   template: `
     <div v-show="mostrar" class="divGeneral">
       <h1>Llista de jugadors.</h1>
-      <div v-for="player in players" >
-        <li>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
-        <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--leagueStyle" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
+      <div v-for="player in players">
+          <li class ="li__personaRanking">{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
+          <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
       </div>
     </div>
   `,
@@ -914,7 +914,7 @@ const Gotd = Vue.component("gotd", {
     haJugatGotd() {
       fetch(
         "./trivia4-app/public/api/haJugatPartidaDelDia/" +
-          this.store.getIdPlayer()
+        this.store.getIdPlayer()
       )
         .then((response) => response.json())
         .then((data) => {
