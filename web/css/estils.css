@@ -17,7 +17,7 @@
 :root {
     --white: #fff;
     --smoke-white: #f1f3f5;
-    --blue: #4169e1;
+    --blue: #005A82;
     background-image: linear-gradient(to bottom right, #1E282D, #0A1428);
 }
 
@@ -131,11 +131,11 @@
 .container__dificultad,
 .container__categoria {
     position: relative;
-    width: 100%;
+    width: 80%;
     height: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto
 }
 
 /*Pregunta i respuestas individuales*/
@@ -412,7 +412,6 @@
 
 /*Dissenyo i posicionameiento del div el qual contiene la mencion a la api del trivial*/
 .mencionApi {
-    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -474,12 +473,20 @@
 
 /*Selector de categorias con raido buttons*/
 
+.titulo_dificultad_categoria {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .selector {
     position: relative;
-    width: 60%;
-    background-color: var(--smoke-white);
+    margin: 30px;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-style: double;
+    border-width: 5px;
+    border-radius: 5px;
+    border-color: #C89B3C;    
     display: flex;
-    justify-content: space-around;
     align-items: center;
     box-shadow: 0 0 16px rgba(0, 0, 0, .2);
     
@@ -490,22 +497,56 @@
     display: none;
 }
 
-.selector-item_label {
+.selector-item_label, .selector-item_label_easy, .selector-item_label_medium, .selector-item_label_hard {
     position: relative;
     height: 100%;
     width: 100%;
     text-align: center;
-    border-radius: 9999px;
+    line-height: 300%;
+    border-radius: 5px;
     line-height: 400%;
     font-size: 1.5vh;
     transition-duration: .5s;
     transition-property: transform, color, box-shadow;
     transform: none;
+    font-size: 1vw;
+    margin: 10px;
 
 }
 
 .selector-item_radio:checked+.selector-item_label {
     background-color: var(--blue);
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+
+.selector-item_radio:checked+.selector-item_label_easy {
+    background-color: green;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+.selector-item_radio:checked+.selector-item_label_medium {
+    background-color: orange;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+.selector-item_radio:checked+.selector-item_label_hard {
+    background-color: red;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
     color: var(--white);
     box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
     transform: translateY(-2px);
