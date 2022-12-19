@@ -424,26 +424,6 @@ const Partida = Vue.component("partida", {
             "resultsPrint"
           ).innerHTML = `<p>Correct Answer!</p>`;
           document.getElementById("resultsPrint").style.display = "block";
-          url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
-          fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-              correctes = 0;
-              total = 0;
-              data.forEach((element) => {
-                if (element.correcta) {
-                  correctes++;
-                }
-                total++;
-              });
-              percentatge = (correctes * 100) / total;
-              document.getElementById(
-                "resultsPregunta"
-              ).innerHTML = `<p>Un ${percentatge}% ha encertat aquesta pregunta</p>`;
-              document.getElementById("resultsPregunta").style.display =
-                "block";
-            });
-
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
             document.getElementById("resultsPregunta").style.display = "none";
@@ -459,6 +439,23 @@ const Partida = Vue.component("partida", {
             document.getElementById("resultsPrint").style.display = "none";
           }, 1000);
         }
+        url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            correctes = 0;
+            total = 0;
+            data.forEach((element) => {
+              if (element.correcta) {
+                correctes++;
+              }
+              total++;
+            });
+            percentatge = (correctes * 100) / total;
+            document.getElementById(
+              "resultsPrint"
+            ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+          });
         this.contadorRespuestas++;
       }
 
@@ -506,11 +503,11 @@ const Partides = Vue.component("historial", {
   },
   template: `
   <div class="loginSign">
-    <h1 v-show="idPlayer == 0">No has iniciat sessió!</h1>
-    <h1 v-show="partidas.length == 0 && idPlayer != 0">No hay partidas!</h1>
+    <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
+    <h1 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h1>
 
     <div v-show="idPlayer != 0">
-        <h1>Partides de l'usuari: {{player_name}}</h1>
+        <h1>Player games: {{player_name}}</h1>
         <div v-for="partida in partidas">
             <h1>{{partida.id}}</h1>
             <li>Game: {{partida.id_game}}</li>
@@ -542,8 +539,8 @@ const totesLesPartides = Vue.component("historial-general", {
   },
   template: `
   <div class="loginSign">
-    <h1 v-show="idPlayer == 0">No has iniciat sessió!</h1>
-    <h1 v-show="partidas.length == 0 && idPlayer != 0">No hay partidas!</h1>
+    <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
+    <h1 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h1>
 
     <div v-show="idPlayer != 0">
         <div v-for="partida in partidas">
@@ -577,7 +574,7 @@ const Ranking = Vue.component("ranking", {
   },
   template: `
     <div v-show="mostrar" class="divGeneral">
-      <h1>Llista de jugadors.</h1>
+      <h1>Players list.</h1>
       <div v-for="player in players">
           <li class ="li__personaRanking">{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
           <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
@@ -791,7 +788,7 @@ const Login = Vue.component("login", {
         </b-button>
       </div>
       <div v-show="logged">
-          Bienvenido {{infoLogin.nombre}}<br>
+          Welcome {{infoLogin.nombre}}<br>
           <img :src="infoLogin.imagen"></img><br>
       </div>
   </div>`,
@@ -912,22 +909,22 @@ const Gotd = Vue.component("gotd", {
   template: `
   <div class="divGeneral">
     <div v-show="store.logged && mostrar && !jugat">
-      <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
+      <router-link to="/joc/true"><b-button>Play Game Of The Day</b-button></router-link>
     </div>
     <div v-show="!store.logged">
-      <h2>Inicia sessió per poder jugar la partida del dia!</h2>
+      <h2>Log in to play Game Of The Day!</h2>
     </div>
     <div v-show="jugat">
-      <h2>Ja has jugat la partida del dia</h2>
+      <h2>You have already played this game</h2>
     </div>
     <h2>================================</h2>
-    <h2>Puntuacions Game of the Day</h2>
+    <h2>Scores Game of the Day</h2>
     <div v-show="puntuacions.length > 0">
       <div v-for="(puntuacio, index) in puntuacions">
         <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
       </div>
     </div>
-    <h3 v-show="puntuacions.length == 0">Encara no hi ha partides registrades</h3>
+    <h3 v-show="puntuacions.length == 0">No games were found</h3>
   </div>`,
   mounted: function () {
     fetch("./trivia4-app/public/api/getIdPartidaDelDia")
