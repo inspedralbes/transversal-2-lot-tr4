@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\GamesController;
 use App\Http\Controllers\Api\PlayersController;
 use App\Http\Controllers\Api\GameXPlayerController;
 use App\Http\Controllers\Api\FriendsController;
+use App\Http\Controllers\Api\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +68,8 @@ Route::post('/resultatSolicitutAmistat', [FriendsController::class, 'endFriendRe
 Route::get('/dadesAmics/{id}', [FriendsController::class, 'dadesAmics']);
 
 Route::get('/esborrarAmic/{id}', [FriendsController::class, 'esborrarAmic']);
+
+// ---- Questions ----
+
+Route::post('/storeResultatPregunta', [QuestionsController::class, 'storeQuestion']);
+

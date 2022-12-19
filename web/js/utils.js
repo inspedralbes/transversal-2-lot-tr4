@@ -145,23 +145,23 @@ const Partida = Vue.component("partida", {
                             </div>
                             <br><br><br>
                             <div class="Respuesta__1"
-                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
                             <div class="Respuesta__2"
-                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
                             <div class="Respuesta__3"
-                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
                             <div class="Respuesta__4"
-                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                             </div>
                             <div class="Respuesta__5"
-                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index), delay('#slide-' + (index + 1))">
+                                v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
                             </div>
                         </div>
@@ -174,7 +174,7 @@ const Partida = Vue.component("partida", {
     </div>
     <div v-show="acabado" class="scorePrint">
       <p>Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
-      <b-button class="button__Play--leagueStyle" v-show="!gotdPROP" @click="resetDades" variant="success">Play Again</b-button>
+      <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table class="tabla">
@@ -366,6 +366,15 @@ const Partida = Vue.component("partida", {
           }
         });
     },
+    enviarRespostaABBDD(idPreguntaApi, correcta) {
+      let datosEnvio = new FormData();
+      datosEnvio.append("idApi", idPreguntaApi);
+      datosEnvio.append("correcta", correcta);
+      fetch("./trivia4-app/public/api/storeResultatPregunta", {
+        method: "POST",
+        body: datosEnvio,
+      });
+    },
     enviarPuntuacioInicial: function () {
       let datosEnvio = new FormData();
       datosEnvio.append("id_player", this.store.getIdPlayer());
@@ -387,11 +396,12 @@ const Partida = Vue.component("partida", {
         body: datosEnvio,
       });
     },
-    comprovaResultats: function (respuestaUser, respuestaCorrecta, idPregunta) {
+    comprovaResultats: function (respuestaUser, respuestaCorrecta, idPregunta, idPreguntaApi) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
       let pregunta = document.getElementById("pregunta" + idPregunta);
       if (!this.acabado) {
         if (respuesta == respuestaCorrecta) {
+          this.enviarRespostaABBDD(idPreguntaApi, true);
           pregunta.classList.add("correctAnswer");
           this.contadorBuenas++;
           document.getElementById(
@@ -402,6 +412,7 @@ const Partida = Vue.component("partida", {
             document.getElementById("resultsPrint").style.display = "none";
           }, 1000);
         } else {
+          this.enviarRespostaABBDD(idPreguntaApi, false);
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
             "resultsPrint"
