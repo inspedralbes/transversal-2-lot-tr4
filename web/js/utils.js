@@ -22,6 +22,7 @@ const Home = Vue.component("home", {
 });
 
 const Partida = Vue.component("partida", {
+
   props: ["gotdPROP"],
   data: function () {
     return {
@@ -136,6 +137,7 @@ const Partida = Vue.component("partida", {
             <div class="slider">
                 <div class="slides" id="respuestas">
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
+
                         <div class="container__preguntes">
                             <div class="Pregunta">
                                 <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
@@ -259,8 +261,7 @@ const Partida = Vue.component("partida", {
       clearTimeout(this.timer);
       if (this.indice == 10) {
         this.indice = 1;
-        document.getElementById("buttonPlayGame").style.display = "none";
-        this.countDown = 20;
+        setTimeout(() => document.getElementById("buttonPlayGame").style.display = "none", 1000);
       } else {
         setTimeout(() => {
           if (this.countDown == 0) {
@@ -298,7 +299,7 @@ const Partida = Vue.component("partida", {
 
       if (this.dificultad == "") {
         this.dificultadVacia = true;
-        
+
       } else {
         clearTimeout(this.timer);
         this.indice = 1;
@@ -411,7 +412,7 @@ const Partida = Vue.component("partida", {
       }
 
       if (this.contadorRespuestas == 10) {
-        this.acabado = true;
+        setTimeout(() => this.acabado = true, 1000);
         if (this.store.logged) {
           this.enviarScorePlayer();
         }
