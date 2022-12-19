@@ -45,31 +45,32 @@ const Partida = Vue.component("partida", {
   template: `
   <div>
     <div v-show="!empezado">
-        <h2 class="Pregunta">Difficulty</h2>
         <div class="container__dificultad">
             <div class="selector row">
+            <h2 class="titulo_dificultad_categoria">Difficulty</h2><hr>
+
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="facil" value="easy"
                         v-model="dificultad">
-                    <label for="facil" class="selector-item_label">Easy</label>
+                    <label for="facil" class="selector-item_label_easy">Easy</label>
                 </div>
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="media" value="medium"
                         v-model="dificultad">
-                    <label for="media" class="selector-item_label">Medium</label>
+                    <label for="media" class="selector-item_label_medium">Medium</label>
                 </div>
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="dificil" value="hard"
                         v-model="dificultad">
-                    <label for="dificil" class="selector-item_label">Hard</label>
+                    <label for="dificil" class="selector-item_label_hard">Hard</label>
                 </div>
             </div>
         </div>
         <div class="mensajeErrorDificultad" v-show="dificultadVacia"><h4>Error! You need to choose a difficulty !</h4></div>
 
-        <h2 class="Pregunta">Category</h2>
         <div class="container__categoria">
             <div class="selector row">
+            <h2 class="titulo_dificultad_categoria">Category</h2><hr>
                 <div class="col-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="arts_and_literature"
                         value="arts_and_literature" v-model="categoria">
