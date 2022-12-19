@@ -46,7 +46,7 @@ const Partida = Vue.component("partida", {
     <div v-show="!empezado">
         <div class="container__dificultad">
             <div class="selector row">
-            <h2 class="titulo_dificultad_categoria">Difficulty</h2><hr>
+            <h3 class="titulo_dificultad_categoria">Difficulty</h3>
 
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="facil" value="easy"
@@ -69,7 +69,7 @@ const Partida = Vue.component("partida", {
 
         <div class="container__categoria">
             <div class="selector row">
-            <h2 class="titulo_dificultad_categoria">Category</h2><hr>
+            <h3 class="titulo_dificultad_categoria">Category</h3>
                 <div class="col-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="arts_and_literature"
                         value="arts_and_literature" v-model="categoria">
