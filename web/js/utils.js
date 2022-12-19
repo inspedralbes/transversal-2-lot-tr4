@@ -22,7 +22,6 @@ const Home = Vue.component("home", {
 });
 
 const Partida = Vue.component("partida", {
-
   props: ["gotdPROP"],
   data: function () {
     return {
@@ -261,7 +260,11 @@ const Partida = Vue.component("partida", {
       clearTimeout(this.timer);
       if (this.indice == 10) {
         this.indice = 1;
-        setTimeout(() => document.getElementById("buttonPlayGame").style.display = "none", 1000);
+        setTimeout(
+          () =>
+            (document.getElementById("buttonPlayGame").style.display = "none"),
+          1000
+        );
       } else {
         setTimeout(() => {
           if (this.countDown == 0) {
@@ -299,7 +302,6 @@ const Partida = Vue.component("partida", {
 
       if (this.dificultad == "") {
         this.dificultadVacia = true;
-
       } else {
         clearTimeout(this.timer);
         this.indice = 1;
@@ -379,6 +381,7 @@ const Partida = Vue.component("partida", {
       datosEnvio.append("id_player", this.store.getIdPlayer());
       datosEnvio.append("id_game", this.idGame);
       datosEnvio.append("score", this.contadorBuenas);
+      datosEnvio.append("difficulty", this.dificultad);
       fetch(url, {
         method: "POST",
         body: datosEnvio,
@@ -412,9 +415,23 @@ const Partida = Vue.component("partida", {
       }
 
       if (this.contadorRespuestas == 10) {
-        setTimeout(() => this.acabado = true, 1000);
+        setTimeout(() => (this.acabado = true), 1000);
         if (this.store.logged) {
           this.enviarScorePlayer();
+        }
+        switch (this.dificultad) {
+          case "medium":
+            this.contadorRespuestas *= 2;
+            this.contadorBuenas *= 2;
+            break;
+
+          case "hard":
+            this.contadorRespuestas *= 3;
+            this.contadorBuenas *= 3;
+            break;
+
+          default:
+            break;
         }
       }
     },
@@ -884,12 +901,15 @@ const Gotd = Vue.component("gotd", {
         });
     },
     haJugatGotd() {
-      fetch("./trivia4-app/public/api/haJugatPartidaDelDia/" + this.store.getIdPlayer())
+      fetch(
+        "./trivia4-app/public/api/haJugatPartidaDelDia/" +
+          this.store.getIdPlayer()
+      )
         .then((response) => response.json())
         .then((data) => {
           this.jugat = data;
         });
-    }
+    },
   },
 });
 
