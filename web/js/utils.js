@@ -170,10 +170,9 @@ const Partida = Vue.component("partida", {
                     </div>
                 </div>
             </div>
-            <div class="respostesAPregunta">{{ getMissatgePercentatge() }}</div>
         </div>
-        <div class="resultsPrint" id="resultsPrint">
-        </div>
+        <div class="resultsPrint" id="resultsPregunta"></div>
+        <div class="resultsPrint" id="resultsPrint"></div>
     </div>
     <div v-show="acabado" class="scorePrint">
       <p>Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
@@ -423,8 +422,29 @@ const Partida = Vue.component("partida", {
             "resultsPrint"
           ).innerHTML = `<p>Correct Answer!</p>`;
           document.getElementById("resultsPrint").style.display = "block";
+          url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+          fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              correctes = 0;
+              total = 0;
+              data.forEach((element) => {
+                if (element.correcta) {
+                  correctes++;
+                }
+                total++;
+              });
+              percentatge = (correctes * 100) / total;
+              document.getElementById(
+                "resultsPregunta"
+              ).innerHTML = `<p>Un ${percentatge}% ha encertat aquesta pregunta</p>`;
+              document.getElementById("resultsPregunta").style.display =
+                "block";
+            });
+
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
+            document.getElementById("resultsPregunta").style.display = "none";
           }, 1000);
         } else {
           this.enviarRespostaABBDD(idPreguntaApi, false);
@@ -929,7 +949,7 @@ const Gotd = Vue.component("gotd", {
     haJugatGotd() {
       fetch(
         "./trivia4-app/public/api/haJugatPartidaDelDia/" +
-        this.store.getIdPlayer()
+          this.store.getIdPlayer()
       )
         .then((response) => response.json())
         .then((data) => {
