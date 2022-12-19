@@ -175,8 +175,10 @@ const Partida = Vue.component("partida", {
         <div class="resultsPrint" id="resultsPrint"></div>
     </div>
     <div v-show="acabado" class="scorePrint">
-      <p>Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
-      <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
+      <p class="mostrarScore">Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
+    </div>
+    <div class="button__PlayDiv" v-show="acabado"> 
+    <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table class="tabla">

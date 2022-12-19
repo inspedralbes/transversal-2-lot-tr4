@@ -202,13 +202,19 @@
     grid-area: resultsPrint;
 }
 /*Comunica al jugador quantes ha fet be*/
+
+.mostrarScore {
+    font-size: 5vw;
+}
+
+
 .scorePrint {
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-    font-size: 2.6vw;
+    font-size: 4vw;
     text-align: center;
     color: #eee;
     margin: 20px;
@@ -250,7 +256,9 @@
     text-align: center;
     width: auto;
     height: auto;
+    margin-bottom: 1%;
 }
+
 
 .button__Play--leagueStyle {
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
@@ -278,7 +286,6 @@
 
 /*Tabla para mostrar respuestas correctas al final*/
 .tabla {
-
     border-collapse: separate;
     border-spacing: 10px 2px;
     margin: auto;
@@ -574,8 +581,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    content: "╳"; /* use the hex value here... */
-    font-size: 1.3vw; 
+    content: "\2613"; /* use the hex value here... */
+    font-size: 1.8vw; 
     color: #FFF;
     line-height: 40px;
     text-align: center;
