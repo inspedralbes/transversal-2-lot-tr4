@@ -54,6 +54,8 @@ Route::get('/getPartides', [GameXPlayerController::class, 'getPartides']);
 
 Route::get('/puntuacionsPartida/{id}', [GameXPlayerController::class, 'puntuacionsPartida']);
 
+Route::get('/haJugatPartidaDelDia/{id}', [GameXPlayerController::class, 'haJugatPartidaDelDia']);
+
 // ---- Solicituts d'amistat ----
 
 Route::get('/getSolicitutsPendents/{id}', [FriendsController::class, 'getPendingRequests']);

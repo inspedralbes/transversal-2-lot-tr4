@@ -175,7 +175,7 @@ const Partida = Vue.component("partida", {
     </div>
     <div v-show="acabado" class="scorePrint">
       <p>Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
-      <b-button class="button__Play--leagueStyle" @click="resetDades" variant="success">Play Again</b-button>
+      <b-button class="button__Play--leagueStyle" v-show="!gotdPROP" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table class="tabla">
@@ -789,7 +789,7 @@ Vue.component("navbar-router", {
       <router-link to="/joc/false" class="routerlink">Play a game</router-link>
   </li>
   <li>
-      <router-link to="/gotd" class="routerlink" v-show="store.logged">Game of the day</router-link>
+      <router-link to="/gotd" class="routerlink">Game of the day</router-link>
   </li>
   <li>
       <router-link to="/ranking" class="routerlink">Ranking</router-link>
@@ -838,17 +838,31 @@ const Gotd = Vue.component("gotd", {
   data: function () {
     return {
       store: useLoginStore(),
+      jugat: false,
       puntuacions: [],
       mostrar: false,
       idGame: 0,
     };
   },
   template: `
-  <div class="divGeneral" v-show="store.logged" v-show="mostrar">
+  <div class="divGeneral">
+    <div v-show="store.logged && mostrar && !jugat">
       <router-link to="/joc/true"><b-button>Juga uwu</b-button></router-link>
-      <div v-for="puntuacio in puntuacions">
-        <h3>{{puntuacio.id_player}} -> {{puntuacio.score}}</h3>
+    </div>
+    <div v-show="!store.logged">
+      <h2>Inicia sessió per poder jugar la partida del dia!</h2>
+    </div>
+    <div v-show="jugat">
+      <h2>Ja has jugat la partida del dia</h2>
+    </div>
+    <h2>================================</h2>
+    <h2>Puntuacions Game of the Day</h2>
+    <div v-show="puntuacions.length > 0">
+      <div v-for="(puntuacio, index) in puntuacions">
+        <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
       </div>
+    </div>
+    <h3 v-show="puntuacions.length == 0">Encara no hi ha partides registrades</h3>
   </div>`,
   mounted: function () {
     fetch("./trivia4-app/public/api/getIdPartidaDelDia")
@@ -856,6 +870,7 @@ const Gotd = Vue.component("gotd", {
       .then((data) => {
         this.idGame = data;
         this.buscarPuntuacions();
+        this.haJugatGotd();
       });
   },
   methods: {
@@ -868,6 +883,13 @@ const Gotd = Vue.component("gotd", {
           this.mostrar = true;
         });
     },
+    haJugatGotd() {
+      fetch("./trivia4-app/public/api/haJugatPartidaDelDia/" + this.store.getIdPlayer())
+        .then((response) => response.json())
+        .then((data) => {
+          this.jugat = data;
+        });
+    }
   },
 });
 
