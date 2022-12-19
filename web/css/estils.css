@@ -361,6 +361,17 @@
     text-decoration:none;
 }
 
+@media screen and (min-width: 500px) {
+    .rightNav {
+      font-size: 20px;
+    }
+    .routerlink{
+        font-size: 20px;
+    }
+  }
+
+
+
 .activeSign {
     background-color: #005A82;
 }
@@ -451,6 +462,7 @@
     justify-content: space-around;
     align-items: center;
     box-shadow: 0 0 16px rgba(0, 0, 0, .2);
+    
 }
 
 .selector-item_radio {
@@ -465,11 +477,11 @@
     text-align: center;
     border-radius: 9999px;
     line-height: 400%;
-    font-size: 3vh;
+    font-size: 1.5vh;
     transition-duration: .5s;
     transition-property: transform, color, box-shadow;
     transform: none;
-    font-size: 1vw;
+
 }
 
 .selector-item_radio:checked+.selector-item_label {
