@@ -22,16 +22,34 @@ class GameXPlayerController extends Controller
         $game->id_player = $request->id_player;
         $game->id_game = $request->id_game;
         $game->score = 0;
+        $game->maxScore = 0;
         $game->date = Carbon::now();
         $game->save();
     }
 
     public function setScorePlayer(Request $request)
     {
+        $score = $request->score;
+        $maxScore = 10;
+        switch ($request->difficulty) {
+            case 'medium':
+                $score *= 2;
+                $maxScore *= 2;
+                break;
+
+            case 'hard':
+                $score *= 3;
+                $maxScore *= 3;
+                break;
+
+            default:
+                # code...
+                break;
+        }
         gamexplayer::where([
             ['id_game', '=', $request->id_game],
             ['id_player', '=', $request->id_player]
-        ])->update(['score' => $request->score]);
+        ])->update(['score' => $score, 'maxScore' => $maxScore]);
     }
 
     public function getPartides()
