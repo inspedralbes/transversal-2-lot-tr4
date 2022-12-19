@@ -9,10 +9,10 @@ const Home = Vue.component("home", {
       <div class="inspedralbes">
         <p>Aqui la pagina del instituto para el cual se entrega este juegazo</p>
         <br>
-        <img src="img/LogoPedralbes.png" alt="Logo Pedralbes">
+        <img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive">
       </div>
       <div class="fotoquiz">
-        <img src="img/quiz_invi.png" alt="Quiz Foto">
+        Hello
       </div>
       <div class="extra">
         <p>In this extra part we will be informing about other things to our players!</p>
@@ -22,6 +22,7 @@ const Home = Vue.component("home", {
 });
 
 const Partida = Vue.component("partida", {
+
   props: ["gotdPROP"],
   data: function () {
     return {
@@ -136,6 +137,7 @@ const Partida = Vue.component("partida", {
             <div class="slider">
                 <div class="slides" id="respuestas">
                     <div :id="'slide-' + (index)" v-for="(pregunta, index) in preguntas">
+
                         <div class="container__preguntes">
                             <div class="Pregunta">
                                 <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
@@ -259,8 +261,7 @@ const Partida = Vue.component("partida", {
       clearTimeout(this.timer);
       if (this.indice == 10) {
         this.indice = 1;
-        document.getElementById("buttonPlayGame").style.display = "none";
-        this.countDown = 20;
+        setTimeout(() => document.getElementById("buttonPlayGame").style.display = "none", 1000);
       } else {
         setTimeout(() => {
           if (this.countDown == 0) {
@@ -298,6 +299,7 @@ const Partida = Vue.component("partida", {
 
       if (this.dificultad == "") {
         this.dificultadVacia = true;
+
       } else {
         clearTimeout(this.timer);
         this.indice = 1;
@@ -410,7 +412,7 @@ const Partida = Vue.component("partida", {
       }
 
       if (this.contadorRespuestas == 10) {
-        this.acabado = true;
+        setTimeout(() => this.acabado = true, 1000);
         if (this.store.logged) {
           this.enviarScorePlayer();
         }
@@ -672,11 +674,11 @@ const Registre = Vue.component("registre-player", {
     <br>
     <h2>REGISTER</h2>
     <b-col sm="5" class="mx-auto">
-      <b-form-input class="input__logYsign m-3" v-model="form.name" placeholder="Nom" required></b-form-input>
-      <b-form-input class="input__logYsign m-3" v-model="form.surname" placeholder="Cognom" required></b-form-input>
-      <b-form-input class="input__logYsign m-3" v-model="form.nickname" placeholder="Nom d'usuari" required></b-form-input>
-      <b-form-input class="input__logYsign m-3" v-model="form.mail" placeholder="Correu" required></b-form-input>
-      <b-form-input class="input__logYsign m-3" v-model="form.psswd" placeholder="Password" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password"required></b-form-input>
     </b-col>
     <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
