@@ -45,31 +45,32 @@ const Partida = Vue.component("partida", {
   template: `
   <div>
     <div v-show="!empezado">
-        <h2 class="Pregunta">Difficulty</h2>
         <div class="container__dificultad">
             <div class="selector row">
+            <h3 class="titulo_dificultad_categoria">Difficulty</h3>
+
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="facil" value="easy"
                         v-model="dificultad">
-                    <label for="facil" class="selector-item_label">Easy</label>
+                    <label for="facil" class="selector-item_label_easy">Easy</label>
                 </div>
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="media" value="medium"
                         v-model="dificultad">
-                    <label for="media" class="selector-item_label">Medium</label>
+                    <label for="media" class="selector-item_label_medium">Medium</label>
                 </div>
                 <div class="col">
                     <input type="radio" name="selector" class="selector-item_radio" id="dificil" value="hard"
                         v-model="dificultad">
-                    <label for="dificil" class="selector-item_label">Hard</label>
+                    <label for="dificil" class="selector-item_label_hard">Hard</label>
                 </div>
             </div>
         </div>
         <div class="mensajeErrorDificultad" v-show="dificultadVacia"><h4>Error! You need to choose a difficulty !</h4></div>
 
-        <h2 class="Pregunta">Category</h2>
         <div class="container__categoria">
             <div class="selector row">
+            <h3 class="titulo_dificultad_categoria">Category</h3>
                 <div class="col-6">
                     <input type="radio" name="selector_categoria" class="selector-item_radio" id="arts_and_literature"
                         value="arts_and_literature" v-model="categoria">
@@ -555,9 +556,9 @@ const Ranking = Vue.component("ranking", {
   template: `
     <div v-show="mostrar" class="divGeneral">
       <h1>Llista de jugadors.</h1>
-      <div v-for="player in players" >
-        <li>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
-        <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--leagueStyle" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
+      <div v-for="player in players">
+          <li class ="li__personaRanking">{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
+          <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
       </div>
     </div>
   `,
@@ -928,7 +929,7 @@ const Gotd = Vue.component("gotd", {
     haJugatGotd() {
       fetch(
         "./trivia4-app/public/api/haJugatPartidaDelDia/" +
-          this.store.getIdPlayer()
+        this.store.getIdPlayer()
       )
         .then((response) => response.json())
         .then((data) => {
