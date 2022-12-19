@@ -5,8 +5,14 @@
     box-sizing: border-box;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
-    font-size: 1vw;
+    font-size: 3vw;
 }
+
+@media screen and (min-width: 500px) {
+    * {
+      font-size: 20px;
+    }
+  }
 
 :root {
     --white: #fff;
@@ -24,7 +30,7 @@
 
 /*Disseny i funcionalitats del slider el qual porta les preguntes i respostes*/
 .slider {
-    width: 60%;
+    width: 100%;
     height: auto;
     text-align: center;
 }
@@ -54,6 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     grid-area: b-slider;
 }
 
@@ -71,6 +78,7 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    
     /*
     scroll-snap-points-x: repeat(300px);
     scroll-snap-type: mandatory;
@@ -398,7 +406,7 @@
 @media (min-width: 500px) {
     .wrapper {
         display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 700px 1fr;
       grid-template-areas:
         "contador b-slider resultsPrint";
     }
