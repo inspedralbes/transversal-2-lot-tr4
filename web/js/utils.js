@@ -9,10 +9,10 @@ const Home = Vue.component("home", {
       <div class="inspedralbes">
         <p>Aqui la pagina del instituto para el cual se entrega este juegazo</p>
         <br>
-        <img src="img/LogoPedralbes.png" alt="Logo Pedralbes">
+        <img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive">
       </div>
       <div class="fotoquiz">
-        <img src="img/quiz_invi.png" alt="Quiz Foto">
+        Hello
       </div>
       <div class="extra">
         <p>In this extra part we will be informing about other things to our players!</p>
@@ -673,11 +673,11 @@ const Registre = Vue.component("registre-player", {
     <br>
     <h2>REGISTER</h2>
     <b-col sm="5" class="mx-auto">
-      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" class="m-3" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password" class="m-3" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
+      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password"required></b-form-input>
     </b-col>
     <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
         </b-spinner>
