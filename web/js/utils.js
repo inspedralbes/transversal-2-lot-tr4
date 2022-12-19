@@ -857,9 +857,12 @@ const Gotd = Vue.component("gotd", {
     </div>
     <h2>================================</h2>
     <h2>Puntuacions Game of the Day</h2>
-    <ol v-for="(puntuacio, index) in puntuacions">
-      <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
-    </ol>
+    <div v-show="puntuacions.length > 0">
+      <div v-for="(puntuacio, index) in puntuacions">
+        <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
+      </div>
+    </div>
+    <h3 v-show="puntuacions.length == 0">Encara no hi ha partides registrades</h3>
   </div>`,
   mounted: function () {
     fetch("./trivia4-app/public/api/getIdPartidaDelDia")
