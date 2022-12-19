@@ -73,3 +73,4 @@ Route::get('/esborrarAmic/{id}', [FriendsController::class, 'esborrarAmic']);
 
 Route::post('/storeResultatPregunta', [QuestionsController::class, 'storeQuestion']);
 
+Route::get('/getDadesPregunta/{id}', [QuestionsController::class, 'getQuestionData']);

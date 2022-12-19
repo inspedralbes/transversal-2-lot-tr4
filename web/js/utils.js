@@ -39,6 +39,7 @@ const Partida = Vue.component("partida", {
       countDown: 20,
       indice: 1,
       timer: null,
+      missatgePercentatge: "",
     };
   },
   template: `
@@ -168,6 +169,7 @@ const Partida = Vue.component("partida", {
                     </div>
                 </div>
             </div>
+            <div class="respostesAPregunta">{{ getMissatgePercentatge() }}</div>
         </div>
         <div class="resultsPrint" id="resultsPrint">
         </div>
@@ -201,6 +203,13 @@ const Partida = Vue.component("partida", {
   },
 
   methods: {
+    getMissatgePercentatge(idPreguntaApi) {
+      fetch("./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    },
     blockOrUnblockRespuesta() {
       var element = document.getElementById("respuestas");
       element.classList.toggle("disabled");
@@ -396,7 +405,12 @@ const Partida = Vue.component("partida", {
         body: datosEnvio,
       });
     },
-    comprovaResultats: function (respuestaUser, respuestaCorrecta, idPregunta, idPreguntaApi) {
+    comprovaResultats: function (
+      respuestaUser,
+      respuestaCorrecta,
+      idPregunta,
+      idPreguntaApi
+    ) {
       let respuesta = document.getElementById(respuestaUser).innerHTML;
       let pregunta = document.getElementById("pregunta" + idPregunta);
       if (!this.acabado) {

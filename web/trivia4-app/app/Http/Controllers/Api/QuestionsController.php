@@ -19,4 +19,9 @@ class QuestionsController extends Controller
         }
         $game->save();
     }
+    public function getQuestionData($id)
+    {
+        $game = Question::where('id_api', $id)->get();
+        return json_encode($game);
+    }
 }
