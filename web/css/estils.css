@@ -255,7 +255,7 @@
 .button__Play--leagueStyle {
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
     border-color: #C89B3C;
-    font-size: 1vw;
+    font-size: 2vw;
     margin: 5px;
     width: 15%;
     height: 100%
@@ -281,7 +281,7 @@
 
 /*Titulo de la pagina web*/
 .gameName {
-    font-size: 2.6vw;
+    font-size: 4vw;
     text-align: center;
     -webkit-text-stroke: 1px black;
     background: -webkit-linear-gradient(#C89B3C, #785A28);
@@ -291,7 +291,7 @@
 }
 
 .gameName2 {
-    font-size: 1.5vw;
+    font-size: 3vw;
     text-align: center;
     -webkit-text-stroke: 1px black;
     background: -webkit-linear-gradient(#C89B3C, #785A28);
@@ -341,7 +341,7 @@
 .routerlink {
     float: left;
     color: #A09B8C;
-    font-size: 1vw;
+    font-size: 2.5vw;
     padding: 14px 16px;
     text-decoration:none;
 }
@@ -356,10 +356,21 @@
 .rightNav {
     float: left;
     color: #A09B8C;
-    font-size: 1vw;
+    font-size: 2.5vw;
     padding: 15px 15px;
     text-decoration:none;
 }
+
+@media screen and (min-width: 500px) {
+    .rightNav {
+      font-size: 20px;
+    }
+    .routerlink{
+        font-size: 20px;
+    }
+  }
+
+
 
 .activeSign {
     background-color: #005A82;
@@ -458,6 +469,7 @@
     display: flex;
     align-items: center;
     box-shadow: 0 0 16px rgba(0, 0, 0, .2);
+    
 }
 
 .selector-item_radio {
@@ -471,6 +483,9 @@
     width: 100%;
     text-align: center;
     line-height: 300%;
+    border-radius: 5px;
+    line-height: 400%;
+    font-size: 1.5vh;
     transition-duration: .5s;
     transition-property: transform, color, box-shadow;
     transform: none;
