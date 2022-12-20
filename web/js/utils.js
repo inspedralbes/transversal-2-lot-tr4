@@ -366,24 +366,24 @@ const Partida = Vue.component("partida", {
           url = "./trivia4-app/public/api/getQuestionData/" + idPreguntaApi;
           fetch(url)
             .then((response) => response.json())
-            .then((data) => {
+            .then((dataPregunta) => {
               correctes = 0;
               total = 0;
-              data.forEach((element) => {
+              dataPregunta.forEach((element) => {
                 if (element.correcta) {
                   correctes++;
                 }
                 total++;
               });
               percentatge = (correctes * 100) / total;
-              if (data.length == 0) {
+              if (dataPregunta.length == 0) {
                 document.getElementById(
                   "resultsPrint"
                 ).innerHTML += `<p>You're the first player answering this question!</p>`;
               } else {
                 document.getElementById(
                   "resultsPrint"
-                ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+                ).innerHTML += `<p>${percentatge.toFixed(2)}% of the players answered this question right</p>`;
               }
             });
         });
