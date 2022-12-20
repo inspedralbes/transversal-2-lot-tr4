@@ -910,14 +910,16 @@ const Login = Vue.component("login", {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data[0]) {
+          console.log(data);
+          if (data[1] == 200) {
             this.infoLogin.nombre = data[1].nickname;
             this.infoLogin.id = data[1].id;
             this.logged = true;
             this.store.login();
             this.store.setIdPlayer(data[1].id);
             this.store.setPlayerName(data[1].nickname);
-          } else {
+          } else if (data[1] == 500){
+            console.log(data[0]);
           }
           this.procesando = false;
         });
