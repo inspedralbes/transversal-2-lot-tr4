@@ -7,7 +7,7 @@ const Home = Vue.component("home", {
         <p>Welcome to League of Trivia. This is the first update of the game, so stay stunned for more news in the future!</p>
       </div>
       <div class="inspedralbes">
-        <p>Aqui la pagina del instituto para el cual se entrega este juegazo</p>
+        <p>Here's the highschool web page!</p>
         <br>
         <a href="https://www.institutpedralbes.cat/"><img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive"></a>
       </div>
@@ -536,7 +536,7 @@ const Partides = Vue.component("historial", {
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
     <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
     <h1 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h1>
 
@@ -572,7 +572,7 @@ const totesLesPartides = Vue.component("historial-general", {
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
     <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
     <h1 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h1>
 
@@ -668,11 +668,11 @@ Vue.component("solicituts", {
   },
   template: `
   <div>
-    <h1>Solicituts d'amistat.</h1>
+    <h1>Friend request</h1>
     <div v-show="mostrar">
       <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
       <div v-for="solicitut in solicituts">
-        <h1>L'usuari {{solicitut.nickname}} t'ha enviat una sol·licitut d'amistat</h1>
+        <h1>The user {{solicitut.nickname}} sent you a firend request!</h1>
         <p>
           <b-button class="button__Play--leagueStyle" @click="envia(true, solicitut.id)">Accept</b-button>
           <b-button class="button__Play--leagueStyle" @click="envia(false, solicitut.id)">Deny</b-button>
@@ -680,7 +680,7 @@ Vue.component("solicituts", {
       </div>
     </div>
     <div v-show="!mostrar">
-      <h2>No hi ha resultats!</h2>
+      <h2>No results!</h2>
     </div>
   </div>
   `,
@@ -731,7 +731,7 @@ const Amics = Vue.component("llista-amics", {
   },
   template: `
   <div v-show="mostrar" class="divGeneral">
-    <h1>Amics</h1>
+    <h1>Friend List</h1>
     <h2 v-show="amics.length == 0">You don't have friends!</h2>
     <div v-for="amic in amics" v-show="amic.nickname != store.getPlayerName()">
       <h3>{{amic.nickname}} <b-button variant="danger" @click="eliminarAmic(amic.friend_id), rebreSolicituts()">Delete friend</b-button></h3>
@@ -924,11 +924,11 @@ Vue.component("navbar-router", {
   <li>
       <b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button>
   </li>
-  <div>
-      <b-button v-show="store.logged" v-b-modal.modal-center class="routerlink rightNav">{{store.name_player}}
+  <div  >
+      <b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
       </b-button>
-      <b-modal id="modal-center" centered title="Perfil">
-          <p>Nom Usuari: <strong class="my-4">{{ store.name_player }}</strong></p>
+      <b-modal id="modal-center" centered title="Profile" hide-footer="true">
+          <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
       </b-modal>
   </div>
 </ul>
@@ -968,7 +968,7 @@ const Gotd = Vue.component("gotd", {
       <h2>You have already played this game</h2>
     </div>
     <h2>================================</h2>
-    <h2>Scores Game of the Day</h2>
+    <h2>Scores of the Game of the Day</h2>
     <div v-show="puntuacions.length > 0">
       <div v-for="(puntuacio, index) in puntuacions">
         <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
