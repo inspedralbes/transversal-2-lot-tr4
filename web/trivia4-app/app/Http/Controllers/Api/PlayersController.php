@@ -37,25 +37,22 @@ class PlayersController extends Controller
         $player = Player::where('nickname', $request->nickname)->firstOrFail();
         if ($player != null) {
             if (Hash::check($request->psswd, $player->psswd)) {
-                $correcte = true;
                 return response()->json([
-                    $correcte,
-                    $player
+                    $player,
+                    200
                 ]);
             } else {
-                $correcte = false;
                 $message = "Contrasenya incorrecta";
                 return response()->json([
-                    $correcte,
-                    $message
+                    $message,
+                    500
                 ]);
             }
         } else {
-            $correcte = false;
             $message = "Usuari no existent";
             return response()->json([
-                $correcte,
-                $message
+                $message,
+                500
             ]);
         }
     }

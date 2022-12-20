@@ -896,6 +896,7 @@ const Login = Vue.component("login", {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           if (data[0]) {
             this.infoLogin.nombre = data[1].nickname;
             this.infoLogin.id = data[1].id;
