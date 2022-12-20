@@ -492,6 +492,14 @@
         width: 20vw;
         height: 5vh
 	}
+
+    .gameName{
+        font-size:60px;
+    }
+
+    .gameName2{
+        font-size:50px;
+    }
 }
 
 /*Para no poder cambiar de respuesta*/
