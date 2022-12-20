@@ -9,7 +9,7 @@ const Home = Vue.component("home", {
       <div class="inspedralbes">
         <p>Aqui la pagina del instituto para el cual se entrega este juegazo</p>
         <br>
-        <img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive">
+        <a href="https://www.institutpedralbes.cat/"><img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive"></a>
       </div>
       <div class="fotoquiz">
         Hello
