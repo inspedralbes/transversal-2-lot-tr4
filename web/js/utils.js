@@ -520,16 +520,16 @@ const Partides = Vue.component("historial", {
         <table class="table table-hover lg table-striped table-bordered">
         <thead class ="header__tablaRanking">
           <tr>
-            <th scope="col">ID Partida</th>
-            <th scope="col">Game</th>
+            <th scope="col">ID Game</th>
+            <th scope="col">Difficulty</th>
             <th scope="col">Score</th>
             <th scope="col">Date</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="partida in partidas">
-            <th scope="row">{{partida.id}}</th>
-            <td>{{partida.id_game}}</td>
+            <th scope="row">{{partida.id_game}}</th>
+            <td>{{partida.maxScore == 10?"Easy":partida.maxScore == 20?"Medium":"Hard"}}</td>
             <td>{{partida.score}}</td>
             <td>{{partida.date}}</td>
           </tr>

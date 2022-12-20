@@ -12,7 +12,14 @@ class GameXPlayerController extends Controller
 {
     public function get($id)
     {
-        $game = gamexplayer::where('id_player', $id)->get();
+        $game = gamexplayer::join('players', 'gamexplayers.id_player', '=', 'players.id')
+            ->where([
+                ['gamexplayers.maxScore', '!=', 0],
+                ['id_player', '=', $id]
+            ])
+            ->select("gamexplayers.id_player", "players.nickname", 'gamexplayers.score', 'gamexplayers.maxScore', 'gamexplayers.id_game', 'gamexplayers.date')
+            ->orderBy("gamexplayers.date", 'desc')
+            ->get();
         return json_encode($game);
     }
 
@@ -55,8 +62,9 @@ class GameXPlayerController extends Controller
     public function getPartides()
     {
         $games = gamexplayer::join('players', 'gamexplayers.id_player', '=', 'players.id')
-        ->where('gamexplayers.maxScore', '!=', 0)
+            ->where('gamexplayers.maxScore', '!=', 0)
             ->select("gamexplayers.id_player", "players.nickname", 'gamexplayers.score', 'gamexplayers.maxScore', 'gamexplayers.date')
+            ->orderBy("gamexplayers.date", 'desc')  
             ->get();
         return json_encode($games);
     }
