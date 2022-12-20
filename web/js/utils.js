@@ -144,7 +144,6 @@ const Partida = Vue.component("partida", {
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
-                            <br><br><br>
                             <div class="Respuesta__1"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
@@ -614,7 +613,7 @@ const Ranking = Vue.component("ranking", {
             <th scope="row">{{ordinalSuffixOf(index + 1)}}</th>
             <td>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a></td>
             <td>{{player.totalScore}}</td>
-            <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
+            <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--leagueStyle" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
           </tr>
         </tbody>
         </table> 

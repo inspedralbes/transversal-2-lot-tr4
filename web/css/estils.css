@@ -129,6 +129,7 @@ html{
 
 .container__dificultad,
 .container__categoria {
+    margin: 1%;
     position: relative;
     width: 80%;
     height: 100%;
@@ -264,21 +265,13 @@ html{
 
 
 .button__Play--leagueStyle {
-    background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
-    border-color: #C89B3C;
     font-size: 1.5vw;
     margin: 5px;
-    width: 15%;
-    height: 100%
-}
-
-.button__Play--RankingList {
+    width: 30vw;
+    height: 6vh;
+    margin: 2vw 2vh;
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
     border-color: #C89B3C;
-    font-size: 1.5vw;
-    margin: 5px;
-    width: 50%;
-    height: 20%;
 }
 
 .li__personaRanking{
@@ -323,20 +316,6 @@ html{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-decoration:none;
-}
-
-.tituloDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: block;
-    margin: 30px;
-    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
-    border-radius: 5px;
-    border-style: double;
-    border-width: 5px;
-    border-color: #C89B3C;
 }
 
 /*Length de los input de log in y registro*/
@@ -404,6 +383,7 @@ html{
 
 .divGeneral {
     display: flex;
+    margin: 1%;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -484,10 +464,26 @@ html{
 
 .titulo_dificultad_categoria {
     text-align: center;
-    margin-bottom: 10px;
+}
+
+.divGeneral {
+    display: flex;
+    margin: 1%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: block;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-radius: 5px;
+    font-weight: bold;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    bottom: 0
 }
 
 .selector {
+    margin: 1%;
     position: relative;
     margin: 30px;
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
@@ -500,6 +496,7 @@ html{
     box-shadow: 0 0 16px rgba(0, 0, 0, .2);
     
 }
+
 
 .selector-item_radio {
     appearance: none;
@@ -658,3 +655,6 @@ table.table-bordered > tbody > tr > td{
     color: white;
 }
 
+.b-table-sticky-header, .table-responsive, [class*=table-responsive-] {
+    margin: 1%
+}
