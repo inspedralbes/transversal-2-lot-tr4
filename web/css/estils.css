@@ -187,6 +187,10 @@
     display: none;
 }
 
+.text__Mencionapi{
+    color: white
+}
+
 /*Comunica al jugador si la resposta es correcta o incorrecta*/
 .resultsPrint {
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
@@ -510,11 +514,10 @@
     line-height: 300%;
     border-radius: 5px;
     line-height: 400%;
-    font-size: 1.5vh;
     transition-duration: .5s;
     transition-property: transform, color, box-shadow;
     transform: none;
-    font-size: 1vw;
+    font-size: 1.5vw;
     margin: 10px;
 
 }
@@ -621,7 +624,6 @@
     height: auto;
 }
 
-
 .modal-content {
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-style: double;
@@ -633,3 +635,21 @@
 .close {
     display: none
 }
+
+/*Tabla ranking*/
+
+table.table-bordered{
+    border:3px solid #C89B3C;
+    border-style: double;
+    width: 90%;
+    margin-left: auto;
+     margin-right: auto;
+  }
+table.table-bordered > thead > tr > th{
+    border:1px solid #C89B3C;
+}
+table.table-bordered > tbody > tr > td{
+    border:1px solid #C89B3C;
+
+}
+
