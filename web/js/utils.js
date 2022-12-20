@@ -774,7 +774,7 @@ const Amics = Vue.component("llista-amics", {
     },
     eliminarAmic(id) {
       url = "./trivia4-app/public/api/deleteFriend/" + id;
-      fetch(url, { method: 'DELETE' })
+      fetch(url)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

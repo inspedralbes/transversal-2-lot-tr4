@@ -69,7 +69,7 @@ Route::post('/resultFriendRequest', [FriendsController::class, 'endFriendRequest
 
 Route::get('/friendsData/{id}', [FriendsController::class, 'dadesAmics']);
 
-Route::delete('/deleteFriend/{id}', [FriendsController::class, 'esborrarAmic']);
+Route::get('/deleteFriend/{id}', [FriendsController::class, 'esborrarAmic']);
 
 // ---- Questions ----
 
