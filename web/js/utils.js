@@ -571,7 +571,7 @@ const totesLesPartides = Vue.component("historial-general", {
     <table class="table table-hover lg table-striped table-bordered">
     <thead class ="header__tablaRanking">
       <tr>
-        <th scope="col">ID Partida</th>
+        <th scope="col">Player</th>
         <th scope="col">Game</th>
         <th scope="col">Score</th>
         <th scope="col">Date</th>
@@ -579,7 +579,7 @@ const totesLesPartides = Vue.component("historial-general", {
     </thead>
     <tbody>
       <tr v-for="partida in partidas">
-        <th scope="row">{{partida.id}}</th>
+        <th scope="row">{{partida.nickname}}</th>
         <td>{{partida.id_game}}</td>
         <td>{{partida.score}}</td>
         <td>{{partida.date}}</td>
