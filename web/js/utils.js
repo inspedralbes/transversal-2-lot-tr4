@@ -906,7 +906,6 @@ Vue.component("navbar-router", {
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item v-on:click="HomeResetPartida()"><router-link  to="/" class="routerlink">Home</router-link></b-nav-item>
         <b-nav-item><router-link to="/joc/false" class="routerlink">Play a game</router-link></b-nav-item>
         <b-nav-item><router-link to="/gotd" class="routerlink">Game of the day</router-link></b-nav-item>
         <b-nav-item><router-link to="/ranking" class="routerlink">Ranking</router-link></b-nav-item>
