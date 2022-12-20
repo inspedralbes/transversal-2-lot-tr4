@@ -1,4 +1,10 @@
 const Home = Vue.component("home", {
+  template:`<div class="divGeneral">
+  <br>
+    <h3> PLAY A GAME RIGHT NOW!</h3>
+    <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play a game</b-button></router-link>
+    
+  </div>`
 });
 
 const Partida = Vue.component("partida", {
@@ -157,7 +163,7 @@ const Partida = Vue.component("partida", {
       <p class="mostrarScore">Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
     </div>
     <div class="button__PlayDiv" v-show="acabado"> 
-    <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
+      <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table class="tabla">
