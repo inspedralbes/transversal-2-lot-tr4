@@ -9,7 +9,6 @@ const Home = Vue.component("home", {
       <div class="inspedralbes">
         <p>Here's the highschool web page!</p>
         <br>
-        <a href="https://www.institutpedralbes.cat/"><img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive"></a>
       </div>
       <div class="fotoquiz">
         Hello
@@ -970,7 +969,7 @@ const Gotd = Vue.component("gotd", {
   template: `
   <div class="divGeneral">
     <div v-show="store.logged && mostrar && !jugat">
-      <router-link to="/joc/true"><b-button>Play Game Of The Day</b-button></router-link>
+      <router-link to="/joc/true"><b-button class="button__Play--leagueStyle col-6">Play Game Of The Day</b-button></router-link>
     </div>
     <div v-show="!store.logged">
       <h2>Log in to play Game Of The Day!</h2>
@@ -978,11 +977,26 @@ const Gotd = Vue.component("gotd", {
     <div v-show="jugat">
       <h2>You have already played this game</h2>
     </div>
-    <h2>================================</h2>
+    <hr/>
     <h2>Scores of the Game of the Day</h2>
     <div v-show="puntuacions.length > 0">
-      <div v-for="(puntuacio, index) in puntuacions">
-        <h3>{{index + 1}}. {{puntuacio.nickname}} -> {{puntuacio.score}}</h3>
+      <div class="table-responsive">
+        <table class="table table-hover lg table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Nickname</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(puntuacio, index) in puntuacions">
+            <th scope="row">{{ordinalSuffixOf(index + 1)}}</th>
+            <td>{{puntuacio.nickname}} <a v-show="store.id_player == puntuacio.id_player">(YOU)</a></td>
+            <td>{{puntuacio.score}}</td>
+          </tr>
+        </tbody>
+        </table> 
       </div>
     </div>
     <h3 v-show="puntuacions.length == 0">No games were found</h3>
@@ -1015,6 +1029,20 @@ const Gotd = Vue.component("gotd", {
         .then((data) => {
           this.jugat = data;
         });
+    },
+    ordinalSuffixOf(i) {
+      var j = i % 10,
+        k = i % 100;
+      if (j == 1 && k != 11) {
+        return i + "st";
+      }
+      if (j == 2 && k != 12) {
+        return i + "nd";
+      }
+      if (j == 3 && k != 13) {
+        return i + "rd";
+      }
+      return i + "th";
     },
   },
 });
