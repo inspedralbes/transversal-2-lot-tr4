@@ -84,4 +84,11 @@ class GameXPlayerController extends Controller
         }
         return response()->json($response, 200);
     }
+
+    public function totalScorePlayers()
+    {
+        $rank = DB::select(DB::raw("SELECT DISTINCT players.id, players.nickname, SUM(gamexplayers.score) AS totalScore FROM players INNER JOIN gamexplayers ON players.id = gamexplayers.id_player GROUP BY players.id, players.nickname ORDER BY totalScore DESC"));
+
+        return json_encode($rank);
+    }
 }

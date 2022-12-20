@@ -57,6 +57,8 @@ Route::get('/puntuacionsPartida/{id}', [GameXPlayerController::class, 'puntuacio
 
 Route::get('/haJugatPartidaDelDia/{id}', [GameXPlayerController::class, 'haJugatPartidaDelDia']);
 
+Route::get('/puntuacioTotalRank', [GameXPlayerController::class, 'totalScorePlayers']);
+
 // ---- Solicituts d'amistat ----
 
 Route::get('/getSolicitutsPendents/{id}', [FriendsController::class, 'getPendingRequests']);

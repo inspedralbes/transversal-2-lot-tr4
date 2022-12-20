@@ -623,7 +623,7 @@ const Ranking = Vue.component("ranking", {
           <tr v-for="(player, index) in players">
             <th scope="row">{{index + 1}}</th>
             <td>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a></td>
-            <td>Score</td>
+            <td>{{player.totalScore}}</td>
             <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
           </tr>
         </tbody>
@@ -632,7 +632,7 @@ const Ranking = Vue.component("ranking", {
     </div>
   `,
   mounted: function () {
-    url = "./trivia4-app/public/api/getPlayers";
+    url = "./trivia4-app/public/api/puntuacioTotalRank";
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
