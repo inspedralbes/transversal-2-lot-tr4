@@ -510,11 +510,10 @@
     line-height: 300%;
     border-radius: 5px;
     line-height: 400%;
-    font-size: 1.2vh;
     transition-duration: .5s;
     transition-property: transform, color, box-shadow;
     transform: none;
-    font-size: 1.2vw;
+    font-size: 1.5vw;
     margin: 10px;
 
 }
@@ -620,7 +619,6 @@
     max-width: 50%;
     height: auto;
 }
-
 
 .modal-content {
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
