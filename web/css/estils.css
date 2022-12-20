@@ -119,6 +119,7 @@
 
 .container__dificultad,
 .container__categoria {
+    margin: 1%;
     position: relative;
     justify-content: center;
     align-items: center;
@@ -236,17 +237,11 @@
 
 
 .button__Play--leagueStyle {
+    width: 30vw;
+    height: 6vh;
+    margin: 2vw 2vh;
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
     border-color: #C89B3C;
-    width: 15%;
-    height: 100%
-}
-
-.button__Play--RankingList {
-    background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
-    border-color: #C89B3C;
-    width: 50%;
-    height: 20%;
 }
 
 .li__personaRanking{
@@ -288,19 +283,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-decoration:none;
-}
-
-.tituloDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: block;
-    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
-    border-radius: 5px;
-    border-style: double;
-    border-width: 5px;
-    border-color: #C89B3C;
 }
 
 /*Length de los input de log in y registro*/
@@ -353,6 +335,7 @@
 
 .divGeneral {
     display: flex;
+    margin: 1%;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -363,20 +346,7 @@
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-}
-
-/*Dissenyo i posicionameiento del div el qual contiene la mencion a la api del trivial*/
-.mencionApi {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: block;
-    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
-    border-radius: 5px;
-    border-style: double;
-    border-width: 5px;
-    border-color: #C89B3C;
-    bottom: 0;
+    bottom: 0
 }
 
 /*Grid que divide la pantalla entre el timer las preguntas i la correccion de las mismas*/
@@ -420,7 +390,24 @@
     text-align: center;
 }
 
+.divGeneral {
+    display: flex;
+    margin: 1%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: block;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-radius: 5px;
+    font-weight: bold;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    bottom: 0
+}
+
 .selector {
+    margin: 1%;
     position: relative;
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-style: double;
@@ -436,6 +423,7 @@
     width: 80%;
     margin: 0 auto
 }
+
 .selector-item_radio {
     appearance: none;
     display: none;
@@ -575,3 +563,6 @@ table.table-bordered > tbody > tr > td{
     border:1px solid #C89B3C;
 }
 
+.b-table-sticky-header, .table-responsive, [class*=table-responsive-] {
+    margin: 1%
+}
