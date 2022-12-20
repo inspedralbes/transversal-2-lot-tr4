@@ -29,6 +29,7 @@ const Partida = Vue.component("partida", {
   },
   template: `
   <div>
+  <div class="resultsPrint"  id="resultsPrint"></div>
     <div v-show="!empezado">
         <div class="container__dificultad">
             <div class="selector row">
@@ -130,32 +131,31 @@ const Partida = Vue.component("partida", {
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
-                            <div class="Respuesta__1"
+                            <div class="Respuesta__1 "
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
                             <div class="Respuesta__2"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
                             <div class="Respuesta__3"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
                             <div class="Respuesta__4"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                             </div>
                             <div class="Respuesta__5"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="resultsPrint" id="resultsPrint"></div>
     </div>
     <div v-show="acabado" class="scorePrint">
       <h3 class="mostrarScore">Your score is {{contadorBuenas}}/{{contadorRespuestas}}</h3>
@@ -193,7 +193,7 @@ const Partida = Vue.component("partida", {
       element.classList.toggle("disabled");
       setTimeout(function () {
         element.classList.toggle("disabled");
-      }, 1000);
+      }, 5000);
     },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
@@ -240,7 +240,7 @@ const Partida = Vue.component("partida", {
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
-      }, 1000);
+      }, 5000);
     },
 
     resetTime() {
@@ -250,7 +250,7 @@ const Partida = Vue.component("partida", {
         setTimeout(
           () =>
             (document.getElementById("buttonPlayGame").style.display = "none"),
-          1000
+          5000
         );
       } else {
         setTimeout(() => {
@@ -262,7 +262,7 @@ const Partida = Vue.component("partida", {
             this.indice++;
             this.countDownTimer();
           }
-        }, 1000);
+        }, 5000);
       }
     },
 
@@ -428,7 +428,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 1000);
+          }, 5000);
         } else {
           this.enviarRespostaABBDD(idPreguntaApi, false);
           pregunta.classList.add("incorrectAnswer");
@@ -438,7 +438,7 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 1000);
+          }, 5000);
         }
         url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
         fetch(url)
