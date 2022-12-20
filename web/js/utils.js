@@ -9,7 +9,6 @@ const Home = Vue.component("home", {
       <div class="inspedralbes">
         <p>Here's the highschool web page!</p>
         <br>
-        <a href="https://www.institutpedralbes.cat/"><img src="img/LogoPedralbes.png" alt="Logo Pedralbes" class="responsive"></a>
       </div>
       <div class="fotoquiz">
         Hello
@@ -599,10 +598,10 @@ const Ranking = Vue.component("ranking", {
   },
   template: `
     <div v-show="mostrar" class="divGeneral">
-      <h1>Players Ranking</h1>
+      <h1>Player Ranking</h1>
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
-        <thead>
+        <thead class ="header__tablaRanking">
           <tr>
             <th scope="col">Ranking</th>
             <th scope="col">Nickname</th>
@@ -919,45 +918,42 @@ Vue.component("navbar-router", {
     };
   },
   template: `
-  <ul class ="navbar" id="navbar">
-  <li v-on:click="HomeResetPartida()">
-      <router-link  to="/" class="routerlink">Home</router-link>
-  </li>
-  <li>
-      <router-link to="/joc/false" class="routerlink">Play a game</router-link>
-  </li>
-  <li>
-      <router-link to="/gotd" class="routerlink">Game of the day</router-link>
-  </li>
-  <li>
-      <router-link to="/ranking" class="routerlink">Ranking</router-link>
-  </li>
-  <li>
-      <router-link to="/amics" class="routerlink" v-show="store.logged">Friends</router-link>
-  </li>
-  <li>
-      <router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link>
-  </li>
-  <li>
-      <router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link>
-  </li>
-  <li>
-      <router-link to="/registre" class="rightNav activeSign" v-show="!store.logged">Sign up</router-link>
-  </li>
-  <li>
-      <router-link to="/login" class="rightNav" v-show="!store.logged">Log in</router-link>
-  </li>
-  <li>
-      <b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button>
-  </li>
-  <div  >
-      <b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
-      </b-button>
-      <b-modal id="modal-center" centered title="Profile" hide-footer="true">
-          <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
-      </b-modal>
-  </div>
-</ul>
+  <div>
+  <b-navbar toggleable="lg" type="dark" variant="bg-dark">
+    <b-navbar-brand>LoQ</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item v-on:click="HomeResetPartida()"><router-link  to="/" class="routerlink">Home</router-link></b-nav-item>
+        <b-nav-item><router-link to="/joc/false" class="routerlink">Play a game</router-link></b-nav-item>
+        <b-nav-item><router-link to="/gotd" class="routerlink">Game of the day</router-link></b-nav-item>
+        <b-nav-item><router-link to="/ranking" class="routerlink">Ranking</router-link></b-nav-item>
+        <b-nav-item><router-link to="/amics" class="routerlink" v-show="store.logged">Friends</router-link></b-nav-item>
+        <b-nav-item><router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link></b-nav-item>
+        <b-nav-item><router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link></b-nav-item>
+
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ms-auto">
+        <b-navbar-nav>
+          <b-nav-item><router-link to="/registre" class="rightNav" v-show="!store.logged">Sign up</router-link></b-nav-item>
+          <b-nav-item><router-link to="/login" class="rightNav" v-show="!store.logged">Log in</router-link></b-nav-item>
+          <b-nav-item><b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button></b-nav-item>
+          <b-nav-item><b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
+          </b-button>
+          <b-modal id="modal-center" centered title="Profile" hide-footer="true">
+              <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
+          </b-modal>
+          </b-nav-item>
+        </b-navbar-nav>
+
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
   `,
   methods: {
     logOut() {
