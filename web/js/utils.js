@@ -301,7 +301,7 @@ const Partida = Vue.component("partida", {
 
       let url;
       if (this.gotdPROP == "true") {
-        url = "./trivia4-app/public/api/getJSONPartidaDelDia";
+        url = "./trivia4-app/public/api/getJSONGameOfTheDay";
       } else {
         url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
       }
@@ -328,7 +328,7 @@ const Partida = Vue.component("partida", {
             if (this.gotdPROP != "true") {
               this.enviarDades(datosEnvio);
             } else {
-              fetch("./trivia4-app/public/api/getIdPartidaDelDia")
+              fetch("./trivia4-app/public/api/getIdGameOfTheDay")
                 .then((response) => response.json())
                 .then((data) => {
                   this.idGame = data;
@@ -341,7 +341,7 @@ const Partida = Vue.component("partida", {
         });
     },
     enviarDades(datosPregunta) {
-      fetch("./trivia4-app/public/api/setDadesPartida", {
+      fetch("./trivia4-app/public/api/setGameData", {
         method: "POST",
         body: datosPregunta,
       })
@@ -357,13 +357,13 @@ const Partida = Vue.component("partida", {
       let datosEnvio = new FormData();
       datosEnvio.append("idApi", idPreguntaApi);
       datosEnvio.append("correcta", correcta);
-      fetch("./trivia4-app/public/api/storeResultatPregunta", {
+      fetch("./trivia4-app/public/api/storeQuestionResult", {
         method: "POST",
         body: datosEnvio,
       })
         .then((response) => response.json())
         .then((data) => {
-          url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+          url = "./trivia4-app/public/api/getQuestionData/" + idPreguntaApi;
           fetch(url)
             .then((response) => response.json())
             .then((data) => {
@@ -392,7 +392,7 @@ const Partida = Vue.component("partida", {
       let datosEnvio = new FormData();
       datosEnvio.append("id_player", this.store.getIdPlayer());
       datosEnvio.append("id_game", this.idGame);
-      fetch("./trivia4-app/public/api/storeGameXPlayerInicial", {
+      fetch("./trivia4-app/public/api/storeInitialGameXPlayer", {
         method: "POST",
         body: datosEnvio,
       });
@@ -440,7 +440,7 @@ const Partida = Vue.component("partida", {
             document.getElementById("resultsPrint").style.display = "none";
           }, 5000);
         }
-        url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+        url = "./trivia4-app/public/api/getQuestionData/" + idPreguntaApi;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
@@ -539,7 +539,7 @@ const Partides = Vue.component("historial", {
   </div>`,
   mounted: function () {
     if (this.idPlayer != 0) {
-      url = "./trivia4-app/public/api/getPartidesUsuari/" + this.idPlayer;
+      url = "./trivia4-app/public/api/getPlayerGames/" + this.idPlayer;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -591,7 +591,7 @@ const totesLesPartides = Vue.component("historial-general", {
   `,
   mounted: function () {
     if (this.idPlayer != 0) {
-      url = "./trivia4-app/public/api/getPartides";
+      url = "./trivia4-app/public/api/getGames";
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -635,7 +635,7 @@ const Ranking = Vue.component("ranking", {
     </div>
   `,
   mounted: function () {
-    url = "./trivia4-app/public/api/puntuacioTotalRank";
+    url = "./trivia4-app/public/api/totalScoreRank";
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -649,7 +649,7 @@ const Ranking = Vue.component("ranking", {
       datosEnvio.append("id_requester", this.store.getIdPlayer());
       datosEnvio.append("id_requested", idSolicitat);
 
-      fetch(`./trivia4-app/public/api/mandarSolicitutAmistat`, {
+      fetch(`./trivia4-app/public/api/sendFriendRequest`, {
         method: "POST",
         body: datosEnvio,
       });
@@ -711,7 +711,7 @@ Vue.component("solicituts", {
       datosEnvio.append("id", id);
       datosEnvio.append("accept", opcio);
 
-      fetch(`./trivia4-app/public/api/resultatSolicitutAmistat`, {
+      fetch(`./trivia4-app/public/api/resultFriendRequest`, {
         method: "POST",
         body: datosEnvio,
       })
@@ -723,7 +723,7 @@ Vue.component("solicituts", {
     rebreSolicituts() {
       this.solicituts = [];
       url =
-        "./trivia4-app/public/api/getSolicitutsPendents/" +
+        "./trivia4-app/public/api/getPendingRequests/" +
         this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
@@ -764,7 +764,7 @@ const Amics = Vue.component("llista-amics", {
   methods: {
     rebreSolicituts() {
       this.amics = [];
-      url = "./trivia4-app/public/api/dadesAmics/" + this.store.getIdPlayer();
+      url = "./trivia4-app/public/api/friendsData/" + this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -773,10 +773,11 @@ const Amics = Vue.component("llista-amics", {
         });
     },
     eliminarAmic(id) {
-      url = "./trivia4-app/public/api/esborrarAmic/" + id;
+      url = "./trivia4-app/public/api/deleteFriend/" + id;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           this.rebreSolicituts();
         });
     },
@@ -834,7 +835,7 @@ const Registre = Vue.component("registre-player", {
       datosEnvio.append("nickname", this.form.nickname);
       datosEnvio.append("psswd", this.form.psswd);
 
-      fetch(`./trivia4-app/public/api/setDadesPlayer`, {
+      fetch(`./trivia4-app/public/api/setPlayerData`, {
         method: "POST",
         body: datosEnvio,
       })
@@ -908,7 +909,7 @@ const Login = Vue.component("login", {
       datosEnvio.append("nickname", this.form.nickname);
       datosEnvio.append("psswd", this.form.psswd);
 
-      fetch(`./trivia4-app/public/api/getDadesPlayer`, {
+      fetch(`./trivia4-app/public/api/getPlayerData`, {
         method: "POST",
         body: datosEnvio,
       })
@@ -1011,7 +1012,7 @@ const Gotd = Vue.component("gotd", {
       <h2>You have already played this game</h2>
     </div>
     <hr/>
-    <h2>Scores of the Game of the Day</h2>
+    <h2>Game of the Day scores</h2>
     <div v-show="puntuacions.length > 0">
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
@@ -1035,7 +1036,7 @@ const Gotd = Vue.component("gotd", {
     <h3 v-show="puntuacions.length == 0">No games were found</h3>
   </div>`,
   mounted: function () {
-    fetch("./trivia4-app/public/api/getIdPartidaDelDia")
+    fetch("./trivia4-app/public/api/getIdGameOfTheDay")
       .then((response) => response.json())
       .then((data) => {
         this.idGame = data;
@@ -1045,7 +1046,7 @@ const Gotd = Vue.component("gotd", {
   },
   methods: {
     buscarPuntuacions() {
-      url = "./trivia4-app/public/api/puntuacionsPartida/" + this.idGame;
+      url = "./trivia4-app/public/api/scoresGame/" + this.idGame;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -1055,7 +1056,7 @@ const Gotd = Vue.component("gotd", {
     },
     haJugatGotd() {
       fetch(
-        "./trivia4-app/public/api/haJugatPartidaDelDia/" +
+        "./trivia4-app/public/api/playedGameOfTheDay/" +
           this.store.getIdPlayer()
       )
         .then((response) => response.json())
