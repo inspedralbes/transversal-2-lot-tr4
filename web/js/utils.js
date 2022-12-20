@@ -203,13 +203,6 @@ const Partida = Vue.component("partida", {
   },
 
   methods: {
-    getMissatgePercentatge(idPreguntaApi) {
-      fetch("./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        });
-    },
     blockOrUnblockRespuesta() {
       var element = document.getElementById("respuestas");
       element.classList.toggle("disabled");
@@ -389,7 +382,6 @@ const Partida = Vue.component("partida", {
           fetch(url)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
               correctes = 0;
               total = 0;
               data.forEach((element) => {
@@ -468,7 +460,6 @@ const Partida = Vue.component("partida", {
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
             correctes = 0;
             total = 0;
             data.forEach((element) => {
@@ -606,10 +597,10 @@ const Ranking = Vue.component("ranking", {
   },
   template: `
     <div v-show="mostrar" class="divGeneral">
-      <h1>Players Ranking</h1>
+      <h1>Player Ranking</h1>
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
-        <thead>
+        <thead class ="header__tablaRanking">
           <tr>
             <th scope="col">Ranking</th>
             <th scope="col">Nickname</th>
@@ -635,7 +626,6 @@ const Ranking = Vue.component("ranking", {
       .then((response) => response.json())
       .then((data) => {
         this.players = data;
-        // console.log(this.players);
         this.mostrar = true;
       });
   },
@@ -764,7 +754,6 @@ const Amics = Vue.component("llista-amics", {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           this.amics = data;
           this.mostrar = true;
         });
@@ -791,22 +780,33 @@ const Registre = Vue.component("registre-player", {
         psswd: "",
       },
       procesando: false,
+      registrat: false,
+      error: false,
+      message: "",
     };
   },
   template: `
   <div class="divGeneral">
     <br>
-    <h2>REGISTER</h2>
-    <b-col sm="5" class="mx-auto">
-      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password"required></b-form-input>
-    </b-col>
-    <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
-        </b-spinner>
-    </b-button>
+    <div v-show="!registrat">
+      <h2>REGISTER</h2>
+      <b-col sm="5" class="mx-auto">
+        <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.psswd" type="password" placeholder="Password"required></b-form-input>
+      </b-col>
+      <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+          </b-spinner>
+      </b-button>
+    </div>
+    <div v-show="registrat">
+      <b-alert show class="w-75 mx-auto" variant="success">{{message}}</b-alert>
+    </div>
+    <div v-show="error">
+      <b-alert show class="w-75 mx-auto" variant="danger">{{message}}</b-alert>
+    </div>
   </div>
   `,
   methods: {
@@ -823,7 +823,18 @@ const Registre = Vue.component("registre-player", {
       fetch(`./trivia4-app/public/api/setDadesPlayer`, {
         method: "POST",
         body: datosEnvio,
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[1] == 200) {
+            this.message = data[0];
+            this.registrat = true;
+            this.error = false;
+          } else if (data[1] == 500) {
+            this.message = data[0];
+            this.error = true;
+          }
+        });
       this.procesando = false;
     },
   },
@@ -891,6 +902,7 @@ const Login = Vue.component("login", {
             this.store.login();
             this.store.setIdPlayer(data[1].id);
             this.store.setPlayerName(data[1].nickname);
+          } else {
           }
           this.procesando = false;
         });
@@ -905,45 +917,42 @@ Vue.component("navbar-router", {
     };
   },
   template: `
-  <ul class ="navbar" id="navbar">
-  <li v-on:click="HomeResetPartida()">
-      <router-link  to="/" class="routerlink">Home</router-link>
-  </li>
-  <li>
-      <router-link to="/joc/false" class="routerlink">Play a game</router-link>
-  </li>
-  <li>
-      <router-link to="/gotd" class="routerlink">Game of the day</router-link>
-  </li>
-  <li>
-      <router-link to="/ranking" class="routerlink">Ranking</router-link>
-  </li>
-  <li>
-      <router-link to="/amics" class="routerlink" v-show="store.logged">Friends</router-link>
-  </li>
-  <li>
-      <router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link>
-  </li>
-  <li>
-      <router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link>
-  </li>
-  <li>
-      <router-link to="/registre" class="rightNav activeSign" v-show="!store.logged">Sign up</router-link>
-  </li>
-  <li>
-      <router-link to="/login" class="rightNav" v-show="!store.logged">Log in</router-link>
-  </li>
-  <li>
-      <b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button>
-  </li>
-  <div  >
-      <b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
-      </b-button>
-      <b-modal id="modal-center" centered title="Profile" hide-footer="true">
-          <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
-      </b-modal>
-  </div>
-</ul>
+  <div>
+  <b-navbar toggleable="lg" type="dark" variant="bg-dark">
+    <b-navbar-brand>LoQ</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item v-on:click="HomeResetPartida()"><router-link  to="/" class="routerlink">Home</router-link></b-nav-item>
+        <b-nav-item><router-link to="/joc/false" class="routerlink">Play a game</router-link></b-nav-item>
+        <b-nav-item><router-link to="/gotd" class="routerlink">Game of the day</router-link></b-nav-item>
+        <b-nav-item><router-link to="/ranking" class="routerlink">Ranking</router-link></b-nav-item>
+        <b-nav-item><router-link to="/amics" class="routerlink" v-show="store.logged">Friends</router-link></b-nav-item>
+        <b-nav-item><router-link to="/totesLesPartides" class="routerlink" v-show="store.logged">All games</router-link></b-nav-item>
+        <b-nav-item><router-link to="/partidesGuardades" class="routerlink" v-show="store.logged">Game history</router-link></b-nav-item>
+
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ms-auto">
+        <b-navbar-nav>
+          <b-nav-item><router-link to="/registre" class="rightNav" v-show="!store.logged">Sign up</router-link></b-nav-item>
+          <b-nav-item><router-link to="/login" class="rightNav" v-show="!store.logged">Log in</router-link></b-nav-item>
+          <b-nav-item><b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button></b-nav-item>
+          <b-nav-item><b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
+          </b-button>
+          <b-modal id="modal-center" centered title="Profile" hide-footer="true">
+              <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
+          </b-modal>
+          </b-nav-item>
+        </b-navbar-nav>
+
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
   `,
   methods: {
     logOut() {
