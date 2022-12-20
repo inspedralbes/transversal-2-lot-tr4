@@ -518,12 +518,26 @@ const Partides = Vue.component("historial", {
 
     <div v-show="idPlayer != 0">
         <h1>Player games: {{player_name}}</h1>
-        <div v-for="partida in partidas">
-            <h1>{{partida.id}}</h1>
-            <li>Game: {{partida.id_game}}</li>
-            <li>Score: {{partida.score}}</li>
-            <li>Date: {{partida.date}}</li>
-        </div>
+        <div class="table-responsive">
+        <table class="table table-hover lg table-striped table-bordered">
+        <thead class ="header__tablaRanking">
+          <tr>
+            <th scope="col">ID Partida</th>
+            <th scope="col">Game</th>
+            <th scope="col">Score</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="partida in partidas">
+            <th scope="row">{{partida.id}}</th>
+            <td>{{partida.id_game}}</td>
+            <td>{{partida.score}}</td>
+            <td>{{partida.date}}</td>
+          </tr>
+        </tbody>
+        </table> 
+      </div> 
     </div>
   </div>`,
   mounted: function () {
