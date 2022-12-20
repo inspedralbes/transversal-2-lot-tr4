@@ -176,7 +176,7 @@
 
 /*Comunica al jugador si la resposta es correcta o incorrecta*/
 .resultsPrint {
-    margin: 1%;
+    position: absolute;
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
     border-style: double;
@@ -472,6 +472,8 @@
         margin: 0 auto;
         font-size: 4vw;
     }
+
+
 
     .container__dificultad,
     .container__categoria {

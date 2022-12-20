@@ -165,7 +165,7 @@ const Partida = Vue.component("partida", {
     <div class="button__PlayDiv" v-show="acabado"> 
       <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
     </div>
-    <div v-show="empezado">
+    <div class="tablaResultados" v-show="empezado">
         <table class="tabla">
             <tr>
                 <td class = "tabla__respuestas" id="pregunta0"></td>
