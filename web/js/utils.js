@@ -457,11 +457,11 @@ const Partida = Vue.component("partida", {
             if (data.length == 0) {
               document.getElementById(
                 "resultsPrint"
-              ).innerHTML += `<p>You're the first player answering this question!</p>`;
+              ).innerHTML += `<p class="textoRespuesta">You're the first player answering this question!</p>`;
             } else {
               document.getElementById(
                 "resultsPrint"
-              ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+              ).innerHTML += `<p class="textoRespuesta">${percentatge}% of the players answered this question right</p>`;
             }
           });
         this.contadorRespuestas++;
