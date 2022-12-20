@@ -581,3 +581,7 @@ table.table-bordered>tbody>tr>td {
     background-color: #0A323C;
     color: white;
 }
+
+.marginButtonPlay {
+    margin: 1%
+}

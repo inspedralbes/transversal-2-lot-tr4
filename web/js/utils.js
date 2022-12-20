@@ -754,7 +754,7 @@ const Amics = Vue.component("llista-amics", {
     <div v-for="amic in amics" v-show="amic.nickname != store.getPlayerName()">
       <h3>{{amic.nickname}} <b-button variant="danger" @click="eliminarAmic(amic.friend_id), rebreSolicituts()">Delete friend</b-button></h3>
     </div>
-    <h4>=====================================</h4>
+    <hr/>
     <solicituts></solicituts>
   </div>
   `,
@@ -1003,7 +1003,7 @@ const Gotd = Vue.component("gotd", {
   },
   template: `
   <div class="divGeneral">
-    <div v-show="store.logged && mostrar && !jugat">
+    <div class="marginButtonPlay" v-show="store.logged && mostrar && !jugat">
       <router-link to="/joc/true"><b-button class="button__Play--leagueStyle">Play Game Of The Day</b-button></router-link>
     </div>
     <div v-show="!store.logged">
