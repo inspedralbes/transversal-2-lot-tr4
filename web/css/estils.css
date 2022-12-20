@@ -271,12 +271,11 @@
 
 .button__Play--RankingList {
     background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
-    float: right;
     border-color: #C89B3C;
     font-size: 1.5vw;
     margin: 5px;
-    width: 25%;
-    height: 100%
+    width: 50%;
+    height: 20%;
 }
 
 .li__personaRanking{
