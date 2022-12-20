@@ -322,11 +322,16 @@
 .navbar {
     background-color: #0A323C;
     height: 100%;
-
 }
 
 .rightNav {
     color: #A09B8C;
+    text-decoration:none;
+}
+
+.navbar__titulo{
+    color: white;
+    font-size: 2.5vw;
     text-decoration:none;
 }
 
