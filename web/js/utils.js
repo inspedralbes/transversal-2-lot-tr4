@@ -920,7 +920,7 @@ Vue.component("navbar-router", {
   template: `
   <div>
   <b-navbar toggleable="lg" type="dark" variant="bg-dark">
-    <b-navbar-brand>LoT</b-navbar-brand>
+    <b-navbar-brand><router-link  to="/" class="routerlink">LoT</router-link></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
