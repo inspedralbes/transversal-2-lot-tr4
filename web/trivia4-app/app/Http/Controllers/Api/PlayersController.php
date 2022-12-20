@@ -23,39 +23,38 @@ class PlayersController extends Controller
 
         try {
             if ($player->save()) {
-                $message = "Registrat correctament";
+                $message = "Registered correctly.";
                 return response()->json([$message, 200]);
             }
         } catch (QueryException $ex) {
-            $message = "No s'ha registrat correctament";
+            $message = "Couldn't register.";
             return response()->json([$message, 500]);
         }
     }
 
     public function send(Request $request)
     {
-        $player = Player::where('nickname', $request->nickname)->firstOrFail();
-        if ($player != null) {
-            if (Hash::check($request->psswd, $player->psswd)) {
-                $correcte = true;
-                return response()->json([
-                    $correcte,
-                    $player
-                ]);
-            } else {
-                $correcte = false;
-                $message = "Contrasenya incorrecta";
-                return response()->json([
-                    $correcte,
-                    $message
-                ]);
+        try {
+            $player = Player::where('nickname', $request->nickname)->firstOrFail();
+            if ($player != null) {
+                if (Hash::check($request->psswd, $player->psswd)) {
+                    return response()->json([
+                        $player,
+                        200
+                    ]);
+                } else {
+                    $message = "Incorrect password!";
+                    return response()->json([
+                        $message,
+                        500
+                    ]);
+                }
             }
-        } else {
-            $correcte = false;
-            $message = "Usuari no existent";
+        } catch (\Throwable $th) {
+            $message = "This player doesn't exist!";
             return response()->json([
-                $correcte,
-                $message
+                $message,
+                500
             ]);
         }
     }

@@ -1,10 +1,10 @@
 const Home = Vue.component("home", {
-  template:`<div class="divGeneral">
+  template: `<div class="divGeneral">
   <br>
     <h3> PLAY A GAME RIGHT NOW!</h3>
     <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play a game</b-button></router-link>
     
-  </div>`
+  </div>`,
 });
 
 const Partida = Vue.component("partida", {
@@ -518,12 +518,26 @@ const Partides = Vue.component("historial", {
 
     <div v-show="idPlayer != 0">
         <h3>Player games: {{player_name}}</h3>
-        <div v-for="partida in partidas">
-            <h3>{{partida.id}}</h3>
-            <li>Game: {{partida.id_game}}</li>
-            <li>Score: {{partida.score}}</li>
-            <li>Date: {{partida.date}}</li>
-        </div>
+        <div class="table-responsive">
+        <table class="table table-hover lg table-striped table-bordered">
+        <thead class ="header__tablaRanking">
+          <tr>
+            <th scope="col">ID Partida</th>
+            <th scope="col">Game</th>
+            <th scope="col">Score</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="partida in partidas">
+            <th scope="row">{{partida.id}}</th>
+            <td>{{partida.id_game}}</td>
+            <td>{{partida.score}}</td>
+            <td>{{partida.date}}</td>
+          </tr>
+        </tbody>
+        </table> 
+      </div> 
     </div>
   </div>`,
   mounted: function () {
@@ -553,12 +567,28 @@ const totesLesPartides = Vue.component("historial-general", {
     <h3 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h3>
 
     <div v-show="idPlayer != 0">
-        <div v-for="partida in partidas">
-            <h3>{{partida.id}}</h3>
-            <li>Game: {{partida.id_game}}</li>
-            <li>Score: {{partida.score}}</li>
-            <li>Date: {{partida.date}}</li>
-        </div>
+    <h3>All games</h3>
+
+    <div class="table-responsive">
+    <table class="table table-hover lg table-striped table-bordered">
+    <thead class ="header__tablaRanking">
+      <tr>
+        <th scope="col">ID Partida</th>
+        <th scope="col">Game</th>
+        <th scope="col">Score</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="partida in partidas">
+        <th scope="row">{{partida.id}}</th>
+        <td>{{partida.id_game}}</td>
+        <td>{{partida.score}}</td>
+        <td>{{partida.date}}</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div> 
     </div>
   </div>
   `,
@@ -843,13 +873,15 @@ const Login = Vue.component("login", {
           <b-form-input class="input__logYsign" v-model="form.nickname" placeholder="Nickname" required></b-form-input>
           <b-form-input class ="input__logYsign" v-model="form.psswd" type="password" placeholder="Password" required></b-form-input>
         </b-col>
+        <div v-show="error">
+          <b-alert show class="w-50 mx-auto" variant="danger">{{message}}</b-alert>
+        </div>
         <b-button class="button__Play--leagueStyle" @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
         </b-button>
       </div>
       <div v-show="logged">
-          Welcome {{infoLogin.nombre}}<br>
-          <img :src="infoLogin.imagen"></img><br>
+        Welcome {{infoLogin.nombre}}<br>  
       </div>
   </div>`,
   data: function () {
@@ -865,6 +897,8 @@ const Login = Vue.component("login", {
       },
       logged: false,
       procesando: false,
+      error: false,
+      message: "",
       store: useLoginStore(),
     };
   },
@@ -882,14 +916,18 @@ const Login = Vue.component("login", {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data[0]) {
-            this.infoLogin.nombre = data[1].nickname;
-            this.infoLogin.id = data[1].id;
+          console.log(data);
+          if (data[1] == 200) {
+            this.error = false;
+            this.infoLogin.nombre = data[0].nickname;
+            this.infoLogin.id = data[0].id;
             this.logged = true;
             this.store.login();
-            this.store.setIdPlayer(data[1].id);
-            this.store.setPlayerName(data[1].nickname);
-          } else {
+            this.store.setIdPlayer(data[0].id);
+            this.store.setPlayerName(data[0].nickname);
+          } else if (data[1] == 500) {
+            this.error = true;
+            this.message = data[0] + ", try again!";
           }
           this.procesando = false;
         });
