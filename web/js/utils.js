@@ -155,7 +155,6 @@ const Partida = Vue.component("partida", {
                 </div>
             </div>
         </div>
-        <div class="resultsPrint" id="resultsPregunta"></div>
         <div class="resultsPrint" id="resultsPrint"></div>
     </div>
     <div v-show="acabado" class="scorePrint">
@@ -429,7 +428,6 @@ const Partida = Vue.component("partida", {
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-            document.getElementById("resultsPregunta").style.display = "none";
           }, 1000);
         } else {
           this.enviarRespostaABBDD(idPreguntaApi, false);
