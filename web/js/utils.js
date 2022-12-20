@@ -205,13 +205,6 @@ const Partida = Vue.component("partida", {
   },
 
   methods: {
-    getMissatgePercentatge(idPreguntaApi) {
-      fetch("./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        });
-    },
     blockOrUnblockRespuesta() {
       var element = document.getElementById("respuestas");
       element.classList.toggle("disabled");
@@ -391,7 +384,6 @@ const Partida = Vue.component("partida", {
           fetch(url)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
               correctes = 0;
               total = 0;
               data.forEach((element) => {
@@ -470,7 +462,6 @@ const Partida = Vue.component("partida", {
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
             correctes = 0;
             total = 0;
             data.forEach((element) => {
@@ -637,7 +628,6 @@ const Ranking = Vue.component("ranking", {
       .then((response) => response.json())
       .then((data) => {
         this.players = data;
-        // console.log(this.players);
         this.mostrar = true;
       });
   },
@@ -766,7 +756,6 @@ const Amics = Vue.component("llista-amics", {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           this.amics = data;
           this.mostrar = true;
         });
@@ -793,22 +782,33 @@ const Registre = Vue.component("registre-player", {
         psswd: "",
       },
       procesando: false,
+      registrat: false,
+      error: false,
+      message: "",
     };
   },
   template: `
   <div class="divGeneral">
     <br>
-    <h2>REGISTER</h2>
-    <b-col sm="5" class="mx-auto">
-      <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
-      <b-form-input class = "input__logYsign" v-model="form.psswd" placeholder="Password"required></b-form-input>
-    </b-col>
-    <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
-        </b-spinner>
-    </b-button>
+    <div v-show="!registrat">
+      <h2>REGISTER</h2>
+      <b-col sm="5" class="mx-auto">
+        <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.psswd" type="password" placeholder="Password"required></b-form-input>
+      </b-col>
+      <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
+          </b-spinner>
+      </b-button>
+    </div>
+    <div v-show="registrat">
+      <b-alert show class="w-75 mx-auto" variant="success">{{message}}</b-alert>
+    </div>
+    <div v-show="error">
+      <b-alert show class="w-75 mx-auto" variant="danger">{{message}}</b-alert>
+    </div>
   </div>
   `,
   methods: {
@@ -825,7 +825,18 @@ const Registre = Vue.component("registre-player", {
       fetch(`./trivia4-app/public/api/setDadesPlayer`, {
         method: "POST",
         body: datosEnvio,
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data[1] == 200) {
+            this.message = data[0];
+            this.registrat = true;
+            this.error = false;
+          } else if (data[1] == 500) {
+            this.message = data[0];
+            this.error = true;
+          }
+        });
       this.procesando = false;
     },
   },
@@ -893,6 +904,7 @@ const Login = Vue.component("login", {
             this.store.login();
             this.store.setIdPlayer(data[1].id);
             this.store.setPlayerName(data[1].nickname);
+          } else {
           }
           this.procesando = false;
         });
