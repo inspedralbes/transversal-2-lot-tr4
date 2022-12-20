@@ -425,7 +425,7 @@ const Partida = Vue.component("partida", {
           this.contadorBuenas++;
           document.getElementById(
             "resultsPrint"
-          ).innerHTML = `<p>Correct Answer!</p>`;
+          ).innerHTML = `<p class="textoRespuesta">Correct Answer!</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
@@ -435,7 +435,7 @@ const Partida = Vue.component("partida", {
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
             "resultsPrint"
-          ).innerHTML = `<p>Incorrect Answer<br>Correct answer is: ${respuestaCorrecta}</p>`;
+          ).innerHTML = `<p class="textoRespuesta">Incorrect Answer<br>Correct answer is: ${respuestaCorrecta}</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";

@@ -190,6 +190,10 @@
     z-index: 100;
 }
 
+.textoRespuesta {
+    font-size: 1.5vw;
+}
+
 /*Comunica al jugador quantes ha fet be*/
 
 .scorePrint {
