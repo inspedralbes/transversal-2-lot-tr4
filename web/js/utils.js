@@ -126,7 +126,7 @@ const Partida = Vue.component("partida", {
 
                         <div class="container__preguntes">
                             <div class="Pregunta">
-                                <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
+                                <div class="Pregunta" v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
