@@ -1,10 +1,10 @@
 const Home = Vue.component("home", {
-  template:`<div class="divGeneral">
+  template: `<div class="divGeneral">
   <br>
     <h3> PLAY A GAME RIGHT NOW!</h3>
     <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play a game</b-button></router-link>
     
-  </div>`
+  </div>`,
 });
 
 const Partida = Vue.component("partida", {
@@ -857,13 +857,15 @@ const Login = Vue.component("login", {
           <b-form-input class="input__logYsign" v-model="form.nickname" placeholder="Nickname" required></b-form-input>
           <b-form-input class ="input__logYsign" v-model="form.psswd" type="password" placeholder="Password" required></b-form-input>
         </b-col>
+        <div v-show="error">
+          <b-alert show class="w-50 mx-auto" variant="danger">{{message}}</b-alert>
+        </div>
         <b-button class="button__Play--leagueStyle" @click="submitLogin" variant="primary">Login <b-spinner v-show="procesando" small type="grow">
             </b-spinner>
         </b-button>
       </div>
       <div v-show="logged">
-          Welcome {{infoLogin.nombre}}<br>
-          <img :src="infoLogin.imagen"></img><br>
+        Welcome {{infoLogin.nombre}}<br>  
       </div>
   </div>`,
   data: function () {
@@ -879,6 +881,8 @@ const Login = Vue.component("login", {
       },
       logged: false,
       procesando: false,
+      error: false,
+      message: "",
       store: useLoginStore(),
     };
   },
@@ -898,14 +902,16 @@ const Login = Vue.component("login", {
         .then((data) => {
           console.log(data);
           if (data[1] == 200) {
-            this.infoLogin.nombre = data[1].nickname;
-            this.infoLogin.id = data[1].id;
+            this.error = false;
+            this.infoLogin.nombre = data[0].nickname;
+            this.infoLogin.id = data[0].id;
             this.logged = true;
             this.store.login();
-            this.store.setIdPlayer(data[1].id);
-            this.store.setPlayerName(data[1].nickname);
-          } else if (data[1] == 500){
-            console.log(data[0]);
+            this.store.setIdPlayer(data[0].id);
+            this.store.setPlayerName(data[0].nickname);
+          } else if (data[1] == 500) {
+            this.error = true;
+            this.message = data[0] + ", try again!";
           }
           this.procesando = false;
         });
