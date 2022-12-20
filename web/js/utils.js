@@ -502,7 +502,7 @@ const Partides = Vue.component("historial", {
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
     <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
     <h1 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h1>
 
@@ -538,7 +538,7 @@ const totesLesPartides = Vue.component("historial-general", {
     };
   },
   template: `
-  <div class="loginSign">
+  <div class="divGeneral">
     <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
     <h1 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h1>
 
@@ -874,11 +874,11 @@ Vue.component("navbar-router", {
   <li>
       <b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button>
   </li>
-  <div>
-      <b-button v-show="store.logged" v-b-modal.modal-center class="routerlink rightNav">{{store.name_player}}
+  <div  >
+      <b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
       </b-button>
-      <b-modal id="modal-center" centered title="Perfil">
-          <p>Nom Usuari: <strong class="my-4">{{ store.name_player }}</strong></p>
+      <b-modal id="modal-center" centered title="Profile" hide-footer="true">
+          <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
       </b-modal>
   </div>
 </ul>
