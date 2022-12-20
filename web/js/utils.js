@@ -567,12 +567,26 @@ const totesLesPartides = Vue.component("historial-general", {
     <h3 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h3>
 
     <div v-show="idPlayer != 0">
-        <div v-for="partida in partidas">
-            <h3>{{partida.id}}</h3>
-            <li>Game: {{partida.id_game}}</li>
-            <li>Score: {{partida.score}}</li>
-            <li>Date: {{partida.date}}</li>
-        </div>
+    <div class="table-responsive">
+    <table class="table table-hover lg table-striped table-bordered">
+    <thead class ="header__tablaRanking">
+      <tr>
+        <th scope="col">ID Partida</th>
+        <th scope="col">Game</th>
+        <th scope="col">Score</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="partida in partidas">
+        <th scope="row">{{partida.id}}</th>
+        <td>{{partida.id_game}}</td>
+        <td>{{partida.score}}</td>
+        <td>{{partida.date}}</td>
+      </tr>
+    </tbody>
+    </table> 
+  </div> 
     </div>
   </div>
   `,
