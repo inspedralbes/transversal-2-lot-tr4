@@ -511,11 +511,11 @@
     line-height: 300%;
     border-radius: 5px;
     line-height: 400%;
-    font-size: 1.5vh;
+    font-size: 1.2vh;
     transition-duration: .5s;
     transition-property: transform, color, box-shadow;
     transform: none;
-    font-size: 1vw;
+    font-size: 1.2vw;
     margin: 10px;
 
 }
