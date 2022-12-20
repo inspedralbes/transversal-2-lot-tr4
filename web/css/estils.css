@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
+    font-size: 1vw
 }
 
 :root {
@@ -321,7 +322,6 @@
 
 .navbar {
     background-color: #0A323C;
-    height: 100%;
 }
 
 .rightNav {
@@ -331,7 +331,6 @@
 
 .navbar__titulo{
     color: white;
-    font-size: 2.5vw;
     text-decoration:none;
 }
 
@@ -480,14 +479,14 @@
     transform: translateY(-2px);
 }
 
-@media (max-width:480px) {
+@media (max-width:600px) {
 	* {
 		margin: 0 auto;
         font-size: 4vw;
 	}
 }
 
-@media (min-width:480px) {
+@media (min-width:600px) {
 	.button__Play--leagueStyle {
         width: 20vw;
         height: 5vh
