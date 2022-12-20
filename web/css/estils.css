@@ -503,6 +503,14 @@
     .button__Play--leagueStyle {
         width: 20vw;
         height: 5vh
+	}
+
+    .gameName{
+        font-size:60px;
+    }
+
+    .gameName2{
+        font-size:50px;
     }
 }
 
