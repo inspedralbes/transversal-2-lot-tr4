@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
+    font-size: 1.1vw
 }
 
 :root {
@@ -70,7 +71,7 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    
+
     /*
     scroll-snap-points-x: repeat(300px);
     scroll-snap-type: mandatory;
@@ -98,7 +99,7 @@
 }
 
 /*Contenidor per les preguntes i a l'hora de escollir categoria i dificultat*/
-.container__preguntes{
+.container__preguntes {
     /* background-image: linear-gradient(to bottom right, #005A82, #0AC8B9); */
     border-radius: 5px;
     border-style: double;
@@ -121,6 +122,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    width: 80%
 }
 
 /*Pregunta i respuestas individuales*/
@@ -167,7 +169,7 @@
     display: none;
 }
 
-.text__Mencionapi{
+.text__Mencionapi {
     color: white
 }
 
@@ -183,6 +185,7 @@
     color: #eee;
     grid-area: resultsPrint;
 }
+
 /*Comunica al jugador quantes ha fet be*/
 
 .scorePrint {
@@ -194,6 +197,7 @@
     text-align: center;
     color: #eee;
 }
+
 /*Boto de les respostes*/
 .button__respuestas {
     justify-content: center;
@@ -239,7 +243,7 @@
     margin: 0.5vw 0.5vh
 }
 
-.li__personaRanking{
+.li__personaRanking {
     width: 75%;
     float: left;
 }
@@ -250,7 +254,7 @@
     border-spacing: 10px 2px;
 }
 
-.tabla__respuestas{
+.tabla__respuestas {
     text-align: center;
     background-color: white;
     width: 50px;
@@ -258,7 +262,7 @@
     border-radius: 50%;
     border-style: double;
     border-width: 5px;
-    border-color: #C89B3C;    
+    border-color: #C89B3C;
 }
 
 /*Titulo de la pagina web*/
@@ -268,7 +272,7 @@
     background: -webkit-linear-gradient(#C89B3C, #785A28);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .gameName2 {
@@ -277,7 +281,7 @@
     background: -webkit-linear-gradient(#C89B3C, #785A28);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .tituloDiv {
@@ -294,8 +298,8 @@
 }
 
 /*Length de los input de log in y registro*/
-.input__logYsign{
-    max-width: 300px; 
+.input__logYsign {
+    max-width: 300px;
 }
 
 /*Timer para las preguntas*/
@@ -316,26 +320,24 @@
 /*Navbar i las rutas*/
 .routerlink {
     color: #A09B8C;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .navbar {
     background-color: #0A323C;
-    height: 100%;
 }
 
 .rightNav {
     color: #A09B8C;
-    text-decoration:none;
+    text-decoration: none;
 }
 
-.navbar__titulo{
+.navbar__titulo {
     color: white;
-    font-size: 2.5vw;
-    text-decoration:none;
+    text-decoration: none;
 }
 
-.navbar-brand{
+.navbar-brand {
     padding-left: 1%;
 }
 
@@ -418,10 +420,10 @@
     border-style: double;
     border-width: 5px;
     border-radius: 5px;
-    border-color: #C89B3C;    
+    border-color: #C89B3C;
     display: flex;
     align-items: center;
-    box-shadow: 0 0 16px rgba(0, 0, 0, .2);    
+    box-shadow: 0 0 16px rgba(0, 0, 0, .2);
 }
 
 .selector-item_radio {
@@ -429,7 +431,10 @@
     display: none;
 }
 
-.selector-item_label, .selector-item_label_easy, .selector-item_label_medium, .selector-item_label_hard {
+.selector-item_label,
+.selector-item_label_easy,
+.selector-item_label_medium,
+.selector-item_label_hard {
     position: relative;
     height: 100%;
     width: 100%;
@@ -461,6 +466,7 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
     transform: translateY(-2px);
 }
+
 .selector-item_radio:checked+.selector-item_label_medium {
     background-color: orange;
     border-radius: 5px;
@@ -470,6 +476,7 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
     transform: translateY(-2px);
 }
+
 .selector-item_radio:checked+.selector-item_label_hard {
     background-color: red;
     border-radius: 5px;
@@ -480,15 +487,20 @@
     transform: translateY(-2px);
 }
 
-@media (max-width:480px) {
-	* {
-		margin: 0 auto;
+@media (max-width:600px) {
+    * {
+        margin: 0 auto;
         font-size: 4vw;
-	}
+    }
+
+    .container__dificultad,
+    .container__categoria {
+        width: 100%
+    }
 }
 
-@media (min-width:480px) {
-	.button__Play--leagueStyle {
+@media (min-width:600px) {
+    .button__Play--leagueStyle {
         width: 20vw;
         height: 5vh
 	}
@@ -518,7 +530,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    content: "\2613"; /* use the hex value here... */
+    content: "\2613";
+    /* use the hex value here... */
     color: #FFF;
     line-height: 40px;
     text-align: center;
@@ -535,11 +548,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    content: "\2713"; /* use the hex value here... */
+    content: "\2713";
+    /* use the hex value here... */
     color: #FFF;
     line-height: 45px;
     text-align: center;
 }
+
 .mensajeErrorDificultad {
     display: flex;
     justify-content: center;
@@ -548,7 +563,8 @@
     grid-area: Pregunta;
     display: block;
     border-radius: 5px;
-    color: red;}
+    color: red;
+}
 
 
 .modal-content {
@@ -565,22 +581,22 @@
 
 /*Tabla ranking*/
 
-table.table-bordered{
+table.table-bordered {
     border: 3px solid #C89B3C;
     border-style: double;
     width: 90%;
     margin: 0 auto;
-  }
-table.table-bordered > thead > tr > th{
-    border:1px solid #C89B3C;
-}
-table.table-bordered > tbody > tr > td{
-    border:1px solid #C89B3C;
-
 }
 
-.header__tablaRanking{
+table.table-bordered>thead>tr>th {
+    border: 1px solid #C89B3C;
+}
+
+table.table-bordered>tbody>tr>td {
+    border: 1px solid #C89B3C;
+}
+
+.header__tablaRanking {
     background-color: #0A323C;
     color: white;
 }
-
