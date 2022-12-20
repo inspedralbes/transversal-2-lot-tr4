@@ -621,9 +621,9 @@ const Ranking = Vue.component("ranking", {
         </thead>
         <tbody>
           <tr v-for="(player, index) in players">
-            <th scope="row">{{index + 1}}</th>
+            <th scope="row">{{ordinalSuffixOf(index + 1)}}</th>
             <td>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a></td>
-            <td>Score</td>
+            <td>{{player.totalScore}}</td>
             <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
           </tr>
         </tbody>
@@ -632,7 +632,7 @@ const Ranking = Vue.component("ranking", {
     </div>
   `,
   mounted: function () {
-    url = "./trivia4-app/public/api/getPlayers";
+    url = "./trivia4-app/public/api/puntuacioTotalRank";
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -654,6 +654,20 @@ const Ranking = Vue.component("ranking", {
       boton = document.getElementById("boto" + idSolicitat);
       boton.disabled = true;
       boton.innerHTML = "Pending...";
+    },
+    ordinalSuffixOf(i) {
+      var j = i % 10,
+        k = i % 100;
+      if (j == 1 && k != 11) {
+        return i + "st";
+      }
+      if (j == 2 && k != 12) {
+        return i + "nd";
+      }
+      if (j == 3 && k != 13) {
+        return i + "rd";
+      }
+      return i + "th";
     },
   },
 });
