@@ -5,7 +5,7 @@
     box-sizing: border-box;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
-    font-size: 1.1vw
+    font-size: 20px;
 }
 
 :root {
@@ -50,6 +50,7 @@
 }
 
 .b-slider {
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,8 +100,8 @@
 }
 
 /*Contenidor per les preguntes i a l'hora de escollir categoria i dificultat*/
-.container__preguntes {
-    /* background-image: linear-gradient(to bottom right, #005A82, #0AC8B9); */
+.container__preguntes {    
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
     border-style: double;
     border-width: 5px;
@@ -175,6 +176,7 @@
 
 /*Comunica al jugador si la resposta es correcta o incorrecta*/
 .resultsPrint {
+    margin: 1%;
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
     border-style: double;
@@ -189,13 +191,20 @@
 /*Comunica al jugador quantes ha fet be*/
 
 .scorePrint {
+    display: flex;
+    margin: 1%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: block;
     background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
     border-radius: 5px;
+    font-weight: bold;
     border-style: double;
     border-width: 5px;
     border-color: #C89B3C;
-    text-align: center;
-    color: #eee;
+    bottom: 0;
+    color: white
 }
 
 /*Boto de les respostes*/
@@ -209,13 +218,10 @@
     border-width: 5px;
     border-color: #C89B3C;
     display: block;
-    padding: 10px;
     transition: transform 0.5s;
     border-radius: 5px;
     color: white;
-    line-height: 25px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
-    height: 100%;
     text-decoration: none;
 
 }
@@ -252,6 +258,7 @@
 .tabla {
     border-collapse: separate;
     border-spacing: 10px 2px;
+    margin: 0 auto
 }
 
 .tabla__respuestas {
@@ -341,19 +348,8 @@
     padding-left: 1%;
 }
 
-/*Dissenyo i posicionameiento del div el qual contiene la mencion a la api del trivial*/
-.mencionApi {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: block;
-    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
-    border-radius: 5px;
-    border-style: double;
-    border-width: 5px;
-    border-color: #C89B3C;
-    bottom: 0;
-    position: sticky;
+.navbar-toggler {
+    margin-right: 2%
 }
 
 /*Grid que divide la pantalla entre el timer las preguntas i la correccion de las mismas*/
@@ -373,22 +369,6 @@
         "news news news"
         "inspedralbes fotoquiz extra"
         "inspedralbes fotoquiz extra";
-}
-
-.news {
-    grid-area: news;
-}
-
-.inspedralbes {
-    grid-area: inspedralbes;
-}
-
-.fotoquiz {
-    grid-area: fotoquiz;
-}
-
-.extra {
-    grid-area: extra;
 }
 
 /*Selector de categorias con raido buttons*/
@@ -487,7 +467,7 @@
     transform: translateY(-2px);
 }
 
-@media (max-width:600px) {
+@media (max-width:480px) {
     * {
         margin: 0 auto;
         font-size: 4vw;
@@ -499,7 +479,7 @@
     }
 }
 
-@media (min-width:600px) {
+@media (min-width:480px) {
     .button__Play--leagueStyle {
         width: 20vw;
         height: 5vh
@@ -562,7 +542,6 @@
     text-align: center;
     grid-area: Pregunta;
     display: block;
-    border-radius: 5px;
     color: red;
 }
 
