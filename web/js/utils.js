@@ -1,23 +1,10 @@
 const Home = Vue.component("home", {
-  template: `
-  <div class="divGeneral">
-    <div class="menu">
-      <div class="news">
-      <br>
-        <p>Welcome to League of Trivia. This is the first update of the game, so stay stunned for more news in the future!</p>
-      </div>
-      <div class="inspedralbes">
-        <p>Here's the highschool web page!</p>
-        <br>
-      </div>
-      <div class="fotoquiz">
-        Hello
-      </div>
-      <div class="extra">
-        <p>In this extra part we will be informing about other things to our players!</p>
-      </div>
-    </div>
-  </div>`,
+  template:`<div class="divGeneral">
+  <br>
+    <h3> PLAY A GAME RIGHT NOW!</h3>
+    <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play a game</b-button></router-link>
+    
+  </div>`
 });
 
 const Partida = Vue.component("partida", {
@@ -144,7 +131,6 @@ const Partida = Vue.component("partida", {
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
-                            <br><br><br>
                             <div class="Respuesta__1"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
@@ -177,7 +163,7 @@ const Partida = Vue.component("partida", {
       <p class="mostrarScore">Your score is {{contadorBuenas}}/{{contadorRespuestas}}</p>
     </div>
     <div class="button__PlayDiv" v-show="acabado"> 
-    <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
+      <b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play Again</b-button>
     </div>
     <div v-show="empezado">
         <table class="tabla">
@@ -527,17 +513,31 @@ const Partides = Vue.component("historial", {
   },
   template: `
   <div class="divGeneral">
-    <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
-    <h1 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h1>
+    <h3 v-show="idPlayer == 0">You didn't sign in!</h3>
+    <h3 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h3>
 
     <div v-show="idPlayer != 0">
         <h1>Player games: {{player_name}}</h1>
-        <div v-for="partida in partidas">
-            <h1>{{partida.id}}</h1>
-            <li>Game: {{partida.id_game}}</li>
-            <li>Score: {{partida.score}}</li>
-            <li>Date: {{partida.date}}</li>
-        </div>
+        <div class="table-responsive">
+        <table class="table table-hover lg table-striped table-bordered">
+        <thead class ="header__tablaRanking">
+          <tr>
+            <th scope="col">ID Partida</th>
+            <th scope="col">Game</th>
+            <th scope="col">Score</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="partida in partidas">
+            <th scope="row">{{partida.id}}</th>
+            <td>{{partida.id_game}}</td>
+            <td>{{partida.score}}</td>
+            <td>{{partida.date}}</td>
+          </tr>
+        </tbody>
+        </table> 
+      </div> 
     </div>
   </div>`,
   mounted: function () {
@@ -563,12 +563,12 @@ const totesLesPartides = Vue.component("historial-general", {
   },
   template: `
   <div class="divGeneral">
-    <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
-    <h1 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h1>
+    <h3 v-show="idPlayer == 0">You didn't sign in!</h3>
+    <h3 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h3>
 
     <div v-show="idPlayer != 0">
         <div v-for="partida in partidas">
-            <h1>{{partida.id}}</h1>
+            <h3>{{partida.id}}</h3>
             <li>Game: {{partida.id_game}}</li>
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
@@ -598,7 +598,7 @@ const Ranking = Vue.component("ranking", {
   },
   template: `
     <div v-show="mostrar" class="divGeneral">
-      <h1>Player Ranking</h1>
+      <h3>Player Ranking</h3>
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
         <thead class ="header__tablaRanking">
@@ -614,7 +614,7 @@ const Ranking = Vue.component("ranking", {
             <th scope="row">{{ordinalSuffixOf(index + 1)}}</th>
             <td>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a></td>
             <td>{{player.totalScore}}</td>
-            <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
+            <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--leagueStyle" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
           </tr>
         </tbody>
         </table> 
@@ -671,11 +671,11 @@ Vue.component("solicituts", {
   },
   template: `
   <div>
-    <h1>Friend request</h1>
+    <h3>Friend request</h3>
     <div v-show="mostrar">
       <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
       <div v-for="solicitut in solicituts">
-        <h1>The user {{solicitut.nickname}} sent you a firend request!</h1>
+        <h3>The user {{solicitut.nickname}} sent you a firend request!</h3>
         <p>
           <b-button class="button__Play--leagueStyle" @click="envia(true, solicitut.id)">Accept</b-button>
           <b-button class="button__Play--leagueStyle" @click="envia(false, solicitut.id)">Deny</b-button>
@@ -734,7 +734,7 @@ const Amics = Vue.component("llista-amics", {
   },
   template: `
   <div v-show="mostrar" class="divGeneral">
-    <h1>Friend List</h1>
+    <h3>Friend List</h3>
     <h2 v-show="amics.length == 0">You don't have friends!</h2>
     <div v-for="amic in amics" v-show="amic.nickname != store.getPlayerName()">
       <h3>{{amic.nickname}} <b-button variant="danger" @click="eliminarAmic(amic.friend_id), rebreSolicituts()">Delete friend</b-button></h3>
@@ -922,13 +922,12 @@ Vue.component("navbar-router", {
   template: `
   <div>
   <b-navbar toggleable="lg" type="dark" variant="bg-dark">
-    <b-navbar-brand>LoT</b-navbar-brand>
+    <b-navbar-brand><router-link  to="/" class="navbar__titulo">LoT</router-link></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item v-on:click="HomeResetPartida()"><router-link  to="/" class="routerlink">Home</router-link></b-nav-item>
         <b-nav-item><router-link to="/joc/false" class="routerlink">Play a game</router-link></b-nav-item>
         <b-nav-item><router-link to="/gotd" class="routerlink">Game of the day</router-link></b-nav-item>
         <b-nav-item><router-link to="/ranking" class="routerlink">Ranking</router-link></b-nav-item>
@@ -983,7 +982,7 @@ const Gotd = Vue.component("gotd", {
   template: `
   <div class="divGeneral">
     <div v-show="store.logged && mostrar && !jugat">
-      <router-link to="/joc/true"><b-button class="button__Play--leagueStyle col-6">Play Game Of The Day</b-button></router-link>
+      <router-link to="/joc/true"><b-button class="button__Play--leagueStyle">Play Game Of The Day</b-button></router-link>
     </div>
     <div v-show="!store.logged">
       <h2>Log in to play Game Of The Day!</h2>
