@@ -513,13 +513,13 @@ const Partides = Vue.component("historial", {
   },
   template: `
   <div class="divGeneral">
-    <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
-    <h1 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h1>
+    <h3 v-show="idPlayer == 0">You didn't sign in!</h3>
+    <h3 v-show="partidas.length == 0 && idPlayer != 0">You didn't play any matches!</h3>
 
     <div v-show="idPlayer != 0">
-        <h1>Player games: {{player_name}}</h1>
+        <h3>Player games: {{player_name}}</h3>
         <div v-for="partida in partidas">
-            <h1>{{partida.id}}</h1>
+            <h3>{{partida.id}}</h3>
             <li>Game: {{partida.id_game}}</li>
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
@@ -549,12 +549,12 @@ const totesLesPartides = Vue.component("historial-general", {
   },
   template: `
   <div class="divGeneral">
-    <h1 v-show="idPlayer == 0">You didn't sign in!</h1>
-    <h1 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h1>
+    <h3 v-show="idPlayer == 0">You didn't sign in!</h3>
+    <h3 v-show="partidas.length == 0 && idPlayer != 0">No games found!</h3>
 
     <div v-show="idPlayer != 0">
         <div v-for="partida in partidas">
-            <h1>{{partida.id}}</h1>
+            <h3>{{partida.id}}</h3>
             <li>Game: {{partida.id_game}}</li>
             <li>Score: {{partida.score}}</li>
             <li>Date: {{partida.date}}</li>
@@ -584,7 +584,7 @@ const Ranking = Vue.component("ranking", {
   },
   template: `
     <div v-show="mostrar" class="divGeneral">
-      <h1>Player Ranking</h1>
+      <h3>Player Ranking</h3>
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
         <thead class ="header__tablaRanking">
@@ -657,11 +657,11 @@ Vue.component("solicituts", {
   },
   template: `
   <div>
-    <h1>Friend request</h1>
+    <h3>Friend request</h3>
     <div v-show="mostrar">
       <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
       <div v-for="solicitut in solicituts">
-        <h1>The user {{solicitut.nickname}} sent you a firend request!</h1>
+        <h3>The user {{solicitut.nickname}} sent you a firend request!</h3>
         <p>
           <b-button class="button__Play--leagueStyle" @click="envia(true, solicitut.id)">Accept</b-button>
           <b-button class="button__Play--leagueStyle" @click="envia(false, solicitut.id)">Deny</b-button>
@@ -720,7 +720,7 @@ const Amics = Vue.component("llista-amics", {
   },
   template: `
   <div v-show="mostrar" class="divGeneral">
-    <h1>Friend List</h1>
+    <h3>Friend List</h3>
     <h2 v-show="amics.length == 0">You don't have friends!</h2>
     <div v-for="amic in amics" v-show="amic.nickname != store.getPlayerName()">
       <h3>{{amic.nickname}} <b-button variant="danger" @click="eliminarAmic(amic.friend_id), rebreSolicituts()">Delete friend</b-button></h3>
