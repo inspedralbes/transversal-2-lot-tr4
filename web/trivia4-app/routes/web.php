@@ -17,8 +17,3 @@ use App\Http\Controllers\GamesController;
 Route::get('/', function () {
     return view('index');
 });
-
-Route::get('/partida', function () {
-    return view('partida');
-});
-
