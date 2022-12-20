@@ -55,6 +55,7 @@ class GameXPlayerController extends Controller
     public function getPartides()
     {
         $games = gamexplayer::join('players', 'gamexplayers.id_player', '=', 'players.id')
+        ->where('gamexplayers.maxScore', '!=', 0)
             ->select("gamexplayers.id_player", "players.nickname", 'gamexplayers.score', 'gamexplayers.maxScore', 'gamexplayers.date')
             ->get();
         return json_encode($games);
