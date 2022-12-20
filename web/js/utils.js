@@ -1,23 +1,4 @@
 const Home = Vue.component("home", {
-  template: `
-  <div class="divGeneral">
-    <div class="menu">
-      <div class="news">
-      <br>
-        <p>Welcome to League of Trivia. This is the first update of the game, so stay stunned for more news in the future!</p>
-      </div>
-      <div class="inspedralbes">
-        <p>Here's the highschool web page!</p>
-        <br>
-      </div>
-      <div class="fotoquiz">
-        Hello
-      </div>
-      <div class="extra">
-        <p>In this extra part we will be informing about other things to our players!</p>
-      </div>
-    </div>
-  </div>`,
 });
 
 const Partida = Vue.component("partida", {
@@ -980,7 +961,7 @@ const Gotd = Vue.component("gotd", {
   template: `
   <div class="divGeneral">
     <div v-show="store.logged && mostrar && !jugat">
-      <router-link to="/joc/true"><b-button class="button__Play--leagueStyle col-6">Play Game Of The Day</b-button></router-link>
+      <router-link to="/joc/true"><b-button class="button__Play--leagueStyle">Play Game Of The Day</b-button></router-link>
     </div>
     <div v-show="!store.logged">
       <h2>Log in to play Game Of The Day!</h2>
