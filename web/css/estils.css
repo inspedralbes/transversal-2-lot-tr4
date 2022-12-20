@@ -476,6 +476,9 @@
         transform: translate(-50%, -110%);
         height: 15%;
     }
+    .textoRespuesta {
+        font-size: 4vw;
+    }
 }
 
 @media (min-width:480px) {
