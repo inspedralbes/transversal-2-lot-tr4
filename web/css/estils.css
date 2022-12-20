@@ -475,7 +475,7 @@
     }
     .resultsPrint {
         transform: translate(-50%, -110%);
-        height: 25%;
+        height: 20%;
     }
     .textoRespuesta {
         font-size: 4vw;
