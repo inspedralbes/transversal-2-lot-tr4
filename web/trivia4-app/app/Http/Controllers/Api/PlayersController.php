@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Player;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 
 class PlayersController extends Controller
 {
@@ -19,7 +20,16 @@ class PlayersController extends Controller
         $player->mail = $request->mail;
         $player->psswd = Hash::make($request->psswd);
         $player->created_at = Carbon::now();
-        $player->save();
+
+        try {
+            if ($player->save()) {
+                $message = "Registrat correctament";
+                return response()->json([$message, 200]);
+            }
+        } catch (QueryException $ex) {
+            $message = "No s'ha registrat correctament";
+            return response()->json([$message, 500]);
+        }
     }
 
     public function send(Request $request)
@@ -40,6 +50,13 @@ class PlayersController extends Controller
                     $message
                 ]);
             }
+        } else {
+            $correcte = false;
+            $message = "Usuari no existent";
+            return response()->json([
+                $correcte,
+                $message
+            ]);
         }
     }
 
