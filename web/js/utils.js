@@ -384,7 +384,34 @@ const Partida = Vue.component("partida", {
       fetch("./trivia4-app/public/api/storeResultatPregunta", {
         method: "POST",
         body: datosEnvio,
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+          fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              correctes = 0;
+              total = 0;
+              data.forEach((element) => {
+                if (element.correcta) {
+                  correctes++;
+                }
+                total++;
+              });
+              percentatge = (correctes * 100) / total;
+              if (data.length == 0) {
+                document.getElementById(
+                  "resultsPrint"
+                ).innerHTML += `<p>You're the first player answering this question!</p>`;
+              } else {
+                document.getElementById(
+                  "resultsPrint"
+                ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+              }
+            });
+        });
     },
     enviarPuntuacioInicial: function () {
       let datosEnvio = new FormData();
@@ -443,6 +470,7 @@ const Partida = Vue.component("partida", {
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
+            console.log(data);
             correctes = 0;
             total = 0;
             data.forEach((element) => {
@@ -452,9 +480,15 @@ const Partida = Vue.component("partida", {
               total++;
             });
             percentatge = (correctes * 100) / total;
-            document.getElementById(
-              "resultsPrint"
-            ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+            if (data.length == 0) {
+              document.getElementById(
+                "resultsPrint"
+              ).innerHTML += `<p>You're the first player answering this question!</p>`;
+            } else {
+              document.getElementById(
+                "resultsPrint"
+              ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+            }
           });
         this.contadorRespuestas++;
       }
@@ -575,10 +609,26 @@ const Ranking = Vue.component("ranking", {
   template: `
     <div v-show="mostrar" class="divGeneral">
       <h1>Players list.</h1>
-      <div v-for="player in players">
-          <li class ="li__personaRanking">{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a>
-          <b-button v-show="store.logged && store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></li>
-      </div>
+      <div class="table-responsive">
+        <table class="table table-hover lg table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nickname</th>
+            <th scope="col">Total score</th>
+            <th scope="col" v-show="store.logged">Add friend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(player, index) in players">
+            <th scope="row">{{index + 1}}</th>
+            <td>{{player.nickname}} <a v-show="store.id_player == player.id">(YOU)</a></td>
+            <td>Score</td>
+            <td v-show="store.logged"><b-button v-show="store.id_player != player.id" class="button__Play--RankingList" @click="enviarSolicitud(player.id)" :id='"boto" + (player.id)'>Afegir</b-button></td>
+          </tr>
+        </tbody>
+        </table> 
+      </div> 
     </div>
   `,
   mounted: function () {
@@ -603,7 +653,7 @@ const Ranking = Vue.component("ranking", {
       });
       boton = document.getElementById("boto" + idSolicitat);
       boton.disabled = true;
-      boton.innerHTML = "Pendent...";
+      boton.innerHTML = "Pending...";
     },
   },
 });
