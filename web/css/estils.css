@@ -5,7 +5,12 @@
     box-sizing: border-box;
     font-family: "BeaufortforLOL-Bold";
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 2.5vw;
+}
+
+html{
+    margin: 0;
+    height: 100%;
 }
 
 @media screen and (min-width: 500px) {
@@ -432,6 +437,8 @@
     border-width: 5px;
     border-color: #C89B3C;
     bottom: 0;
+    position:stickys;
+    width: 100%;
 }
 
 /*Grid que divide la pantalla entre el timer las preguntas i la correccion de las mismas*/
@@ -643,7 +650,7 @@ table.table-bordered{
     border-style: double;
     width: 90%;
     margin-left: auto;
-     margin-right: auto;
+    margin-right: auto;
   }
 table.table-bordered > thead > tr > th{
     border:1px solid #C89B3C;
@@ -651,5 +658,10 @@ table.table-bordered > thead > tr > th{
 table.table-bordered > tbody > tr > td{
     border:1px solid #C89B3C;
 
+}
+
+.header__tablaRanking{
+    background-color: #0A323C;
+    color: white;
 }
 

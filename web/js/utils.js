@@ -608,10 +608,10 @@ const Ranking = Vue.component("ranking", {
   },
   template: `
     <div v-show="mostrar" class="divGeneral">
-      <h1>Players Ranking</h1>
+      <h1>Player Ranking</h1>
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
-        <thead>
+        <thead class ="header__tablaRanking">
           <tr>
             <th scope="col">Ranking</th>
             <th scope="col">Nickname</th>
