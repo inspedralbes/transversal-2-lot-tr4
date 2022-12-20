@@ -29,7 +29,6 @@ const Partida = Vue.component("partida", {
   },
   template: `
   <div>
-  <div class="resultsPrint"  id="resultsPrint"></div>
     <div v-show="!empezado">
         <div class="container__dificultad">
             <div class="selector row">
@@ -150,6 +149,8 @@ const Partida = Vue.component("partida", {
                             <div class="Respuesta__5"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
                                 <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                            </div>
+                            <div class="resultsPrint" id="resultsPrint">
                             </div>
                         </div>
                     </div>
@@ -467,7 +468,7 @@ const Partida = Vue.component("partida", {
       }
 
       if (this.contadorRespuestas == 10) {
-        setTimeout(() => (this.acabado = true), 1000);
+        setTimeout(() => (this.acabado = true), 5000);
         if (this.store.logged) {
           this.enviarScorePlayer();
         }
