@@ -2,8 +2,7 @@ const Home = Vue.component("home", {
   template: `<div class="divGeneral">
   <br>
     <h3> PLAY A GAME RIGHT NOW!</h3>
-    <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" v-show="gotdPROP != 'true'" @click="resetDades" variant="success">Play a game</b-button></router-link>
-    
+    <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" variant="success">Play a game</b-button></router-link>
   </div>`,
 });
 
@@ -882,6 +881,7 @@ const Login = Vue.component("login", {
       </div>
       <div v-show="logged">
         Welcome {{infoLogin.nombre}}<br>  
+        <router-link to="/joc/false" class="routerlink"><b-button class="button__Play--leagueStyle" variant="success">Play a game</b-button></router-link>
       </div>
   </div>`,
   data: function () {
@@ -916,7 +916,6 @@ const Login = Vue.component("login", {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data[1] == 200) {
             this.error = false;
             this.infoLogin.nombre = data[0].nickname;
@@ -939,6 +938,7 @@ Vue.component("navbar-router", {
   data: function () {
     return {
       store: useLoginStore(),
+      hide: true,
     };
   },
   template: `
@@ -967,7 +967,7 @@ Vue.component("navbar-router", {
           <b-nav-item><b-button @click="logOut" class="rightNav" variant="primary" v-show="store.logged">Logout</b-button></b-nav-item>
           <b-nav-item><b-button v-show="store.logged" v-b-modal.modal-center >{{store.name_player}}
           </b-button>
-          <b-modal id="modal-center" centered title="Profile" hide-footer="true">
+          <b-modal id="modal-center" centered title="Profile" hide-footer>
               <p>Username: <strong class="my-4">{{ store.name_player }}</strong></p>
           </b-modal>
           </b-nav-item>
