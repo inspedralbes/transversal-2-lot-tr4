@@ -1,0 +1,581 @@
+/*Elements generals per a la base del html */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "BeaufortforLOL-Bold";
+    font-weight: bold;
+    font-size: 1.2vw;
+}
+
+:root {
+    --white: #fff;
+    --smoke-white: #f1f3f5;
+    --blue: #005A82;
+    background-image: linear-gradient(to bottom right, #1E282D, #0A1428);
+}
+
+.body {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-image: linear-gradient(to bottom right, #1E282D, #0A1428);
+}
+
+/*Disseny i funcionalitats del slider el qual porta les preguntes i respostes*/
+.slider {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.slider>a {
+    display: inline-flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.slider>a:active {
+    top: 1px;
+}
+
+.slider>a:focus {
+    background: #000;
+}
+
+.b-slider {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    grid-area: b-slider;
+}
+
+/* Don't need button navigation */
+@supports (scroll-snap-type) {
+    .slider>a {
+        display: none;
+    }
+}
+
+/*Disseny i funcionalitats del slider el qual porta UNA pregunta i UN grup de resposta*/
+.slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    margin: 1%;
+}
+
+.slides::-webkit-scrollbar {
+    display: none;
+}
+
+.slides>div {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transform-origin: center center;
+    transition: transform 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Contenidor per les preguntes i a l'hora de escollir categoria i dificultat*/
+.container__preguntes {
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    width: 60%;
+    border-radius: 5px;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "Pregunta Pregunta Pregunta Pregunta"
+        "Respuesta-1 Respuesta-1 Respuesta-2 Respuesta-2"
+        "Respuesta-3 Respuesta-3 Respuesta-4 Respuesta-4";
+}
+
+.container__dificultad,
+.container__categoria {
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%
+}
+
+/*Pregunta i respuestas individuales*/
+.Pregunta {
+    font-size: 1.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-area: Pregunta;
+    display: block;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 2%;
+}
+
+.Respuesta__1 {
+    grid-area: Respuesta-1;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 0 2% 2%;
+    max-height: fit-content;
+}
+
+.Respuesta__2 {
+    grid-area: Respuesta-2;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    margin: 2%;
+    max-height: fit-content;
+}
+
+.Respuesta__3 {
+    grid-area: Respuesta-3;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 2% 2%;
+    max-height: fit-content;
+}
+
+.Respuesta__4 {
+    grid-area: Respuesta-4;
+    justify-content: center;
+    align-items: center;
+    margin: 0 2% 2% 2%;
+    max-height: fit-content;
+}
+
+.Respuesta__5 {
+    display: none;
+}
+
+.text__Mencionapi {
+    color: white
+}
+
+/*Comunica al jugador si la resposta es correcta o incorrecta*/
+.resultsPrint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 20%;
+    transform: translate(-50%, 80%);
+    background-image: linear-gradient(to bottom right, #1E282D, #0A1428);
+    border-radius: 5px;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    text-align: center;
+    color: #eee;
+    display: none;
+    z-index: 100;
+}
+
+
+.textoRespuesta {
+    font-size: 1.5vw;
+}
+
+/*Comunica al jugador quantes ha fet be*/
+
+.scorePrint {
+    display: flex;
+    margin: 1% 1% 0 1%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: block;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-radius: 5px;
+    font-weight: bold;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    bottom: 0;
+    color: white
+}
+
+/*Boto de les respostes*/
+.button__respuestas {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: linear-gradient(to top left, #005A82, #0AC8B9);
+    border-radius: 5px;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    display: block;
+    transition: transform 0.5s;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    height: 8vw;
+    max-height: fit-content;
+
+}
+
+.button__respuestas:hover {
+    background-color: rgb(52, 142, 152);
+    color: white;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/*Altres botons del joc com play*/
+.button__PlayDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: auto;
+    height: auto;
+}
+
+.button__Play--leagueStyle {
+    background-image: linear-gradient(to bottom left, #0AC8B9, #005A82);
+    border-color: #C89B3C;
+    margin: 1vw
+}
+
+.li__personaRanking {
+    width: 75%;
+    float: left;
+}
+
+/*Tabla para mostrar respuestas correctas al final*/
+.tabla {
+    border-collapse: separate;
+    border-spacing: 10px 2px;
+    margin: 0 auto
+}
+
+.tabla__respuestas {
+    text-align: center;
+    background-color: white;
+    width: 2.4vw;
+    height: 2.4vw;
+    border-radius: 50%;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+}
+
+/*Titulo de la pagina web*/
+.gameName {
+    font-size: 8vw;
+    text-align: center;
+    -webkit-text-stroke: 1px black;
+    background: -webkit-linear-gradient(#C89B3C, #785A28);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+.gameName2 {
+    font-size: 5vw;
+    text-align: center;
+    -webkit-text-stroke: 1px black;
+    background: -webkit-linear-gradient(#C89B3C, #785A28);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+}
+
+/*Length de los input de log in y registro*/
+.input__logYsign {
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 0.8vw;
+    }
+
+/*Timer para las preguntas*/
+.contador {
+    grid-area: contador;
+}
+
+.timer {
+    font-size: 7vw;
+    display: none;
+    border-radius: 5px;
+    background: -webkit-linear-gradient(#005A82, #0AC8B9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    -webkit-text-stroke: 1px #C89B3C;
+}
+
+/*Navbar i las rutas*/
+.routerlink {
+    color: #A09B8C;
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #0A323C;
+}
+
+.rightNav {
+    color: #A09B8C;
+    text-decoration: none;
+}
+
+.navbar__titulo {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-brand {
+    padding-left: 1%;
+}
+
+.navbar-toggler {
+    margin-right: 2%
+}
+
+/*Grid que divide la pantalla entre el timer las preguntas i la correccion de las mismas*/
+
+.wrapper {
+    box-sizing: border-box;
+}
+
+/*Selector de categorias con raido buttons*/
+
+.titulo_dificultad_categoria {
+    text-align: center;
+}
+
+.divGeneral {
+    display: flex;
+    margin: 1%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: block;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-radius: 5px;
+    font-weight: bold;
+    border-style: double;
+    border-width: 5px;
+    border-color: #C89B3C;
+    bottom: 0
+}
+
+.selector {
+    margin: 1%;
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-style: double;
+    border-width: 5px;
+    border-radius: 5px;
+    border-color: #C89B3C;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 16px rgba(0, 0, 0, .2);
+}
+
+.selector-item_radio {
+    appearance: none;
+    display: none;
+}
+
+.selector-item_label,
+.selector-item_label_easy,
+.selector-item_label_medium,
+.selector-item_label_hard {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 350%;
+    transition-duration: .5s;
+    transition-property: transform, color, box-shadow;
+    transform: none;
+}
+
+.selector-item_radio:checked+.selector-item_label {
+    background-color: var(--blue);
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+
+.selector-item_radio:checked+.selector-item_label_easy {
+    background-color: green;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+
+.selector-item_radio:checked+.selector-item_label_medium {
+    background-color: orange;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+
+.selector-item_radio:checked+.selector-item_label_hard {
+    background-color: red;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #C89B3C;
+    color: var(--white);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .5), 0 2px 4px rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+
+@media (max-width:480px) {
+    * {
+        margin: 0 auto;
+        font-size: 4vw;
+    }
+    .container__dificultad,
+    .container__categoria {
+        width: 100%
+    }
+    .container__preguntes {
+        width: 100%
+    }
+    .tabla__respuestas {
+        width: 8vw;
+        height: 8vw;
+    }
+    .button__respuestas {
+        height: 20vw;
+        width: 46vw;
+    }
+    .Pregunta {
+        font-size: 4.5vw
+    }
+    .resultsPrint {
+        transform: translate(-50%, -100%);
+        height: 25%;
+    }
+    .textoRespuesta {
+        font-size: 4vw;
+    }
+}
+
+@media (min-width:480px) {
+    .button__Play--leagueStyle {
+        width: 20vw;
+        height: 5vh
+    }
+    .gameName, .gameName2 {
+        font-size: 4vw;
+    }
+}
+
+/*Para no poder cambiar de respuesta*/
+.disabled {
+    pointer-events: none;
+}
+
+.incorrectAnswer {
+    background-color: rgb(221, 65, 65);
+}
+
+.incorrectAnswer:after {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "\2613";
+    /* use the hex value here... */
+    color: #FFF;
+    text-align: center;
+}
+
+.correctAnswer {
+    background-color: rgb(15, 209, 103);
+}
+
+.correctAnswer:after {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "\2713";
+    /* use the hex value here... */
+    color: #FFF;
+    text-align: center;
+}
+
+.mensajeErrorDificultad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-area: Pregunta;
+    display: block;
+    color: red;
+}
+
+
+.modal-content {
+    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    border-style: double;
+    border-width: 5px;
+    border-radius: 5px;
+    border-color: #C89B3C;
+}
+
+.close {
+    display: none
+}
+
+/*Tabla ranking*/
+
+table.table-bordered {
+    border: 3px solid #C89B3C;
+    border-style: double;
+    width: 90%;
+    margin: 0 auto;
+}
+
+table.table-bordered>thead>tr>th {
+    border: 1px solid #C89B3C;
+    background-color: #0A323C;
+    color: white;
+}
+
+table.table-bordered>tbody>tr>td {
+    border: 1px solid #C89B3C;
+}
+
+.header__tablaRanking {
+    background-color: #0A323C;
+    color: white;
+}
+
+.marginButtonPlay {
+    margin: 1%
+}

@@ -1,0 +1,12 @@
+{
+    "usuari": {
+        "name": "Jaime",
+        "surname": "Perez",
+        "passwd": "1234",
+        "mail": "a21jaupersen@inspedralbes.cat",
+        "nickname": "Tringg",
+        "score": 6969,
+        "matches": 50,
+        "authenticated": true
+    }
+}
