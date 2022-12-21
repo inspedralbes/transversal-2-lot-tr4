@@ -809,7 +809,7 @@ const Registre = Vue.component("registre-player", {
       <h2>REGISTER</h2>
       <b-col sm="5" class="mx-auto">
         <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Name" required></b-form-input>
-        <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Surname"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Surname"  required></b-form-input>  
         <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Username"  required></b-form-input>
         <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Mail" required></b-form-input>
         <b-form-input class = "input__logYsign" v-model="form.psswd" type="password" placeholder="Password"required></b-form-input>
