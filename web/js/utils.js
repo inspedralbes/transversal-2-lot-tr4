@@ -178,6 +178,7 @@ const Partida = Vue.component("partida", {
                 <td class = "tabla__respuestas" id="pregunta9"></td>
             </tr>
         </table>
+        <!-- eyyyyyy :D -->
     </div>
 </div>
   `,
