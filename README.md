@@ -1,4 +1,4 @@
-# Informació Genereal:
+# Informació General:
  * Eric Gascó García, Jaume Pérez Sentis i Gaspar Gómez Torres
  * League of Trivial - Grup 4
  * Programa per poder jugar a Trivia. Preguntes i respostes recollides d'una api.
