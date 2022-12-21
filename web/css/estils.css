@@ -179,7 +179,7 @@
     width: 50%;
     height: 20%;
     transform: translate(-50%, 80%);
-    background-image: linear-gradient(to bottom right, #005A82, #0AC8B9);
+    background-image: linear-gradient(to bottom right, #1E282D, #0A1428);
     border-radius: 5px;
     border-style: double;
     border-width: 5px;
@@ -304,8 +304,10 @@
 
 /*Length de los input de log in y registro*/
 .input__logYsign {
-    max-width: 300px;
-}
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 0.8vw;
+    }
 
 /*Timer para las preguntas*/
 .contador {
