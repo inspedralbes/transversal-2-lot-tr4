@@ -690,7 +690,7 @@ Vue.component("solicituts", {
     <div v-show="mostrar">
       <h2 v-show="solicituts.length == 0">You don't have any pending friend request!</h2>
       <div v-for="solicitut in solicituts">
-        <h3>The user {{solicitut.nickname}} sent you a firend request!</h3>
+        <h3>The user {{solicitut.nickname}} sent you a friend request!</h3>
         <p>
           <b-button class="button__Play--leagueStyle" @click="envia(true, solicitut.id)">Accept</b-button>
           <b-button class="button__Play--leagueStyle" @click="envia(false, solicitut.id)">Deny</b-button>
