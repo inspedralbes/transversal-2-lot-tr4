@@ -126,36 +126,37 @@ const Partida = Vue.component("partida", {
 
                         <div class="container__preguntes">
                             <div class="Pregunta">
-                                <div v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
+                                <div class="Pregunta" v-show="categoria == ''">Category: {{pregunta.category}}<br></div>
                                 Question {{index + 1}}:<br>
                                 {{pregunta.question}}
                             </div>
-                            <div class="Respuesta__1"
+                            <div class="Respuesta__1 "
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta1-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta1-' + (index)">{{respuestas[index][0]}}</a>
                             </div>
                             <div class="Respuesta__2"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta2-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta2-' + (index)">{{respuestas[index][1]}}</a>
                             </div>
                             <div class="Respuesta__3"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(index), comprovaResultats('Resposta3-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta3-' + (index)">{{respuestas[index][2]}}</a>
                             </div>
                             <div class="Respuesta__4"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta4-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta4-' + (index)">{{respuestas[index][3]}}</a>
                             </div>
                             <div class="Respuesta__5"
                                 v-on:click.once="blockOrUnblockRespuesta(), resetTime(), comprovaResultats('Resposta5-'+(index), pregunta.correctAnswer, index, pregunta.id), delay('#slide-' + (index + 1))">
-                                <a class="button__respuestas" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                                <a class="button__respuestas d-flex aligns-items-center" :id="'Resposta5-' + (index)">+++++++++++++++++++</a>
+                            </div>
+                            <div class="resultsPrint" id="resultsPrint">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="resultsPrint" id="resultsPrint"></div>
     </div>
     <div v-show="acabado" class="scorePrint">
       <h3 class="mostrarScore">Your score is {{contadorBuenas}}/{{contadorRespuestas}}</h3>
@@ -194,7 +195,7 @@ const Partida = Vue.component("partida", {
       element.classList.toggle("disabled");
       setTimeout(function () {
         element.classList.toggle("disabled");
-      }, 1000);
+      }, 5000);
     },
     countDownTimer() {
       document.getElementById("buttonPlayGame").style.display = "block";
@@ -241,7 +242,7 @@ const Partida = Vue.component("partida", {
     delay(URL) {
       setTimeout(function () {
         window.location = URL;
-      }, 1000);
+      }, 5000);
     },
 
     resetTime() {
@@ -251,7 +252,7 @@ const Partida = Vue.component("partida", {
         setTimeout(
           () =>
             (document.getElementById("buttonPlayGame").style.display = "none"),
-          1000
+          5000
         );
       } else {
         setTimeout(() => {
@@ -263,7 +264,7 @@ const Partida = Vue.component("partida", {
             this.indice++;
             this.countDownTimer();
           }
-        }, 1000);
+        }, 5000);
       }
     },
 
@@ -302,7 +303,7 @@ const Partida = Vue.component("partida", {
 
       let url;
       if (this.gotdPROP == "true") {
-        url = "./trivia4-app/public/api/getJSONPartidaDelDia";
+        url = "./trivia4-app/public/api/getJSONGameOfTheDay";
       } else {
         url = `https://the-trivia-api.com/api/questions?${categoriaF}limit=10&difficulty=${this.dificultad}`;
       }
@@ -329,7 +330,7 @@ const Partida = Vue.component("partida", {
             if (this.gotdPROP != "true") {
               this.enviarDades(datosEnvio);
             } else {
-              fetch("./trivia4-app/public/api/getIdPartidaDelDia")
+              fetch("./trivia4-app/public/api/getIdGameOfTheDay")
                 .then((response) => response.json())
                 .then((data) => {
                   this.idGame = data;
@@ -342,7 +343,7 @@ const Partida = Vue.component("partida", {
         });
     },
     enviarDades(datosPregunta) {
-      fetch("./trivia4-app/public/api/setDadesPartida", {
+      fetch("./trivia4-app/public/api/setGameData", {
         method: "POST",
         body: datosPregunta,
       })
@@ -358,33 +359,33 @@ const Partida = Vue.component("partida", {
       let datosEnvio = new FormData();
       datosEnvio.append("idApi", idPreguntaApi);
       datosEnvio.append("correcta", correcta);
-      fetch("./trivia4-app/public/api/storeResultatPregunta", {
+      fetch("./trivia4-app/public/api/storeQuestionResult", {
         method: "POST",
         body: datosEnvio,
       })
         .then((response) => response.json())
         .then((data) => {
-          url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+          url = "./trivia4-app/public/api/getQuestionData/" + idPreguntaApi;
           fetch(url)
             .then((response) => response.json())
-            .then((data) => {
+            .then((dataPregunta) => {
               correctes = 0;
               total = 0;
-              data.forEach((element) => {
+              dataPregunta.forEach((element) => {
                 if (element.correcta) {
                   correctes++;
                 }
                 total++;
               });
               percentatge = (correctes * 100) / total;
-              if (data.length == 0) {
+              if (dataPregunta.length == 0) {
                 document.getElementById(
                   "resultsPrint"
                 ).innerHTML += `<p>You're the first player answering this question!</p>`;
               } else {
                 document.getElementById(
                   "resultsPrint"
-                ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+                ).innerHTML += `<p>${percentatge.toFixed(2)}% of the players answered this question right</p>`;
               }
             });
         });
@@ -393,7 +394,7 @@ const Partida = Vue.component("partida", {
       let datosEnvio = new FormData();
       datosEnvio.append("id_player", this.store.getIdPlayer());
       datosEnvio.append("id_game", this.idGame);
-      fetch("./trivia4-app/public/api/storeGameXPlayerInicial", {
+      fetch("./trivia4-app/public/api/storeInitialGameXPlayer", {
         method: "POST",
         body: datosEnvio,
       });
@@ -425,23 +426,23 @@ const Partida = Vue.component("partida", {
           this.contadorBuenas++;
           document.getElementById(
             "resultsPrint"
-          ).innerHTML = `<p>Correct Answer!</p>`;
+          ).innerHTML = `<p class="textoRespuesta">Correct Answer!</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 1000);
+          }, 5000);
         } else {
           this.enviarRespostaABBDD(idPreguntaApi, false);
           pregunta.classList.add("incorrectAnswer");
           document.getElementById(
             "resultsPrint"
-          ).innerHTML = `<p>Incorrect Answer<br>Correct answer is: ${respuestaCorrecta}</p>`;
+          ).innerHTML = `<p class="textoRespuesta">Incorrect Answer<br>Correct answer is: ${respuestaCorrecta}</p>`;
           document.getElementById("resultsPrint").style.display = "block";
           setTimeout(function () {
             document.getElementById("resultsPrint").style.display = "none";
-          }, 1000);
+          }, 5000);
         }
-        url = "./trivia4-app/public/api/getDadesPregunta/" + idPreguntaApi;
+        url = "./trivia4-app/public/api/getQuestionData/" + idPreguntaApi;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
@@ -457,18 +458,18 @@ const Partida = Vue.component("partida", {
             if (data.length == 0) {
               document.getElementById(
                 "resultsPrint"
-              ).innerHTML += `<p>You're the first player answering this question!</p>`;
+              ).innerHTML += `<p class="textoRespuesta">You're the first player answering this question!</p>`;
             } else {
               document.getElementById(
                 "resultsPrint"
-              ).innerHTML += `<p>${percentatge}% of the players answered this question right</p>`;
+              ).innerHTML += `<p class="textoRespuesta">${percentatge}% of the players answered this question right</p>`;
             }
           });
         this.contadorRespuestas++;
       }
 
       if (this.contadorRespuestas == 10) {
-        setTimeout(() => (this.acabado = true), 1000);
+        setTimeout(() => (this.acabado = true), 5000);
         if (this.store.logged) {
           this.enviarScorePlayer();
         }
@@ -520,16 +521,16 @@ const Partides = Vue.component("historial", {
         <table class="table table-hover lg table-striped table-bordered">
         <thead class ="header__tablaRanking">
           <tr>
-            <th scope="col">ID Partida</th>
-            <th scope="col">Game</th>
+            <th scope="col">ID Game</th>
+            <th scope="col">Difficulty</th>
             <th scope="col">Score</th>
             <th scope="col">Date</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="partida in partidas">
-            <th scope="row">{{partida.id}}</th>
-            <td>{{partida.id_game}}</td>
+            <th scope="row">{{partida.id_game}}</th>
+            <td>{{partida.maxScore == 10?"Easy":partida.maxScore == 20?"Medium":"Hard"}}</td>
             <td>{{partida.score}}</td>
             <td>{{partida.date}}</td>
           </tr>
@@ -540,7 +541,7 @@ const Partides = Vue.component("historial", {
   </div>`,
   mounted: function () {
     if (this.idPlayer != 0) {
-      url = "./trivia4-app/public/api/getPartidesUsuari/" + this.idPlayer;
+      url = "./trivia4-app/public/api/getPlayerGames/" + this.idPlayer;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -571,16 +572,16 @@ const totesLesPartides = Vue.component("historial-general", {
     <table class="table table-hover lg table-striped table-bordered">
     <thead class ="header__tablaRanking">
       <tr>
-        <th scope="col">ID Partida</th>
-        <th scope="col">Game</th>
+        <th scope="col">Player</th>
+        <th scope="col">Difficulty</th>
         <th scope="col">Score</th>
         <th scope="col">Date</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="partida in partidas">
-        <th scope="row">{{partida.id}}</th>
-        <td>{{partida.id_game}}</td>
+        <th scope="row">{{partida.nickname}}</th>
+        <td>{{partida.maxScore == 10?"Easy":partida.maxScore == 20?"Medium":"Hard"}}</td>
         <td>{{partida.score}}</td>
         <td>{{partida.date}}</td>
       </tr>
@@ -592,7 +593,7 @@ const totesLesPartides = Vue.component("historial-general", {
   `,
   mounted: function () {
     if (this.idPlayer != 0) {
-      url = "./trivia4-app/public/api/getPartides";
+      url = "./trivia4-app/public/api/getGames";
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -636,7 +637,7 @@ const Ranking = Vue.component("ranking", {
     </div>
   `,
   mounted: function () {
-    url = "./trivia4-app/public/api/puntuacioTotalRank";
+    url = "./trivia4-app/public/api/totalScoreRank";
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -650,7 +651,7 @@ const Ranking = Vue.component("ranking", {
       datosEnvio.append("id_requester", this.store.getIdPlayer());
       datosEnvio.append("id_requested", idSolicitat);
 
-      fetch(`./trivia4-app/public/api/mandarSolicitutAmistat`, {
+      fetch(`./trivia4-app/public/api/sendFriendRequest`, {
         method: "POST",
         body: datosEnvio,
       });
@@ -712,7 +713,7 @@ Vue.component("solicituts", {
       datosEnvio.append("id", id);
       datosEnvio.append("accept", opcio);
 
-      fetch(`./trivia4-app/public/api/resultatSolicitutAmistat`, {
+      fetch(`./trivia4-app/public/api/resultFriendRequest`, {
         method: "POST",
         body: datosEnvio,
       })
@@ -724,7 +725,7 @@ Vue.component("solicituts", {
     rebreSolicituts() {
       this.solicituts = [];
       url =
-        "./trivia4-app/public/api/getSolicitutsPendents/" +
+        "./trivia4-app/public/api/getPendingRequests/" +
         this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
@@ -765,7 +766,7 @@ const Amics = Vue.component("llista-amics", {
   methods: {
     rebreSolicituts() {
       this.amics = [];
-      url = "./trivia4-app/public/api/dadesAmics/" + this.store.getIdPlayer();
+      url = "./trivia4-app/public/api/friendsData/" + this.store.getIdPlayer();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -774,10 +775,11 @@ const Amics = Vue.component("llista-amics", {
         });
     },
     eliminarAmic(id) {
-      url = "./trivia4-app/public/api/esborrarAmic/" + id;
+      url = "./trivia4-app/public/api/deleteFriend/" + id;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           this.rebreSolicituts();
         });
     },
@@ -835,7 +837,7 @@ const Registre = Vue.component("registre-player", {
       datosEnvio.append("nickname", this.form.nickname);
       datosEnvio.append("psswd", this.form.psswd);
 
-      fetch(`./trivia4-app/public/api/setDadesPlayer`, {
+      fetch(`./trivia4-app/public/api/setPlayerData`, {
         method: "POST",
         body: datosEnvio,
       })
@@ -909,7 +911,7 @@ const Login = Vue.component("login", {
       datosEnvio.append("nickname", this.form.nickname);
       datosEnvio.append("psswd", this.form.psswd);
 
-      fetch(`./trivia4-app/public/api/getDadesPlayer`, {
+      fetch(`./trivia4-app/public/api/getPlayerData`, {
         method: "POST",
         body: datosEnvio,
       })
@@ -1012,7 +1014,7 @@ const Gotd = Vue.component("gotd", {
       <h2>You have already played this game</h2>
     </div>
     <hr/>
-    <h2>Scores of the Game of the Day</h2>
+    <h2>Game of the Day scores</h2>
     <div v-show="puntuacions.length > 0">
       <div class="table-responsive">
         <table class="table table-hover lg table-striped table-bordered">
@@ -1036,7 +1038,7 @@ const Gotd = Vue.component("gotd", {
     <h3 v-show="puntuacions.length == 0">No games were found</h3>
   </div>`,
   mounted: function () {
-    fetch("./trivia4-app/public/api/getIdPartidaDelDia")
+    fetch("./trivia4-app/public/api/getIdGameOfTheDay")
       .then((response) => response.json())
       .then((data) => {
         this.idGame = data;
@@ -1046,7 +1048,7 @@ const Gotd = Vue.component("gotd", {
   },
   methods: {
     buscarPuntuacions() {
-      url = "./trivia4-app/public/api/puntuacionsPartida/" + this.idGame;
+      url = "./trivia4-app/public/api/scoresGame/" + this.idGame;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -1056,7 +1058,7 @@ const Gotd = Vue.component("gotd", {
     },
     haJugatGotd() {
       fetch(
-        "./trivia4-app/public/api/haJugatPartidaDelDia/" +
+        "./trivia4-app/public/api/playedGameOfTheDay/" +
           this.store.getIdPlayer()
       )
         .then((response) => response.json())
