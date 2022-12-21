@@ -476,8 +476,8 @@
         font-size: 4.5vw
     }
     .resultsPrint {
-        transform: translate(-50%, -110%);
-        height: 20%;
+        transform: translate(-50%, -70%);
+        height: 25%;
     }
     .textoRespuesta {
         font-size: 4vw;
