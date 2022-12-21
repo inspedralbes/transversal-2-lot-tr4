@@ -7,4 +7,5 @@
  * Web producció: http://trivial4.alumnes.inspedralbes.cat
  * Documentació api: https://app.swaggerhub.com/apis/A21GASGOMTOR/Trivial4-API/0.1
  * Documentació pujada a producció: https://docs.google.com/document/d/1jOrWqWFFpFTF4LCxg0nfj_rWGBjBACHiB7HwO9POGps/edit?usp=sharing
+ * Documentació cron: https://docs.google.com/document/d/1vhpHRVlBqHG7xk-lRklFIv51b_VzbFQUzoPlSTm7sX4/edit?usp=sharing
  * Estat: Acabat
