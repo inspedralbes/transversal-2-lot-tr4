@@ -808,10 +808,10 @@ const Registre = Vue.component("registre-player", {
     <div v-show="!registrat">
       <h2>REGISTER</h2>
       <b-col sm="5" class="mx-auto">
-        <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Nom" required></b-form-input>
-        <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Cognom"  required></b-form-input>
-        <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Nom d'usuari"  required></b-form-input>
-        <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Correu" required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.name" placeholder="Name" required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.surname" placeholder="Surname"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.nickname" placeholder="Username"  required></b-form-input>
+        <b-form-input class = "input__logYsign" v-model="form.mail" placeholder="Mail" required></b-form-input>
         <b-form-input class = "input__logYsign" v-model="form.psswd" type="password" placeholder="Password"required></b-form-input>
       </b-col>
       <b-button class="button__Play--leagueStyle" @click="submitRegister" variant="primary">Register <b-spinner v-show="procesando" small type="grow">
